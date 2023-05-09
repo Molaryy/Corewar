@@ -5,6 +5,7 @@
 ** main.c
 */
 
+#include "jb.h"
 
 int main(int ac, char **av)
 {
