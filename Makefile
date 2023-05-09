@@ -11,8 +11,13 @@ TEST = tests
 
 BASE_ASM	=	./asm
 
+PARSING = ./asm/parsing
+
+COMPILER = ./asm/compiler
+
 SRC_ASM	+= $(BASE_ASM)/main.c
-SRC_ASM += $(BASE_ASM)/parsing/detect_file_extesion.c
+SRC_ASM += $(PARSING)/detect_file_extesion.c
+SRC_ASM += $(COMPILER)/compiler.c
 
 LIB += -L./lib/jb -llink
 
