@@ -8,6 +8,7 @@
 #ifndef asm
     #define asm
     #include <stdio.h>
+    #include "jb.h"
 
     typedef struct header_s {
 
