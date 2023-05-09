@@ -7,7 +7,7 @@
 
 #include "jb.h"
 
-static char *copy_dest(char *dest, size_t len_dest, size_t len_src, size_t *i)
+static char *copy_dest(char const *dest, size_t len_dest, size_t len_src, size_t *i)
 {
     char *res = NULL;
 
