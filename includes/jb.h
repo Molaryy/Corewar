@@ -62,7 +62,7 @@ bool is_char_alphanumeric(char c);
  * @brief checks if a str is alphanumeric
  * @param str
  * @return
- */
+*/
 bool is_str_alphanumeric(char *str);
 
 /**
@@ -105,4 +105,11 @@ int my_put_nbr(int nb);
 void my_putstr(char const *str);
 
 size_t my_strlen(char const *str);
+
+/**
+ * @brief free array str
+ *
+1 * @param array
+ */
+void free_array_str(char **array);
 #endif /* JB_H_ */
