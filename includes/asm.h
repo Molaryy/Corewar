@@ -48,24 +48,6 @@ bool detect_file_extension(char const *filepath);
 size_t compiler(char const *filepath);
 
 /**
- * @brief initializes the body_t structure
- *
- * @param body
- * @return true
- * @return false
- */
-bool init_body(body_t *body);
-
-/**
- * @brief initializes the header_t structure
- *
- * @param header
- * @return true
- * @return false
- */
-bool init_header(header_t *header);
-
-/**
  * @brief check if both structure body_t and header_t are properly initialize
  *
  * @param body
