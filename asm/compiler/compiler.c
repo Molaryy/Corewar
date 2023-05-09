@@ -10,6 +10,10 @@
 
 size_t compiler(char const *filepath)
 {
+    body_t *body = malloc(sizeof(body_t));
+    header_t *header = malloc(sizeof(header_t));
+    if (!init_compiler(body, header))
+        return FAILURE;
     if (!detect_file_extension(filepath))
         return FAILURE;
     return SUCCESS;
