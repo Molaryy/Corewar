@@ -9,41 +9,53 @@ TEST_NAME	=	unit_tests
 
 TEST = tests
 
-BASE	=	./src
+BASE_ASM	=	./asm
 
-SRC	+=	$(BASE)/main.c
+PARSING = ./asm/parsing
+
+COMPILER = ./asm/compiler
+
+INIT = ./asm/init
+
+SRC_ASM	+= $(BASE_ASM)/main.c
+SRC_ASM += $(PARSING)/detect_file_extesion.c
+SRC_ASM += $(COMPILER)/compiler.c
+SRC_ASM += $(INIT)/init_asm.c
 
 LIB += -L./lib/jb -llink
 
 TESTS	= $(TEST)/shell_tests.c
 
-OBJ	=	$(SRC:.c=.o)
+OBJ	=	$(SRC_ASM:.c=.o)
 
-NAME    =       mysh
+NAME    =       name
 
 CFLAGS  =       -W -Wall -Wextra -I includes/
 
 all:	$(OBJ)
 	$(MAKE) -C lib/jb --no-print-directory
 	gcc -o $(NAME) $(OBJ) $(LIB) $(CFLAGS)
+	mv $(NAME) $(BASE_ASM)
+	mv $(BASE_ASM)/$(NAME) $(BASE_ASM)/$(BASE_ASM)
 
 debug:	$(OBJ)
 		$(MAKE) -C lib/jb --no-print-directory
 		gcc -o $(NAME) $(OBJ) $(LIB) $(CFLAGS) -g
 
 clean:
+	rm -f $(BASE_ASM)/$(BASE_ASM)
 	rm -f *log
 	rm -f *~
 	rm -f *.gcno
 	rm -f *.gcda
-	rm -f $(TEST_N)
+	rm -f $(TEST_NAME)
 	rm -f $(OBJ)
 	rm -f liblist.a
 	rm -f $(SRC_FILES)/$(OBJ)
 	$(MAKE) -C lib/jb clean --no-print-directory
 
 fclean:	clean
-	rm -f $(NAME)
+	rm -f $(BASE_ASM)/$(NAME)
 	$(MAKE) -C lib/jb fclean --no-print-directory
 
 re: fclean all

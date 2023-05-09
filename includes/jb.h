@@ -8,6 +8,7 @@
 #ifndef JB_H_
     #define JB_H_
 
+    #include "stdio.h"
     #include <stdbool.h>
     #include <stddef.h>
     #include <unistd.h>
