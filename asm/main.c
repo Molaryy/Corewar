@@ -11,6 +11,6 @@
 int main(int ac, char **av)
 {
     if (ac != 2)
-        return EXIT_FAILURE;
+        return FAILURE;
     return compiler(av[1]);
 }
