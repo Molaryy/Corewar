@@ -12,6 +12,14 @@
     #define SUCCESS 0
     #define FAILURE 84
 
+    typedef struct parser_s {
+
+        char *name;
+        size_t nb_params;
+        int *params_content;
+
+    } parser_t;
+
     typedef struct header_s {
 
         char *name;
