@@ -9,8 +9,11 @@
     #define asm_h_
     #include <stdio.h>
     #include "jb.h"
-    #define SUCCESS 0
+    #include <sys/stat.h>
+    #include <sys/types.h>
+    #include <fcntl.h>
     #define FAILURE 84
+    #define SUCCESS 0
 
     typedef struct header_s {
 
@@ -46,24 +49,6 @@ bool detect_file_extension(char const *filepath);
  * @return size_t
  */
 size_t compiler(char const *filepath);
-
-/**
- * @brief initializes the body_t structure
- *
- * @param body
- * @return true
- * @return false
- */
-bool init_body(body_t *body);
-
-/**
- * @brief initializes the header_t structure
- *
- * @param header
- * @return true
- * @return false
- */
-bool init_header(header_t *header);
 
 /**
  * @brief check if both structure body_t and header_t are properly initialize

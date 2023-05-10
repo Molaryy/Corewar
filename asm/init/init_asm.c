@@ -7,7 +7,7 @@
 
 #include "asm.h"
 
-bool init_header(header_t *header)
+static bool init_header(header_t *header)
 {
     if (header == NULL)
         return false;
@@ -16,7 +16,7 @@ bool init_header(header_t *header)
     return true;
 }
 
-bool init_body(body_t *body)
+static bool init_body(body_t *body)
 {
     if (body == NULL)
         return false;

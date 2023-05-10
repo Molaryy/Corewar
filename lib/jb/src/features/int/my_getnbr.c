@@ -41,7 +41,6 @@ int my_getnbr(char const *str)
 {
     int	nb = 0;
     int	i = get_start_index(str);
-    int	j = 0;
     int	neg = is_neg(str);
 
     while (str[i] != '\0' && is_digit(str[i])) {
