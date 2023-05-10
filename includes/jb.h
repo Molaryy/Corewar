@@ -129,4 +129,12 @@ void free_array_str(char **array);
  * @return char**
  */
 char **str_to_array_separator(char const *str, char *separator);
+
+/**
+ * @brief count the nb of cases that are not NULL in a 2D array
+ *
+ * @param tab
+ * @return size_t
+ */
+size_t count_tab(char **tab);
 #endif /* JB_H_ */
