@@ -9,16 +9,11 @@
     #define asm_h_
     #include <stdio.h>
     #include "jb.h"
-    #define SUCCESS 0
+    #include <sys/stat.h>
+    #include <sys/types.h>
+    #include <fcntl.h>
     #define FAILURE 84
-
-    typedef struct parser_s {
-
-        char *name;
-        size_t nb_params;
-        int *params_content;
-
-    } parser_t;
+    #define SUCCESS 0
 
     typedef struct header_s {
 
