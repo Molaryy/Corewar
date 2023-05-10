@@ -65,6 +65,14 @@ bool is_char_alphanumeric(char c);
 */
 bool is_str_alphanumeric(char *str);
 
+
+/**
+ * @brief frees an array content and te array itself
+ *
+ * @param array
+ */
+void free_array_str(char **array);
+
 /**
  * @brief my_printf functions
  *
