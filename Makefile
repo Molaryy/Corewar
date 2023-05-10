@@ -18,8 +18,12 @@ COMPILER = ./asm/compiler
 INIT = ./asm/init
 
 SRC_ASM	+= $(BASE_ASM)/main.c
+
 SRC_ASM += $(PARSING)/detect_file_extesion.c
+SRC_ASM += $(PARSING)/parse_reference_file.c
+
 SRC_ASM += $(COMPILER)/compiler.c
+
 SRC_ASM += $(INIT)/init_asm.c
 
 LIB += -L./lib/jb -llink

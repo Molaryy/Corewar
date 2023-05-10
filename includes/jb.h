@@ -120,4 +120,21 @@ size_t my_strlen(char const *str);
 1 * @param array
  */
 void free_array_str(char **array);
+
+/**
+ * @brief converts an str to an array with char separatos
+ *
+ * @param str
+ * @param separator
+ * @return char**
+ */
+char **str_to_array_separator(char const *str, char *separator);
+
+/**
+ * @brief count the nb of cases that are not NULL in a 2D array
+ *
+ * @param tab
+ * @return size_t
+ */
+size_t count_tab(char **tab);
 #endif /* JB_H_ */
