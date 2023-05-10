@@ -120,4 +120,13 @@ size_t my_strlen(char const *str);
 1 * @param array
  */
 void free_array_str(char **array);
+
+/**
+ * @brief converts an str to an array with char separatos
+ *
+ * @param str
+ * @param separator
+ * @return char**
+ */
+char **str_to_array_separator(char const *str, char *separator);
 #endif /* JB_H_ */
