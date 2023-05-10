@@ -24,6 +24,8 @@ static char **get_file(char const *filepath)
     buffer[info.st_size] = '\0';
     if (read(fd, filepath, info.st_size) == -1)
         return false;
-    fileTab =
+    fileTab = str_to_array_separator(buffer, "\n");
+    free(buffer);
     close(FD);
+    return fileTab;
 }
