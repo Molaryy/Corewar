@@ -8,25 +8,39 @@
 LINKS	=	./links
 
 
-JB	=	./jb_lib
+JB	=	src
 
-FEAT	= ./features
+STR = str
 
-PRINT	=	./print
+ARRAY = array
 
-SRC += $(LINKS)/add_link.c
-SRC += $(LINKS)/create_link.c
-SRC += $(LINKS)/free_links.c
-SRC += $(LINKS)/link_len.c
-SRC += $(LINKS)/delete_node.c
-SRC += $(LINKS)/print_link.c
+BOOL = bool
+
+INT = int
+
+FEAT	= features
+
+PRINT	=	print
+
+SRC += $(JB)/$(LINKS)/add_link.c
+SRC += $(JB)/$(LINKS)/create_link.c
+SRC += $(JB)/$(LINKS)/free_links.c
+SRC += $(JB)/$(LINKS)/link_len.c
+SRC += $(JB)/$(LINKS)/delete_node.c
+SRC += $(JB)/$(LINKS)/print_link.c
 
 
-SRC += $(JB)/$(FEAT)/j_strcat.c
-SRC += $(JB)/$(FEAT)/is_alphanumeric.c
-SRC += $(JB)/$(FEAT)/array_to_str.c
-SRC += $(JB)/$(FEAT)/cpy_char_separator.c
-SRC += $(JB)/$(FEAT)/my_strlen.c
+
+SRC += $(JB)/$(FEAT)/$(ARRAY)/array_to_str.c
+SRC += $(JB)/$(FEAT)/$(ARRAY)/free_str_2d.c
+SRC += $(JB)/$(FEAT)/$(BOOL)/is_alphanumeric.c
+SRC += $(JB)/$(FEAT)/$(BOOL)/str_contains_char.c
+SRC += $(JB)/$(FEAT)/$(INT)/my_getnbr.c
+SRC += $(JB)/$(FEAT)/$(INT)/my_strlen.c
+SRC += $(JB)/$(FEAT)/$(STR)/j_strcat.c
+SRC += $(JB)/$(FEAT)/$(STR)/cpy_char_separator.c
+
+
 
 SRC += $(JB)/$(PRINT)/my_printf.c
 SRC += $(JB)/$(PRINT)/my_put_nbr.c
