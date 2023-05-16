@@ -25,5 +25,4 @@
  * @return
  */
 parser_t *init_parser_reference(char *filepath);
-
 #endif /*PARSER_H_*/

@@ -9,7 +9,7 @@
 #include "asm.h"
 #include "parser.h"
 
-static char **get_file(char *filepath)
+char **get_file(char *filepath)
 {
     int fd = open(filepath, O_RDONLY);
     char *buffer = NULL;
@@ -40,5 +40,6 @@ parser_t *init_parser_reference(char *filepath)
         return NULL;
     parser = malloc(sizeof(parser_t) *(len));
     my_printf("len = %d", len);
+    free_array_str(parsTab);
     return parser;
 }
