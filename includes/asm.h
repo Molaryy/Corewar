@@ -20,7 +20,6 @@
 
         char *name;
         char *description;
-        size_t count = 0;
 
     } header_t;
 
@@ -43,7 +42,7 @@
         header_t *header;
         body_t *body;
 
-    }file_t;
+    } file_t;
 
 /**
  * @brief detects if the file has the correct extension
