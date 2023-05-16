@@ -40,5 +40,5 @@ void parse_header(file_t *file, char* filepath);
  * @brief destroy parser struct
  * @param pars
  */
-void destroy_body(parser_t *pars);
+void free_parser(parser_t *pars);
 #endif /*PARSER_H_*/
