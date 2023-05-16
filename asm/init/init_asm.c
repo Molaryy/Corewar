@@ -30,11 +30,22 @@ static bool init_body(body_t *body)
     return true;
 }
 
-bool init_compiler(body_t *body, header_t *header)
+static bool init_file(file_t *file)
 {
-    if (!init_header(header))
+    if (file == NULL)
         return false;
-    if (!init_body(body))
+    file->origin_file = NULL;
+    file->parsing_file = NULL;
+    return true;
+}
+
+bool init_compiler(file_t *file)
+{
+    if (!init_header(file->header))
+        return false;
+    if (!init_body(file->body))
+        return false;
+    if (!init_file(file))
         return false;
     return true;
 }

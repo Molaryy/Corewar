@@ -137,4 +137,26 @@ char **str_to_array_separator(char const *str, char *separator);
  * @return size_t
  */
 size_t count_tab(char **tab);
+
+/**
+ * @brief compares a string
+ * @param s1
+ * @param s2
+ * @return
+ */
+bool my_strcmp(char const *s1, char const *s2);
+
+/**
+ * @brief copys a string
+ * @param src
+ * @return
+ */
+char *my_strcpy(char *src);
+
+/**
+ * @brief gets the number in a string
+ * @param str
+ * @return
+ */
+int my_getnbr(char const *str);
 #endif /* JB_H_ */

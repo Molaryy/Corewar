@@ -9,7 +9,7 @@
 #include "asm.h"
 #include "parser.h"
 
-static char **get_file(char *filepath)
+char **get_file(char *filepath)
 {
     int fd = open(filepath, O_RDONLY);
     char *buffer = NULL;
@@ -30,6 +30,44 @@ static char **get_file(char *filepath)
     return fileTab;
 }
 
+static parser_t get_params(parser_t pars, char **params)
+{
+    switch (pars.nb_params) {
+        case 1:
+            pars.p1 = my_getnbr(params[0]);
+            break;
+        case 2:
+            pars.p1 = my_getnbr(params[0]);
+            pars.p2 = my_getnbr(params[1]);
+            break;
+        case 3:
+            pars.p1 = my_getnbr(params[0]);
+            pars.p2 = my_getnbr(params[1]);
+            pars.p3 = my_getnbr(params[2]);
+            break;
+    }
+    return pars;
+}
+
+static bool start_parser_values(parser_t *pars, size_t len, char **file)
+{
+    char **filePars = NULL;
+    char **params = NULL;
+
+    for (size_t i = 0; i < len ; i++) {
+        if (!(filePars = str_to_array_separator(file[i], "~")))
+            return false;
+        pars[i].name = my_strcpy(filePars[0]);
+        pars[i].nb_params = my_getnbr(filePars[1]);
+        if (!(params = str_to_array_separator(filePars[2], "() ")))
+            return false;
+        pars[i] = get_params(pars[i], params);
+        free_array_str(filePars);
+        free_array_str(params);
+    }
+    return true;
+}
+
 parser_t *init_parser_reference(char *filepath)
 {
     char **parsTab = get_file(filepath);
@@ -39,6 +77,11 @@ parser_t *init_parser_reference(char *filepath)
     if (!parsTab || len != NB_INSTRIUCTIONS)
         return NULL;
     parser = malloc(sizeof(parser_t) *(len));
-    my_printf("len = %d", len);
+    if (!parser)
+        return NULL;
+    start_parser_values(parser, len, parsTab);
+    for (size_t i = 0 ; i < len ; i++)
+        my_printf("%s\n", parser[i].name);
+    free_array_str(parsTab);
     return parser;
 }

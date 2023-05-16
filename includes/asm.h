@@ -9,6 +9,7 @@
     #define asm_h_
     #include <stdio.h>
     #include "jb.h"
+    #include "parser.h"
     #include <sys/stat.h>
     #include <sys/types.h>
     #include <fcntl.h>
@@ -34,6 +35,15 @@
 
     } body_t;
 
+    typedef struct file_s {
+
+        char **origin_file;
+        char **parsing_file;
+        header_t *header;
+        body_t *body;
+
+    } file_t;
+
 /**
  * @brief detects if the file has the correct extension
  *
@@ -48,7 +58,7 @@ bool detect_file_extension(char const *filepath);
  * @param filepath char const *
  * @return size_t
  */
-size_t compiler(char const *filepath);
+size_t compiler(char *filepath);
 
 /**
  * @brief check if both structure body_t and header_t are properly initialize
@@ -58,5 +68,21 @@ size_t compiler(char const *filepath);
  * @return true
  * @return false
  */
-bool init_compiler(body_t *body, header_t *header);
+bool init_compiler(file_t *file);
+
+/**
+ * @brief take the filepath and transform into char**
+ *
+ * @param filepath
+ * @return char**
+ */
+char **get_file(char *filepath);
+
+/**
+ * @brief function to free all the parameter
+ *
+ * @param file
+ * @param parser
+ */
+void free_header(file_t *file, parser_t *parser);
 #endif /* !asm_h_ */

@@ -1,0 +1,49 @@
+on:
+  push:
+    branches-ignore:
+    - "ga-ignore-*"
+  pull_request:
+    branches-ignore:
+    - "ga-ignore-*"
+env:
+  EXECUTABLE: asm/asm
+jobs:
+  check-style:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/epitech/coding-style-checker:latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Execute coding style  
+        run: |
+          check.sh $(pwd) $(pwd) > coding-style-reports.log
+          has_errors=false
+          while read line; do
+              path=$(echo "$line" | cut -d: -f1 | cut -d/ -f2-)
+              line_number=$(echo "$line" | cut -d: -f2)
+              error_code=$(echo "$line" | cut -d: -f3)
+              type=$(echo "$line" | cut -d: -f4)
+              has_errors=true
+              echo "::error title=${error_code} coding style error, :: ${path} ${line_number} ${type}"
+          done < coding-style-reports.log
+          if $has_errors; then
+              exit 1
+          fi
+  check_program_compilation:
+    needs: [check-style]
+    timeout-minutes: 2
+    runs-on: ubuntu-latest
+    container:
+      image: epitechcontent/epitest-docker
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run make
+        run: |
+          make
+          make clean 
+          if test -f ${{ env.EXECUTABLE }}; then
+            ls
+          else
+            exit 1
+          fi
