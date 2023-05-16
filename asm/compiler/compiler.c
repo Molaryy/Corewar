@@ -22,7 +22,8 @@ size_t compiler(char *filepath)
         return FAILURE;
     if (!(parser = init_parser_reference(".instructions.txt")))
         return FAILURE;
-    parse_header(file, filepath);
+    if (parse_header(file, filepath) > 0)
+        return FAILURE;
     free_header(file, parser);
     return SUCCESS;
 }
