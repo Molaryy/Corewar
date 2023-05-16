@@ -85,4 +85,10 @@ char **get_file(char *filepath);
  * @param parser
  */
 void free_header(file_t *file, parser_t *parser);
+
+/**
+ * @brief destroy parser
+ * @param pars
+ */
+void destroy_parser(parser_t *pars);
 #endif /* !asm_h_ */
