@@ -15,3 +15,4 @@ void free_array_str(char **array)
         free(array[i]);
     free(array);
 }
+git 
