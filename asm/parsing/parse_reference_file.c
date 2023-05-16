@@ -39,7 +39,6 @@ parser_t *init_parser_reference(char *filepath)
     if (!parsTab || len != NB_INSTRIUCTIONS)
         return NULL;
     parser = malloc(sizeof(parser_t) *(len));
-    my_printf("len = %d", len);
     free_array_str(parsTab);
     return parser;
 }
