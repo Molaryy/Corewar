@@ -43,6 +43,7 @@ SRC += $(JB)/$(FEAT)/$(STR)/j_strcat.c
 SRC += $(JB)/$(FEAT)/$(STR)/cpy_char_separator.c
 SRC += $(JB)/$(FEAT)/$(STR)/my_strcmp.c
 SRC += $(JB)/$(FEAT)/$(STR)/my_trim.c
+SRC += $(JB)/$(FEAT)/$(STR)/my_strdup.c
 
 
 
