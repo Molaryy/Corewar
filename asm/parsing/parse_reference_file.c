@@ -9,24 +9,41 @@
 #include "asm.h"
 #include "parser.h"
 
+static size_t size_of_file(int fd)
+{
+    size_t len = 0;
+    size_t res = 1;
+    char *buffer = malloc(sizeof(char *));
+
+    if (!buffer)
+        return 0;
+    for (size_t i = 0; res > 0; i++){
+        res = read(fd, buffer, 2);
+        len += res;
+    }
+    return len;
+}
+
 char **get_file(char *filepath)
 {
+    int fc = open(filepath, O_RDONLY);
     int fd = open(filepath, O_RDONLY);
     char *buffer = NULL;
     char **fileTab = NULL;
-    struct stat info;
+    size_t len = size_of_file(fc);
 
-    if (stat(filepath, &info) == -1)
-        return NULL;
-    buffer = malloc(sizeof(char) * (info.st_size + 1));
+    if (len == 0)
+        return  NULL;
+    buffer = malloc(sizeof(char) * (len + 1));
     if (!buffer)
         return NULL;
-    buffer[info.st_size] = '\0';
-    if (read(fd, buffer, info.st_size) == -1)
+    buffer[len] = '\0';
+    if (read(fd, buffer, len) == -1)
         return NULL;
     fileTab = str_to_array_separator(buffer, "\n");
     free(buffer);
     close(fd);
+    close(fc);
     return fileTab;
 }
 
@@ -81,7 +98,7 @@ parser_t *init_parser_reference(char *filepath)
         return NULL;
     start_parser_values(parser, len, parsTab);
     for (size_t i = 0 ; i < len ; i++)
-        my_printf("%s\n", parser[i].name);
+        my_printf("%s | %d\n", parser[i].name, parser[i].nb_params);
     free_array_str(parsTab);
     return parser;
 }
