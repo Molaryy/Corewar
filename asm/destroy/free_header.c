@@ -7,6 +7,7 @@
 
 #include "asm.h"
 #include "jb.h"
+#include "parser.h"
 
 void free_header(file_t *file, parser_t *parser)
 {
@@ -16,5 +17,6 @@ void free_header(file_t *file, parser_t *parser)
     free(file->header->name);
     free(file->header);
     free(file);
+    free_parser(parser);
     free(parser);
 }

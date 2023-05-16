@@ -31,6 +31,7 @@ SRC_ASM += $(COMPILER)/compiler.c
 SRC_ASM += $(INIT)/init_asm.c
 
 SRC_ASM += $(DESTROY)/free_header.c
+SRC_ASM += $(DESTROY)/free_parser.c
 
 LIB += -L./lib/jb -llink
 

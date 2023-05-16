@@ -161,4 +161,18 @@ char *clean_string(char* string);
  * @return char*
  */
 char *my_strdup(char const *src);
+
+/*
+ * @brief copys a string
+ * @param src
+ * @return
+ */
+char *my_strcpy(char *src);
+
+/**
+ * @brief gets the number in a string
+ * @param str
+ * @return
+ */
+int my_getnbr(char const *str);
 #endif /* JB_H_ */

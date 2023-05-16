@@ -56,7 +56,7 @@
         header_t *header;
         body_t *body;
 
-    }file_t;
+    } file_t;
 
 /**
  * @brief detects if the file has the correct extension
@@ -136,4 +136,10 @@ bool is_description(char *line);
  * @return false
  */
 bool check_nb_arg(char **array, size_t max);
+
+/*
+ * @brief destroy parser
+ * @param pars
+ */
+void destroy_parser(parser_t *pars);
 #endif /* !asm_h_ */
