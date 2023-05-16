@@ -20,6 +20,7 @@
 
         char *name;
         char *description;
+        size_t count = 0;
 
     } header_t;
 
