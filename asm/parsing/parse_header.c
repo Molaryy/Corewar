@@ -6,15 +6,10 @@
 */
 
 #include "asm.h"
-
-void print_file(file_t *file)
-{
-    for (int i = 0; file->origin_file[i]; i++)
-        printf("%s\n", file->origin_file[i]);
-}
+#include "jb.h"
 
 void parse_header(file_t *file, char *filepath)
 {
     file->origin_file = get_file(filepath);
-    print_file(file);
+    my_printf("%t", file->origin_file);
 }
