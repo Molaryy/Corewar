@@ -137,4 +137,12 @@ char **str_to_array_separator(char const *str, char *separator);
  * @return size_t
  */
 size_t count_tab(char **tab);
+
+/**
+ * @brief compares a string
+ * @param s1
+ * @param s2
+ * @return
+ */
+bool my_strcmp(char const *s1, char const *s2);
 #endif /* JB_H_ */
