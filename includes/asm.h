@@ -15,9 +15,9 @@
     #include <fcntl.h>
     #define FAILURE 84
     #define SUCCESS 0
-    #define MEM_SIZE                (6*1024)
-    #define IDX_MOD                 512   /* modulo of the index < */
-    #define MAX_ARGS_NUMBER         4     /* this may not be changed 2^*IND_SIZE */
+    #define MEM_SIZE                (6 * 1024)
+    #define IDX_MOD                 512
+    #define MAX_ARGS_NUMBER         4
 
     #define COMMENT_CHAR            '#'
     #define LABEL_CHAR              ':'
@@ -99,4 +99,41 @@ char **get_file(char *filepath);
  * @param parser
  */
 void free_header(file_t *file, parser_t *parser);
+
+/**
+ * @brief fonction to check if line is equal to a commentary
+ *
+ * @param line
+ * @return true
+ * @return false
+ */
+bool is_commentary(char *line);
+
+/**
+ * @brief function to check if line is equal to a name
+ *
+ * @param line
+ * @return true
+ * @return false
+ */
+bool is_name(char *line);
+
+/**
+ * @brief function to check if line is equal to a description
+ *
+ * @param line
+ * @return true
+ * @return false
+ */
+bool is_description(char *line);
+
+/**
+ * @brief function that check if the number of arg is correct
+ *
+ * @param array
+ * @param max
+ * @return true
+ * @return false
+ */
+bool check_nb_arg(char **array, size_t max);
 #endif /* !asm_h_ */
