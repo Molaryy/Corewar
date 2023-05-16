@@ -38,6 +38,7 @@
     typedef struct file_s {
 
         char **origin_file;
+        char **parsing_file;
         header_t *header;
         body_t *body;
 
