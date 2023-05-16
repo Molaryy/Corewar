@@ -7,8 +7,12 @@
 
 #include "jb.h"
 #include "asm.h"
+#include "parser.h"
 
-void destroy_body(file_t *file)
+void destroy_body(parser_t *pars)
 {
-
+    for (size_t i = 0 ; i < NB_INSTRIUCTIONS ; i++){
+        if (pars->name)
+            free(pars->name);
+    }
 }
