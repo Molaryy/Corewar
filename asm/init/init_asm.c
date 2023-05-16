@@ -35,6 +35,7 @@ static bool init_file(file_t *file)
     if (file == NULL)
         return false;
     file->origin_file = NULL;
+    file->parsing_file = NULL;
     return true;
 }
 
