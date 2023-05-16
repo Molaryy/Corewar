@@ -145,4 +145,12 @@ size_t count_tab(char **tab);
  * @return
  */
 bool my_strcmp(char const *s1, char const *s2);
+
+/**
+ * @brief clean a string
+ * 
+ * @param string 
+ * @return char* 
+ */
+char *clean_string(char* string);
 #endif /* JB_H_ */
