@@ -42,7 +42,8 @@ SRC_ASM += $(DESTROY)/free_body.c
 
 LIB += -L./lib/jb -llink
 
-TESTS	= $(TEST)/shell_tests.c
+TESTS += $(TEST)/tests.c
+TESTS += $(PARSING)/detect_file_extesion.c
 
 OBJ	=	$(SRC_ASM:.c=.o)
 
@@ -78,12 +79,13 @@ fclean:	clean
 
 re: fclean all
 
-unit_tests: re
-	gcc $(TESTS) $(CFLAGS) -L . -lmy -llist -lcriterion -o $(TEST_NAME) \
+unit_tests: fclean
+	$(MAKE) -C lib/jb --no-print-directory
+	gcc $(TESTS) $(CFLAGS) $(LIB) -lcriterion -o $(TEST_NAME) \
 	--coverage
 
 tests_run: unit_tests
-	./$(TEST_N)
+	./$(TEST_NAME)
 
 .PHONY: all clean fclean re
 
