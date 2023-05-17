@@ -38,7 +38,7 @@
 
     typedef struct body_s {
 
-        char **body;
+        char **bodyArray;
 
     } body_t;
 
@@ -148,4 +148,14 @@ bool parse_body(file_t *file, char *filepath);
  * @param file
  */
 void free_body(file_t *file);
+
+/**
+ * @brief check the number of params in a instruction
+ *
+ * @param file
+ * @param pars
+ * @return true
+ * @return false
+ */
+bool check_instruction_number_arguments(body_t *body, parser_t *pars);
 #endif /* !asm_h_ */
