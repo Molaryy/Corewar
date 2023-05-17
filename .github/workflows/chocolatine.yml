@@ -15,7 +15,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      - name: Execute coding style  
+      - name: Execute coding style
         run: |
           check.sh $(pwd) $(pwd) > coding-style-reports.log
           has_errors=false
@@ -32,7 +32,6 @@ jobs:
           fi
   check_program_compilation:
     needs: [check-style]
-    timeout-minutes: 2
     runs-on: ubuntu-latest
     container:
       image: epitechcontent/epitest-docker
@@ -41,6 +40,7 @@ jobs:
       - name: Run make
         run: |
           make
+          echo this is the exe ${{ env.EXECUTABLE }}
           if test -f ${{ env.EXECUTABLE }}; then
           ls
           else
