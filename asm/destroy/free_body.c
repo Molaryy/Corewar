@@ -10,5 +10,5 @@
 
 void free_body(file_t *file)
 {
-    free_array_str(file->body->body);
+    free_array_str(file->body->bodyArray);
 }
