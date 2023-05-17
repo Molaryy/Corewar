@@ -20,13 +20,7 @@ static bool init_body(body_t *body)
 {
     if (body == NULL)
         return false;
-    body->hexa = NULL;
-    body->label_char = '\0';
-    body->name = NULL;
-    body->nb_param = 0;
-    body->reg = false;
-    body->direct = false;
-    body->indirect = false;
+    body->bodyArray = NULL;
     return true;
 }
 

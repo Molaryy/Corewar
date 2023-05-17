@@ -13,6 +13,10 @@ BASE_ASM	=	./asm
 
 PARSING = ./asm/parsing
 
+BODY = ./body
+
+HEADER = ./header
+
 COMPILER = ./asm/compiler
 
 INIT = ./asm/init
@@ -23,8 +27,10 @@ SRC_ASM	+= $(BASE_ASM)/main.c
 
 SRC_ASM += $(PARSING)/detect_file_extesion.c
 SRC_ASM += $(PARSING)/parse_reference_file.c
-SRC_ASM += $(PARSING)/parse_header.c
-SRC_ASM += $(PARSING)/utils_header.c
+SRC_ASM += $(PARSING)/$(HEADER)/parse_header.c
+SRC_ASM += $(PARSING)/$(HEADER)/utils_header.c
+SRC_ASM += $(PARSING)/$(BODY)/get_body.c
+SRC_ASM += $(PARSING)/$(BODY)/check_nb_arguments.c
 
 SRC_ASM += $(COMPILER)/compiler.c
 
@@ -32,6 +38,7 @@ SRC_ASM += $(INIT)/init_asm.c
 
 SRC_ASM += $(DESTROY)/free_header.c
 SRC_ASM += $(DESTROY)/free_parser.c
+SRC_ASM += $(DESTROY)/free_body.c
 
 LIB += -L./lib/jb -llink
 

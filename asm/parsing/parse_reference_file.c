@@ -97,8 +97,6 @@ parser_t *init_parser_reference(char *filepath)
     if (!parser)
         return NULL;
     start_parser_values(parser, len, parsTab);
-    for (size_t i = 0 ; i < len ; i++)
-        my_printf("%s | %d\n", parser[i].name, parser[i].nb_params);
     free_array_str(parsTab);
     return parser;
 }
