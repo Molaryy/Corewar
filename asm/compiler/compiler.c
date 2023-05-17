@@ -9,6 +9,15 @@
 #include "asm.h"
 #include "parser.h"
 
+static size_t parsing_compiler(parser_t *parser, file_t *file, char *filepath)
+{
+    if (!parse_body(file, filepath))
+        return FAILURE;
+    if (!check_instruction_number_arguments(file->body, parser))
+        return FAILURE;
+    return SUCCESS;
+}
+
 size_t compiler(char *filepath)
 {
     file_t *file = malloc(sizeof(file_t));
@@ -24,7 +33,8 @@ size_t compiler(char *filepath)
         return FAILURE;
     if (parse_header(file, filepath) > 0)
         return FAILURE;
-    parse_body(file, filepath);
+    if (parsing_compiler(parser, file, filepath) == FAILURE)
+        return FAILURE;
     free_header(file, parser);
     return SUCCESS;
 }
