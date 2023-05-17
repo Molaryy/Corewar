@@ -24,6 +24,7 @@ size_t compiler(char *filepath)
         return FAILURE;
     if (parse_header(file, filepath) > 0)
         return FAILURE;
+    parse_body(file, filepath);
     free_header(file, parser);
     return SUCCESS;
 }
