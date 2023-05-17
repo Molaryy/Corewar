@@ -147,6 +147,22 @@ size_t count_tab(char **tab);
 bool my_strcmp(char const *s1, char const *s2);
 
 /**
+ * @brief clean a string
+ *
+ * @param string
+ * @return char*
+ */
+char *clean_string(char* string);
+
+/**
+ * @brief duplicate a string
+ *
+ * @param src
+ * @return char*
+ */
+char *my_strdup(char const *src);
+
+/*
  * @brief copys a string
  * @param src
  * @return
