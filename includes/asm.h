@@ -29,7 +29,6 @@
     #define NAME_CMD_STRING         ".name"
     #define COMMENT_CMD_STRING      ".comment"
 
-
     typedef struct header_s {
 
         char *name;
@@ -39,13 +38,7 @@
 
     typedef struct body_s {
 
-        char label_char;
-        char *hexa;
-        char *name;
-        size_t nb_param;
-        bool reg;
-        bool direct;
-        bool indirect;
+        char **body;
 
     } body_t;
 
@@ -142,4 +135,17 @@ bool check_nb_arg(char **array, size_t max);
  * @param pars
  */
 void destroy_parser(parser_t *pars);
+
+/**
+ * @brief get body
+ * @param filepath
+ */
+bool parse_body(file_t *file, char *filepath);
+
+/**
+ * @brief free body structure
+ *
+ * @param file
+ */
+void free_body(file_t *file);
 #endif /* !asm_h_ */
