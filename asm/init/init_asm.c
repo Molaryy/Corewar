@@ -20,7 +20,7 @@ static bool init_body(body_t *body)
 {
     if (body == NULL)
         return false;
-    body->body = NULL;
+    body->bodyArray = NULL;
     return true;
 }
 
