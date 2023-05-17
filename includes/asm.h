@@ -158,4 +158,14 @@ void free_body(file_t *file);
  * @return false
  */
 bool check_instruction_number_arguments(body_t *body, parser_t *pars);
+
+/**
+ * @brief check the types in the arguments
+ *
+ * @param body
+ * @param pas
+ * @return true
+ * @return false
+ */
+bool check_type_arguments(body_t *body, parser_t *pars);
 #endif /* !asm_h_ */
