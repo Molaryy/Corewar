@@ -7,6 +7,20 @@
 
 #include "asm.h"
 
+void print_bits(unsigned char byte)
+{
+    unsigned char bit;
+    my_printf("Byte bits: ");
+
+    for (int i = 7; i >= 0; i--) {
+        bit = (byte >> i) & 1;
+        my_printf("%d", bit);
+        if (i % 2 == 0 && i > 0)
+            printf(" ");
+    }
+    my_printf("\n");
+}
+
 void if_indirect_or_not(const char **params, unsigned char *result_byte, int i)
 {
     if (INDIRECT_VALUE)
