@@ -7,6 +7,14 @@
 
 #include "asm.h"
 
+void if_indirect_or_not(const char **params, unsigned char *result_byte, int i)
+{
+    if (INDIRECT_VALUE)
+        *result_byte = *result_byte | (0x30 >> (2 * i));
+    else
+        *result_byte = *result_byte | (0x00 >> (2 * i));
+}
+
 unsigned char create_byte(char* param1, char* param2, char* param3)
 {
     const char* params[3] = {param1, param2, param3};
