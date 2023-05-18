@@ -32,7 +32,7 @@ char **get_file(char *filepath)
     char **fileTab = NULL;
     size_t len = size_of_file(fc);
 
-    if (len == 0)
+    if (len == 1)
         return NULL;
     buffer = malloc(sizeof(char) * (len + 1));
     if (!buffer)

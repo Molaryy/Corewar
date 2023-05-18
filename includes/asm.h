@@ -158,4 +158,23 @@ void free_body(file_t *file);
  * @return false
  */
 bool check_instruction_number_arguments(body_t *body, parser_t *pars);
+
+/**
+ * @brief check the types in the arguments
+ *
+ * @param body
+ * @param pas
+ * @return true
+ * @return false
+ */
+bool check_type_arguments(char **line, parser_t *pars, size_t start);
+
+/**
+ * @brief Get the number params object
+ *
+ * @param instruction
+ * @param pars
+ * @return size_t
+ */
+size_t get_number_params(char *instruction, parser_t *pars);
 #endif /* !asm_h_ */
