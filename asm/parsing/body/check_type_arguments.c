@@ -9,10 +9,7 @@
 #include "asm.h"
 #include "parser.h"
 
-bool check_type_arguments(body_t *body, parser_t *pars)
+bool check_type_arguments(char **line, parser_t *pars)
 {
-    (void) body;
-    (void) pars;
-
     return true;
 }
