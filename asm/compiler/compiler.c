@@ -15,8 +15,6 @@ static size_t parsing_compiler(parser_t *parser, file_t *file, char *filepath)
         return FAILURE;
     if (!check_instruction_number_arguments(file->body, parser))
         return FAILURE;
-    if (!check_type_arguments(file->body, parser))
-        return FAILURE;
     return SUCCESS;
 }
 
