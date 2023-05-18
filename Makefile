@@ -11,6 +11,8 @@ TEST = tests
 
 BASE_ASM	=	./asm
 
+BASE_CORE = ./corewar
+
 PARSING = ./asm/parsing
 
 BODY = ./body
@@ -43,26 +45,31 @@ SRC_ASM += $(DESTROY)/free_header.c
 SRC_ASM += $(DESTROY)/free_parser.c
 SRC_ASM += $(DESTROY)/free_body.c
 
+SRC_CORE += $(BASE_CORE)/main.c
+
 LIB += -L./lib/jb -llink
 
 TESTS += $(TEST)/tests.c
 TESTS += $(PARSING)/detect_file_extesion.c
 
-OBJ	=	$(SRC_ASM:.c=.o)
+OBJ_A =	$(SRC_ASM:.c=.o)
+OBJ_C =	$(SRC_CORE:.c=.o)
 
-NAME    =       name
+NAME_A    =       name_a
+NAME_C    =       name_c
+
+DOT_O = *.o
 
 CFLAGS  =       -W -Wall -Wextra -I includes/
 
-all:	$(OBJ)
+all:	$(OBJ_A) $(OBJ_C)
 	$(MAKE) -C lib/jb --no-print-directory
-	gcc -o $(NAME) $(OBJ) $(LIB) $(CFLAGS)
-	mv $(NAME) $(BASE_ASM)
-	mv $(BASE_ASM)/$(NAME) $(BASE_ASM)/$(BASE_ASM)
-
-debug:	$(OBJ)
-		$(MAKE) -C lib/jb --no-print-directory
-		gcc -o $(NAME) $(OBJ) $(LIB) $(CFLAGS) -g
+	gcc -o $(NAME_A) $(OBJ_A) $(LIB) $(CFLAGS)
+	mv $(NAME_A) $(BASE_ASM)
+	mv $(BASE_ASM)/$(NAME_A) $(BASE_ASM)/$(BASE_ASM)
+	gcc -o $(NAME_C) $(OBJ_C) $(LIB) $(CFLAGS)
+	mv $(NAME_C) $(BASE_CORE)
+	mv $(BASE_CORE)/$(NAME_C) $(BASE_CORE)/$(BASE_CORE)
 
 clean:
 	rm -f $(BASE_ASM)/$(BASE_ASM)
@@ -71,13 +78,18 @@ clean:
 	rm -f *.gcno
 	rm -f *.gcda
 	rm -f $(TEST_NAME)
-	rm -f $(OBJ)
+	rm -f $(OBJ_A)
+	rm -f $(OBJ_C)
 	rm -f liblist.a
-	rm -f $(SRC_FILES)/$(OBJ)
+	rm -f $(BASE_ASM)/$(DOT_O)
+	rm -f $(BASE_CORE)/$(DOT_O)
+	echo heeeeeee!!!
+	ls asm/
 	$(MAKE) -C lib/jb clean --no-print-directory
 
 fclean:	clean
-	rm -f $(BASE_ASM)/$(NAME)
+	rm -f $(BASE_ASM)/$(BASE_ASM)
+	rm -f $(BASE_CORE)/$(BASE_CORE)
 	$(MAKE) -C lib/jb fclean --no-print-directory
 
 re: fclean all
