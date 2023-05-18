@@ -29,7 +29,7 @@ static bool instruction_exists(char **tab, parser_t *pars, size_t *start)
     return false;
 }
 
-static size_t get_number_params(char *instruction, parser_t *pars)
+size_t get_number_params(char *instruction, parser_t *pars)
 {
     if (!instruction)
         return 0;
@@ -58,7 +58,7 @@ static bool count_params(char *line, parser_t *pars)
         free_array_str(tab);
         return false;
     }
-    if (!check_type_arguments(tab, pars))
+    if (!check_type_arguments(tab, pars, start))
         return false;
     free_array_str(tab);
     return true;
