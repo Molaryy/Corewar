@@ -7,6 +7,30 @@
 
 #include "asm.h"
 
+unsigned char create_byte(char* param1, char* param2, char* param3)
+{
+    const char* params[3] = {param1, param2, param3};
+    unsigned char result_byte = 0;
+
+    for (int i = 0; i < 3; i++) {
+        if (params[i] != NULL) {
+            switch (params[i][0]) {
+                case REGISTER:
+                    result_byte = result_byte | (0x10 >> (2 * i));
+                    break;
+                case DIRECT_VALUE:
+                    result_byte = result_byte | (0x20 >> (2 * i));
+                    break;
+                default:
+                    if_indirect_or_not(params, &result_byte, i);
+                    break;
+            }
+        }
+    }
+    result_byte = ((result_byte & 0x3F) << 2);
+    return result_byte;
+}
+
 void coding_byte(char **params, size_t nbParams)
 {
     if (nbParams < 1)
