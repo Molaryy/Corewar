@@ -83,8 +83,8 @@ clean:
 	rm -f liblist.a
 	rm -f $(BASE_ASM)/$(DOT_O)
 	rm -f $(BASE_CORE)/$(DOT_O)
-	echo heeeeeee!!!
-	ls asm/
+	rm -f $(BASE_ASM)/$(BASE_ASM)
+	rm -f $(BASE_CORE)/$(BASE_ASM)
 	$(MAKE) -C lib/jb clean --no-print-directory
 
 fclean:	clean
