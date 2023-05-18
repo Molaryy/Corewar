@@ -11,6 +11,12 @@
 #include "asm.h"
 #include "parser.h"
 
+void my_redirect_all_std(void)
+{
+    cr_redirect_stdout();
+    cr_redirect_stderr();
+}
+
 Test(test_extension_1, test_extension_nb_1) {
     char const *filepath = "file.txt";
     bool result = detect_file_extension(filepath);
@@ -23,7 +29,7 @@ Test(test_extension_2, test_extension_nb_1) {
     cr_assert_eq(true, result);
 }
 
-Test(print_bits, should_print_binary_representation)
+Test(print_bits, should_print_binary_representation, .init = my_redirect_all_std)
 {
     unsigned char byte = 0x0F;
     cr_redirect_stdout();  // Redirect stdout to capture the output
