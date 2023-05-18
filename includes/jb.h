@@ -175,4 +175,13 @@ char *my_strcpy(char *src);
  * @return
  */
 int my_getnbr(char const *str);
+
+/**
+ * @brief check if digit or not
+ *
+ * @param c
+ * @return true
+ * @return false
+ */
+bool is_digit(char c);
 #endif /* JB_H_ */
