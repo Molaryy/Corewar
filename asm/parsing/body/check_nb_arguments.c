@@ -58,6 +58,8 @@ static bool count_params(char *line, parser_t *pars)
         free_array_str(tab);
         return false;
     }
+    if (!check_type_arguments(tab, pars))
+        return false;
     free_array_str(tab);
     return true;
 }
