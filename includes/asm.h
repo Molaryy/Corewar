@@ -39,6 +39,7 @@
     typedef struct body_s {
 
         char **bodyArray;
+        link_t *labels;
 
     } body_t;
 
