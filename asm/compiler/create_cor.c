@@ -18,11 +18,12 @@ static void in_another_file(char const *filename, char *filepath)
     }
 }
 
-char* create_cor_file(const char* str)
+static char* create_cor_file(const char* str)
 {
     const char* filename = my_strchr(str, '/');
     const char* extension = ".cor";
-    int filename_length = (filename != NULL) ? my_strlen(filename + 1) : my_strlen(str);
+    int filename_length = (filename != NULL) ? my_strlen(filename + 1)
+                        : my_strlen(str);
     int filepath_length = filename_length + my_strlen(extension) + 1;
     char* filepath = malloc(filepath_length);
     char* dot = NULL;
@@ -41,7 +42,7 @@ char* create_cor_file(const char* str)
     return filepath;
 }
 
-void cor_file(char *filepath)
+extern void cor_file(char *filepath)
 {
     char *filename = create_cor_file(filepath);
     printf("%s\n", filename);
