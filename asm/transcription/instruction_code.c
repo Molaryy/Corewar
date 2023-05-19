@@ -7,35 +7,31 @@
 
 #include "asm.h"
 
-int get_instruction_code(const char *instruction, op_t *op_tab)
+static int get_instruction_code(const char *instruction, op_t *op_tab)
 {
     for (int i = 0; op_tab[i].mnemonique != NULL; i++) {
         if (my_strcmp(instruction, op_tab[i].mnemonique)) {
             return op_tab[i].code;
         }
     }
-    return 84;
+    return FAILURE;
 }
 
-void instruction_code(char *instruction)
+extern void instruction_code(char *instruction)
 {
-    char* hex_digits = "0123456789abcdef";
     int code = get_instruction_code(instruction, op_tab);
+    unsigned char instruction_byte;
 
-    if (code == 84)
+    if (code == FAILURE) {
         my_printf("instruction not found !\n");
-    else {
-        unsigned char high_nibble = code >> 4;
-        unsigned char low_nibble = code & 0x0F;
-
-        unsigned char new_byte = (hex_digits[high_nibble] << 4)
-                            | hex_digits[low_nibble];
-
-        printf("Byte value: %#x\n", new_byte);
+        exit(FAILURE);
+    } else {
+        instruction_byte = (unsigned char) code;
     }
+    printf("Byte -> 0x%02x\n", instruction_byte);
 }
 
-void print_op_tab(const op_t *op_tab)
+extern void print_op_tab(const op_t *op_tab)
 {
     for (int i = 0; op_tab[i].mnemonique != 0; i++) {
         my_printf("Op[%d]:\n", i);
