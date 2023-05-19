@@ -7,7 +7,7 @@
 
 #include "jb.h"
 
-void free_array_str(char **array)
+extern void free_array_str(char **array)
 {
     if (array == NULL)
         return;
