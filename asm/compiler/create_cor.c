@@ -7,29 +7,15 @@
 
 #include "asm.h"
 
-extern char* my_strchr(const char* __first_str, char index)
+static void in_another_file(char const *filename, char *filepath)
 {
-    while (*(__first_str) != '\0') {
-        if (*(__first_str) == index)
-            return ((char*)__first_str);
-        __first_str++;
+    char *slash = NULL;
+    if (filename != NULL) {
+        slash = my_strchr(filepath, '/');
+        if (slash != NULL) {
+            q_strcpy(filepath, slash + 1);
+        }
     }
-    if (*(__first_str) == index) {
-        return ((char*)__first_str);
-    }
-    return NULL;
-}
-
-extern char *q_strcpy(char *dest, char const *src)
-{
-    int a = 0;
-
-    while (src[a] != '\0') {
-        dest[a] = src[a];
-        a++;
-    }
-    dest[a] = '\0';
-    return (dest);
 }
 
 char* create_cor_file(const char* str)
@@ -38,26 +24,25 @@ char* create_cor_file(const char* str)
     const char* extension = ".cor";
     int filename_length = (filename != NULL) ? my_strlen(filename + 1) : my_strlen(str);
     int filepath_length = filename_length + my_strlen(extension) + 1;
-    char* dot = NULL;
     char* filepath = malloc(filepath_length);
+    char* dot = NULL;
 
     if (filepath == NULL)
-        return NULL;
-    if (filename != NULL) {
+        exit(84);
+    if (filename != NULL)
         q_strcpy(filepath, filename + 1);
-        dot = my_strchr(filepath, '.');
-        if (dot != NULL)
-            *dot = '\0';
-    } else {
+    else
         q_strcpy(filepath, str);
-    }
-    filepath = strcat(filepath, extension);
+    dot = my_strchr(filepath, '.');
+    if (dot != NULL)
+        *dot = '\0';
+    in_another_file(filename, filepath);
+    q_strcat(filepath, extension);
     return filepath;
 }
 
-
 void cor_file(char *filepath)
 {
-    char *filename = create_core_file(filepath);
+    char *filename = create_cor_file(filepath);
     printf("%s\n", filename);
 }
