@@ -8,7 +8,7 @@
 
 #include "jb.h"
 
-char *my_strcpy(char *src)
+extern char *my_strcpy(char *src)
 {
     size_t len = my_strlen(src);
     char *cpy = malloc(sizeof(char) * (len + 1));
