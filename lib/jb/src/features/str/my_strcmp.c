@@ -7,7 +7,7 @@
 
 #include "jb.h"
 
-bool my_strcmp(char const *s1, char const *s2)
+extern bool my_strcmp(char const *s1, char const *s2)
 {
     size_t len_s2 = 0;
     size_t len_s1 = 0;
