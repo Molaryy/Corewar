@@ -201,4 +201,13 @@ void my_putnbr_base(int nb, char const *base);
  * @return char* 
  */
 extern char *q_strcpy(char *dest, char const *src);
+
+/**
+ * @brief cut a word when find the char index
+ * 
+ * @param __first_str 
+ * @param index 
+ * @return char* 
+ */
+extern char* my_strchr(const char* __first_str, char index);
 #endif /* JB_H_ */
