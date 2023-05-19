@@ -9,7 +9,7 @@
 #include "jb.h"
 #include "parser.h"
 
-void free_header(file_t *file, parser_t *parser)
+extern void free_header(file_t *file, parser_t *parser)
 {
     free_body(file);
     free_array_str(file->origin_file);

@@ -8,13 +8,13 @@
 #include "asm.h"
 #include "jb.h"
 
-void clean_array(char **array)
+extern void clean_array(char **array)
 {
     for (int i = 0; array[i]; i++)
         clean_string(array[i]);
 }
 
-int check_header(char **parser, file_t *file, size_t status)
+extern int check_header(char **parser, file_t *file, size_t status)
 {
     clean_array(parser);
     if (is_name(parser[0]))
@@ -26,7 +26,7 @@ int check_header(char **parser, file_t *file, size_t status)
     return status;
 }
 
-int parse_header(file_t *file, char *filepath)
+extern int parse_header(file_t *file, char *filepath)
 {
     char **parser = NULL;
     size_t status = 0;

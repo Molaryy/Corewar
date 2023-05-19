@@ -8,7 +8,7 @@
 
 #include "link.h"
 
-link_t *create_link(link_t *node, void *data)
+extern link_t *create_link(link_t *node, void *data)
 {
     link_t *new_node = malloc(sizeof(link_t));
 

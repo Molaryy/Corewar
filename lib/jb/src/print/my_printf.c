@@ -20,12 +20,12 @@ static void flags(char c, int *i, va_list list, int n)
         case 'i': n += my_put_nbr(va_arg(list, int)); break;
         case 'd': n += my_put_nbr(va_arg(list, int)); break;
         case 't': print_tab(va_arg(list, char **)); break;
-        case 'h': my_putnbr_base(va_arg(list, int), "0123456789abcdef"); break;
+        case 'h': my_putnbr_base(va_arg(list, long), "0123456789abcdef"); break;
         case '%': n += my_putchar('%'); break;
     }
 }
 
-int my_printf(const char *format, ...)
+extern int my_printf(const char *format, ...)
 {
     va_list list;
     int n = 0;

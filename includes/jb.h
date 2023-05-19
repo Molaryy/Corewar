@@ -219,4 +219,19 @@ extern char* my_strchr(const char* __first_str, char index);
  * @return char*
  */
 char *q_strcat(char *dest, char const *src);
+
+/**
+ * @brief copies a tab to another
+ *
+ * @param tab
+ * @return char**
+ */
+char **cpy_tab(char **tab, size_t start);
+
+/**
+ * @brief print a tab wit arrows
+ *
+ * @param tab
+ */
+void print_linked_tab(char **tab);
 #endif /* JB_H_ */

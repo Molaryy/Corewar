@@ -49,6 +49,14 @@
         link_t *labels;
 
     } body_t;
+    typedef struct champ_s {
+
+        char *paramName;
+        size_t nbParams;
+        char *label;
+        char **params;
+
+    } champ_t;
 
     typedef struct file_s {
 
@@ -56,8 +64,12 @@
         char **parsing_file;
         header_t *header;
         body_t *body;
+        champ_t *champ;
+        size_t nbLinesBody;
 
     } file_t;
+
+
 
 /**
  * @brief detects if the file has the correct extension
