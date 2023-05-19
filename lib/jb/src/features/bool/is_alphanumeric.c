@@ -7,7 +7,7 @@
 
 #include "jb.h"
 
-bool is_char_alphanumeric(char c)
+extern bool is_char_alphanumeric(char c)
 {
     if ((c < 'a' || c > 'z')
         && (c < 'A' || c > 'Z')
@@ -17,7 +17,7 @@ bool is_char_alphanumeric(char c)
     return true;
 }
 
-bool is_str_alphanumeric(char *str)
+extern bool is_str_alphanumeric(char *str)
 {
     for (size_t i = 0; str[i] ; i++){
         if (!is_char_alphanumeric(str[i]))
