@@ -8,7 +8,7 @@
 #include "asm.h"
 
 
-static void print_bits(unsigned char byte)
+extern void print_bits(unsigned char byte)
 {
     unsigned char bit;
     my_printf("Byte bits: ");
