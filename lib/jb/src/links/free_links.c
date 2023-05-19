@@ -7,7 +7,7 @@
 
 #include "link.h"
 
-void free_links(link_t **head_ref)
+extern void free_links(link_t **head_ref)
 {
     link_t *current = *head_ref;
     link_t *tmp = NULL;
