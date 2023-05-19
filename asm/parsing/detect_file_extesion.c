@@ -7,7 +7,7 @@
 
 #include "jb.h"
 
-bool detect_file_extension(char const *filepath)
+extern bool detect_file_extension(char const *filepath)
 {
     size_t len = my_strlen(filepath);
 
