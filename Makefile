@@ -50,6 +50,8 @@ SRC_ASM += $(DESTROY)/free_parser.c
 SRC_ASM += $(DESTROY)/free_body.c
 
 SRC_ASM += $(TRANSCRIPTION)/coding_byte.c
+SRC_ASM += $(TRANSCRIPTION)/instruction_code.c
+SRC_ASM += $(TRANSCRIPTION)/op.c
 
 SRC_CORE += $(BASE_CORE)/main.c
 
@@ -58,6 +60,8 @@ LIB += -L./lib/jb -llink
 TESTS += $(TEST)/tests.c
 TESTS += $(PARSING)/detect_file_extesion.c
 TESTS += $(TRANSCRIPTION)/coding_byte.c
+TESTS += $(TRANSCRIPTION)/op.c
+TESTS += $(TRANSCRIPTION)instruction_code.c
 TESTS += $(COMPILER)/create_cor.c
 
 OBJ_A =	$(SRC_ASM:.c=.o)
