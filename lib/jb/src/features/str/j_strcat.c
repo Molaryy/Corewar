@@ -23,7 +23,7 @@ static char *copy_dest(char const *dest, size_t len_dest,
     return res;
 }
 
-char *j_strcat(char const *dest, char const *src)
+extern char *j_strcat(char const *dest, char const *src)
 {
     size_t len_dest = 0;
     size_t len_src = 0;
