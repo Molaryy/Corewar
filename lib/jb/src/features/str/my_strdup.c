@@ -7,7 +7,7 @@
 
 #include "jb.h"
 
-char *my_strdup(char const *src)
+extern char *my_strdup(char const *src)
 {
     char *copy;
     int i = 0;
