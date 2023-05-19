@@ -37,7 +37,7 @@ static int get_start_index(char const *str)
     return (n);
 }
 
-int my_getnbr(char const *str)
+extern int my_getnbr(char const *str)
 {
     int	nb = 0;
     int	i = get_start_index(str);
