@@ -7,7 +7,7 @@
 
 #include "jb.h"
 
-char *clean_string(char* string)
+extern char *clean_string(char* string)
 {
     int end_line = my_strlen(string) - 1;
     int start_string = 0;
