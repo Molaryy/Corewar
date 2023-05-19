@@ -11,8 +11,6 @@ static bool init_header(header_t *header)
 {
     if (header == NULL)
         return false;
-    header->description = NULL;
-    header->name = NULL;
     return true;
 }
 
