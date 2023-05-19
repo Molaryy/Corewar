@@ -53,7 +53,7 @@
 
     extern  op_t    op_tab[];
 
-    #define COREWAR_EXEC_MAGIC      0xea83f3  
+    #define COREWAR_EXEC_MAGIC      0xea83f3
     #define PROG_NAME_LENGTH        128
     #define COMMENT_LENGTH          2048
 
@@ -267,4 +267,18 @@ extern void in_another_file(char const *filename, char *filepath);
  * @return char*
  */
 extern char* create_cor_file(const char* str);
+
+/**
+ * @brief get the instruction byte value
+ *
+ * @param instruction
+ */
+extern void instruction_code(char *instruction);
+
+/**
+ * @brief print the op table
+ *
+ * @param op_tab
+ */
+extern void print_op_tab(const op_t *op_tab);
 #endif /* !asm_h_ */
