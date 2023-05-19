@@ -9,6 +9,7 @@
     #define asm_h_
     #include <stdio.h>
     #include "jb.h"
+    #include "link.h"
     #include "parser.h"
     #include <sys/stat.h>
     #include <sys/types.h>
@@ -178,4 +179,13 @@ bool check_type_arguments(char **line, parser_t *pars, size_t start);
  * @return size_t
  */
 size_t get_number_params(char *instruction, parser_t *pars);
+
+/**
+ * @brief add labels name to link
+ *
+ * @param body
+ * @return true
+ * @return false
+ */
+bool add_labels_to_link(body_t *body);
 #endif /* !asm_h_ */
