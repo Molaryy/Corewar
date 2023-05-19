@@ -6,6 +6,7 @@
 */
 
 #include "asm.h"
+#include "jb.h"
 
 extern void in_another_file(char const *filename, char *filepath)
 {
@@ -45,5 +46,5 @@ extern char* create_cor_file(const char* str)
 extern void cor_file(char *filepath)
 {
     char *filename = create_cor_file(filepath);
-    printf("%s\n", filename);
+    my_printf("%s\n", filename);
 }

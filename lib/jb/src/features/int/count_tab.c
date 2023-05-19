@@ -7,7 +7,7 @@
 
 #include "jb.h"
 
-size_t count_tab(char **tab)
+extern size_t count_tab(char **tab)
 {
     size_t count = 0;
 

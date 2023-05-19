@@ -9,7 +9,7 @@
 #include "asm.h"
 #include "parser.h"
 
-void free_parser(parser_t *pars)
+extern void free_parser(parser_t *pars)
 {
     for (size_t i = 0 ; i < NB_INSTRIUCTIONS ; i++) {
         if (pars[i].name) {

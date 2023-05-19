@@ -8,7 +8,7 @@
 #include "link.h"
 #include "jb.h"
 
-void print_str_link(link_t *link)
+extern void print_str_link(link_t *link)
 {
     for (; link ; link = link->next) {
         my_printf("%s\n", link->data);

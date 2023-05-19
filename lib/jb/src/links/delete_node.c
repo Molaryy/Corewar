@@ -7,7 +7,7 @@
 
 #include "link.h"
 
-void link_rm_beg_node(link_t **node)
+extern void link_rm_beg_node(link_t **node)
 {
     for (; (*node)->prev != NULL; *node = (*node)->prev);
 
@@ -29,7 +29,7 @@ static void delete_last_node(link_t *link)
     free(link);
 }
 
-link_t *delete_mid_node(link_t *link, size_t position)
+extern link_t *delete_mid_node(link_t *link, size_t position)
 {
     link_t *node_to_delete = link;
 

@@ -7,7 +7,7 @@
 
 #include "jb.h"
 
-char *array_to_str(char **array, char *separator)
+extern char *array_to_str(char **array, char *separator)
 {
     char *cpy = "";
 

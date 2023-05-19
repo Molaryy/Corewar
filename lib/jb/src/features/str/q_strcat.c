@@ -5,7 +5,7 @@
 ** true
 */
 
-char *q_strcat(char *dest, char const *src)
+extern char *q_strcat(char *dest, char const *src)
 {
     int i;
     int j;

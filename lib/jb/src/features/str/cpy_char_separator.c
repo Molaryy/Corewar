@@ -18,7 +18,7 @@ static size_t count_str_separator(char *str, char c)
     return count;
 }
 
-char *cpy_str_without_char(char *str, char c)
+extern char *cpy_str_without_char(char *str, char c)
 {
     size_t len = count_str_separator(str, c);
     char *cpy = malloc(sizeof(char) * (len + 1));

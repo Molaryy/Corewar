@@ -40,7 +40,7 @@ static size_t count_lines(char const *str, char *separator)
     return (n);
 }
 
-char **str_to_array_separator(char const *str, char *separator)
+extern char **str_to_array_separator(char const *str, char *separator)
 {
     size_t lines = count_lines(str, separator);
     char **array = malloc(sizeof(char *) * (lines + 1));
@@ -49,8 +49,7 @@ char **str_to_array_separator(char const *str, char *separator)
         return NULL;
     for (size_t i = 0, k = 0, j = 0, cols = 0; i < lines; i++) {
         cols = my_cols_counter(str, j, separator);
-        array[i] = malloc(sizeof(char) * (cols + 1));
-        if (!array[i])
+        if (!(array[i] = malloc(sizeof(char) * (cols + 1))))
             return NULL;
         array[i][cols] = '\0';
         for (; str[j] != '\0' && (!is_separator(str[j], separator)); j++);

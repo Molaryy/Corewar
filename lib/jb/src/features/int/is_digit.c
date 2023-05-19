@@ -7,7 +7,7 @@
 
 #include "jb.h"
 
-bool is_digit(char c)
+extern bool is_digit(char c)
 {
     if (c <= '9' && c >= '0')
         return true;

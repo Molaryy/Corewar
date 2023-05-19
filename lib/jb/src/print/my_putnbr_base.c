@@ -7,7 +7,7 @@
 
 #include "jb.h"
 
-void my_putnbr_base(int nb, char const *base)
+extern void my_putnbr_base(int nb, char const *base)
 {
     int i = 0;
 

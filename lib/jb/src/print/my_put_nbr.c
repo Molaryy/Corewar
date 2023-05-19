@@ -7,7 +7,7 @@
 
 #include "jb.h"
 
-int my_put_nbr(int nb)
+extern int my_put_nbr(int nb)
 {
     char c = '0';
     int number = 1;
