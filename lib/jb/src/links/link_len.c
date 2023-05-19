@@ -7,7 +7,7 @@
 
 #include "link.h"
 
-size_t link_len(link_t *link)
+extern size_t link_len(link_t *link)
 {
     size_t size = 0;
 
