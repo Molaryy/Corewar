@@ -59,3 +59,11 @@ Test(create_cor_file, basic_test)
     free(filepath);
 }
 
+Test(create_cor_file, no_folder)
+{
+    const char* str = "Jon_Snow.s";
+    char* filepath = create_cor_file(str);
+    cr_assert_str_eq(filepath, "Jon_Snow.cor", "Error: Expected filepath to be 'Jon_Snow.cor'");
+    free(filepath);
+}
+
