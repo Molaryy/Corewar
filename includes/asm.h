@@ -42,8 +42,6 @@
     #define T_IND           4
     #define T_LAB           8
 
-    #define COREWAR_EXEC_MAGIC      0xea83f3  
-
     typedef struct op_s {
         char *mnemonique;
         char nbr_args;
@@ -55,11 +53,16 @@
 
     extern  op_t    op_tab[];
 
+    #define COREWAR_EXEC_MAGIC      0xea83f3  
+    #define PROG_NAME_LENGTH        128
+    #define COMMENT_LENGTH          2048
+
     typedef struct header_s {
 
         int magic;
-        char *name;
-        char *description;
+        char name[PROG_NAME_LENGTH + 1];
+        char description[COMMENT_LENGTH + 1];
+        int  prog_size;
 
     } header_t;
 
