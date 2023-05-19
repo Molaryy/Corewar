@@ -186,37 +186,37 @@ int my_getnbr(char const *str);
 bool is_digit(char c);
 
 /**
- * @brief prints 
- * 
- * @param nb 
- * @param base 
+ * @brief prints
+ *
+ * @param nb
+ * @param base
  */
 void my_putnbr_base(int nb, char const *base);
 
 /**
  * @brief copy of a char
- * 
- * @param dest 
- * @param src 
- * @return char* 
+ *
+ * @param dest
+ * @param src
+ * @return char*
  */
 extern char *q_strcpy(char *dest, char const *src);
 
 /**
  * @brief cut a word when find the char index
- * 
- * @param __first_str 
- * @param index 
- * @return char* 
+ *
+ * @param __first_str
+ * @param index
+ * @return char*
  */
 extern char* my_strchr(const char* __first_str, char index);
 
 /**
  * @brief strcat of quentin
- * 
- * @param dest 
- * @param src 
- * @return char* 
+ *
+ * @param dest
+ * @param src
+ * @return char*
  */
 char *q_strcat(char *dest, char const *src);
 #endif /* JB_H_ */
