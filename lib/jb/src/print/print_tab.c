@@ -7,7 +7,20 @@
 
 #include "jb.h"
 
-void print_tab(char **tab)
+extern void print_linked_tab(char **tab)
+{
+    if (tab == NULL){
+        my_printf("tab = NULL\n");
+        return;
+    }
+    for (size_t i = 0; tab[i]; i++){
+        my_printf("[%s]", tab[i]);
+        if (tab[i + 1])
+            my_printf("-");
+    }
+}
+
+extern void print_tab(char **tab)
 {
 
     if (tab == NULL){
