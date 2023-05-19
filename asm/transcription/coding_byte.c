@@ -55,8 +55,10 @@ static unsigned char create_byte(char* param1, char* param2, char* param3)
     return result_byte;
 }
 
-extern void coding_byte(char **params, size_t nbParams)
+extern unsigned char coding_byte(char **params, size_t nbParams)
 {
+    unsigned char byte;
+
     if (nbParams < 1)
         params[0] = NULL;
     if (nbParams < 2)
@@ -64,6 +66,6 @@ extern void coding_byte(char **params, size_t nbParams)
     if (nbParams < 3)
         params[2] = NULL;
 
-    unsigned char byte = create_byte(params[0], params[1], params[2]);
-    my_printf("Byte value: 0x%h\n", byte);
+    byte = create_byte(params[0], params[1], params[2]);
+    return byte;
 }
