@@ -224,4 +224,12 @@ void cor_file(char *filepath);
  * @param filepath 
  */
 extern void in_another_file(char const *filename, char *filepath);
+
+/**
+ * @brief Create a cor file from a .s file
+ * 
+ * @param str 
+ * @return char* 
+ */
+extern char* create_cor_file(const char* str);
 #endif /* !asm_h_ */
