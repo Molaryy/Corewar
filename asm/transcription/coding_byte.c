@@ -7,7 +7,8 @@
 
 #include "asm.h"
 
-void print_bits(unsigned char byte)
+
+static void print_bits(unsigned char byte)
 {
     unsigned char bit;
     my_printf("Byte bits: ");
@@ -16,12 +17,13 @@ void print_bits(unsigned char byte)
         bit = (byte >> i) & 1;
         my_printf("%d", bit);
         if (i % 2 == 0 && i > 0)
-            printf(" ");
+            my_printf(" ");
     }
     my_printf("\n");
 }
 
-void if_indirect_or_not(const char **params, unsigned char *result_byte, int i)
+static void if_indirect_or_not(const char **params, unsigned char *result_byte
+                                , int i)
 {
     if (INDIRECT_VALUE)
         *result_byte = *result_byte | (0x30 >> (2 * i));
@@ -29,7 +31,7 @@ void if_indirect_or_not(const char **params, unsigned char *result_byte, int i)
         *result_byte = *result_byte | (0x00 >> (2 * i));
 }
 
-unsigned char create_byte(char* param1, char* param2, char* param3)
+static unsigned char create_byte(char* param1, char* param2, char* param3)
 {
     const char* params[3] = {param1, param2, param3};
     unsigned char result_byte = 0;
@@ -53,7 +55,7 @@ unsigned char create_byte(char* param1, char* param2, char* param3)
     return result_byte;
 }
 
-void coding_byte(char **params, size_t nbParams)
+extern void coding_byte(char **params, size_t nbParams)
 {
     if (nbParams < 1)
         params[0] = NULL;
@@ -63,7 +65,5 @@ void coding_byte(char **params, size_t nbParams)
         params[2] = NULL;
 
     unsigned char byte = create_byte(params[0], params[1], params[2]);
-
-    printf("Byte value: 0x%02X\n", byte);
-    print_bits(byte);
+    printf("Byte value: %#x\n", byte);
 }
