@@ -40,10 +40,39 @@ static char **get_body(char **file)
     return cpy;
 }
 
+static bool fill_champ(champ_t *champ, size_t len, char **body)
+{
+    char **pars = NULL;
+    size_t start = 1;
+
+    for (size_t i = 0; i < len; i++) {
+        start = 1;
+        if (!(pars = str_to_array_separator(body[i], "\t ,")))
+            return false;
+        champ[i].label = NULL;
+        if (pars[0][my_strlen(pars[0]) - 1] == ':') {
+            champ[i].label = my_strcpy(pars[0]);
+            champ[i].paramName = my_strcpy(pars[1]);
+            start = 2;
+        } else
+            champ[i].paramName = my_strcpy(pars[0]);
+        champ[i].nbParams = count_tab(pars) - start;
+        champ[i].params = cpy_tab(pars, start);
+        free_array_str(pars);
+    }
+    return true;
+}
+
 extern bool parse_body(file_t *file, char *filepath)
 {
-    char **fileTab = get_file(filepath);
+    size_t len = 0;
 
-    file->body->bodyArray = get_body(fileTab);
+    if (!(file->body->bodyArray = get_body(get_file(filepath))))
+        return false;
+    len = count_tab(file->body->bodyArray);
+    file->nbLinesBody = len;
+    if (!(file->champ = malloc(sizeof(champ_t) * len)))
+        return false;
+    fill_champ(file->champ, file->nbLinesBody, file->body->bodyArray);
     return true;
 }
