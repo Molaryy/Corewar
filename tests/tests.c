@@ -36,3 +36,18 @@ Test(print_bits, should_print_binary_representation, .init = my_redirect_all_std
     cr_assert_stdout_eq_str("Byte bits: 01 11 10 00\n");
 }
 
+Test(in_another_file, basic_test)
+{
+    char filepath[100] = "champion/Jon_Snow.s";
+    in_another_file("Jon_Snow.s", filepath);
+    cr_assert_str_eq(filepath, "Jon_Snow.s", "Error: Expected filepath to be 'Jon_Snow.s'");
+}
+
+Test(in_another_file, no_filename)
+{
+    char filepath[100] = "Jon_Snow.s";
+    in_another_file(NULL, filepath);
+    cr_assert_str_eq(filepath, "Jon_Snow.s", "Error: Expected filepath to be 'Jon_Snow.s'");
+}
+
+
