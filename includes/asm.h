@@ -209,4 +209,11 @@ void coding_byte(char **params, size_t nbParams);
  * @param byte
  */
 void print_bits(unsigned char byte);
+
+/**
+ * @brief handle the cor file
+ * 
+ * @param filepath 
+ */
+void cor_file(char *filepath);
 #endif /* !asm_h_ */
