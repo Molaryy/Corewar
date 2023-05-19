@@ -10,7 +10,6 @@
 static bool check_repetition_label(body_t *body)
 {
     for (; body->labels; body->labels = body->labels->next) {
-            
     }
 }
 
