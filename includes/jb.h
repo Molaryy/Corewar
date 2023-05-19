@@ -210,4 +210,13 @@ extern char *q_strcpy(char *dest, char const *src);
  * @return char* 
  */
 extern char* my_strchr(const char* __first_str, char index);
+
+/**
+ * @brief strcat of quentin
+ * 
+ * @param dest 
+ * @param src 
+ * @return char* 
+ */
+char *q_strcat(char *dest, char const *src);
 #endif /* JB_H_ */
