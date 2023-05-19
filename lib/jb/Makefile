@@ -39,6 +39,7 @@ SRC += $(JB)/$(FEAT)/$(BOOL)/str_contains_char.c
 SRC += $(JB)/$(FEAT)/$(INT)/my_getnbr.c
 SRC += $(JB)/$(FEAT)/$(INT)/my_strlen.c
 SRC += $(JB)/$(FEAT)/$(INT)/count_tab.c
+SRC += $(JB)/$(FEAT)/$(INT)/is_digit.c
 SRC += $(JB)/$(FEAT)/$(STR)/j_strcat.c
 SRC += $(JB)/$(FEAT)/$(STR)/cpy_char_separator.c
 SRC += $(JB)/$(FEAT)/$(STR)/my_strcmp.c
