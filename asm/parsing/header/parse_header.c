@@ -18,9 +18,9 @@ extern int check_header(char **parser, file_t *file, size_t status)
 {
     clean_array(parser);
     if (is_name(parser[0]))
-        file->header->name = my_strdup(parser[1]);
+        q_strcpy(file->header->name, parser[1]);
     if (is_description(parser[0]))
-        file->header->description = my_strdup(parser[1]);
+        q_strcpy(file->header->description, parser[1]);
     if (!check_nb_arg(parser, 2))
         status = FAILURE;
     return status;
@@ -44,7 +44,5 @@ extern int parse_header(file_t *file, char *filepath)
         if (status == FAILURE)
             return status;
     }
-    if (!file->header->name || !file->header->description)
-        status = FAILURE;
     return status;
 }
