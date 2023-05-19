@@ -69,7 +69,7 @@ static bool check_three_args(parser_t *pars, size_t type, size_t j, char *name)
     return false;
 }
 
-bool check_type_arguments(char **line, parser_t *pars, size_t start)
+extern bool check_type_arguments(char **line, parser_t *pars, size_t start)
 {
     size_t type = 0;
     size_t nbParams = 0;
