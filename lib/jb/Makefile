@@ -46,6 +46,9 @@ SRC += $(JB)/$(FEAT)/$(STR)/my_strcmp.c
 SRC += $(JB)/$(FEAT)/$(STR)/my_trim.c
 SRC += $(JB)/$(FEAT)/$(STR)/my_strdup.c
 SRC += $(JB)/$(FEAT)/$(STR)/my_strcpy.c
+SRC += $(JB)/$(FEAT)/$(STR)/q_strcpy.c
+SRC += $(JB)/$(FEAT)/$(STR)/q_strcat.c
+SRC += $(JB)/$(FEAT)/$(STR)/my_strchr.c
 
 
 
@@ -54,6 +57,7 @@ SRC += $(JB)/$(PRINT)/my_put_nbr.c
 SRC += $(JB)/$(PRINT)/my_putchar.c
 SRC += $(JB)/$(PRINT)/my_putstr.c
 SRC += $(JB)/$(PRINT)/print_tab.c
+SRC += $(JB)/$(PRINT)/my_putnbr_base.c
 
 OBJ     =       $(SRC:.c=.o)
 

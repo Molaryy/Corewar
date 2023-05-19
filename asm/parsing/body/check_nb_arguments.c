@@ -29,7 +29,7 @@ static bool instruction_exists(char **tab, parser_t *pars, size_t *start)
     return false;
 }
 
-size_t get_number_params(char *instruction, parser_t *pars)
+extern size_t get_number_params(char *instruction, parser_t *pars)
 {
     if (!instruction)
         return 0;
@@ -64,7 +64,7 @@ static bool count_params(char *line, parser_t *pars)
     return true;
 }
 
-bool check_instruction_number_arguments(body_t *body, parser_t *pars)
+extern bool check_instruction_number_arguments(body_t *body, parser_t *pars)
 {
     if (!body || !pars)
         return false;

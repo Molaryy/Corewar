@@ -31,40 +31,39 @@ Test(test_extension_2, test_extension_nb_1) {
 
 Test(print_bits, should_print_binary_representation, .init = my_redirect_all_std)
 {
-    unsigned char byte = 0x0F;
-    cr_redirect_stdout();  // Redirect stdout to capture the output
+    unsigned char byte = 0x78;
     print_bits(byte);
-    cr_assert_stdout_eq_str("00001111\n");
+    cr_assert_stdout_eq_str("Byte bits: 01 11 10 00\n");
 }
 
-// Test case for if_indirect_or_not function
-/*Test(if_indirect_or_not, should_set_result_byte_correctly)
+Test(in_another_file, basic_test)
 {
-    const char *params[] = {"param1", "param2", "param3"};
-    unsigned char result_byte = 0;
-    int i = 0;
-    if_indirect_or_not(params, &result_byte, i);
-    unsigned char expected_result_byte = 
-    cr_assert_eq(result_byte, expected_result_byte);
+    char filepath[100] = "champion/Jon_Snow.s";
+    in_another_file("Jon_Snow.s", filepath);
+    cr_assert_str_eq(filepath, "Jon_Snow.s", "Error: Expected filepath to be 'Jon_Snow.s'");
 }
 
-// Test case for create_byte function
-Test(create_byte, should_create_correct_byte)
+Test(in_another_file, no_filename)
 {
-    char *param1 = "param1";
-    char *param2 = "param2";
-    char *param3 = "param3";
-    unsigned char result = create_byte(param1, param2, param3);
-    unsigned char expected_result = ;
-    cr_assert_eq(result, expected_result);
+    char filepath[100] = "Jon_Snow.s";
+    in_another_file(NULL, filepath);
+    cr_assert_str_eq(filepath, "Jon_Snow.s", "Error: Expected filepath to be 'Jon_Snow.s'");
 }
-*/
-// Test case for coding_byte function
-Test(coding_byte, should_print_byte_value)
+
+// Test de la fonction create_cor_file
+Test(create_cor_file, basic_test)
 {
-    char *params[] = {"param1", "param2", "param3"};
-    size_t nbParams = sizeof(params) / sizeof(params[0]);
-    cr_redirect_stdout();  // Redirect stdout to capture the output
-    coding_byte(params, nbParams);
-    cr_assert_stdout_eq_str("Byte value: 0x12\n");
+    const char* str = "champion/Jon_Snow.s";
+    char* filepath = create_cor_file(str);
+    cr_assert_str_eq(filepath, "Jon_Snow.cor", "Error: Expected filepath to be 'Jon_Snow.cor'");
+    free(filepath);
 }
+
+Test(create_cor_file, no_folder)
+{
+    const char* str = "Jon_Snow.s";
+    char* filepath = create_cor_file(str);
+    cr_assert_str_eq(filepath, "Jon_Snow.cor", "Error: Expected filepath to be 'Jon_Snow.cor'");
+    free(filepath);
+}
+

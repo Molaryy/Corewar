@@ -24,7 +24,7 @@ static size_t size_of_file(int fd)
     return len;
 }
 
-char **get_file(char *filepath)
+extern char **get_file(char *filepath)
 {
     int fc = open(filepath, O_RDONLY);
     int fd = open(filepath, O_RDONLY);
@@ -85,7 +85,7 @@ static bool start_parser_values(parser_t *pars, size_t len, char **file)
     return true;
 }
 
-parser_t *init_parser_reference(char *filepath)
+extern parser_t *init_parser_reference(char *filepath)
 {
     char **parsTab = get_file(filepath);
     parser_t *parser = NULL;

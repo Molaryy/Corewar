@@ -20,7 +20,7 @@ static size_t parsing_compiler(parser_t *parser, file_t *file, char *filepath)
     return SUCCESS;
 }
 
-size_t compiler(char *filepath)
+extern size_t compiler(char *filepath)
 {
     file_t *file = malloc(sizeof(file_t));
     file->body = malloc(sizeof(body_t));

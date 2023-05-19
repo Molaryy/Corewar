@@ -25,6 +25,8 @@ INIT = ./asm/init
 
 DESTROY = ./asm/destroy
 
+TRANSCRIPTION += ./asm/transcription
+
 SRC_ASM	+= $(BASE_ASM)/main.c
 
 SRC_ASM += $(PARSING)/detect_file_extesion.c
@@ -39,6 +41,7 @@ SRC_ASM += $(PARSING)/$(BODY)/check_type_arguments.c
 SRC_ASM += $(PARSING)/$(BODY)/add_label_to_link.c
 
 SRC_ASM += $(COMPILER)/compiler.c
+SRC_ASM += $(COMPILER)/create_cor.c
 
 SRC_ASM += $(INIT)/init_asm.c
 
@@ -46,12 +49,16 @@ SRC_ASM += $(DESTROY)/free_header.c
 SRC_ASM += $(DESTROY)/free_parser.c
 SRC_ASM += $(DESTROY)/free_body.c
 
+SRC_ASM += $(TRANSCRIPTION)/coding_byte.c
+
 SRC_CORE += $(BASE_CORE)/main.c
 
 LIB += -L./lib/jb -llink
 
 TESTS += $(TEST)/tests.c
 TESTS += $(PARSING)/detect_file_extesion.c
+TESTS += $(TRANSCRIPTION)/coding_byte.c
+TESTS += $(COMPILER)/create_cor.c
 
 OBJ_A =	$(SRC_ASM:.c=.o)
 OBJ_C =	$(SRC_CORE:.c=.o)

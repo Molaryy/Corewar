@@ -209,4 +209,27 @@ void coding_byte(char **params, size_t nbParams);
  * @param byte
  */
 void print_bits(unsigned char byte);
+
+/**
+ * @brief handle the cor file
+ *
+ * @param filepath
+ */
+void cor_file(char *filepath);
+
+/**
+ * @brief check folder for pathname
+ *
+ * @param filename
+ * @param filepath
+ */
+extern void in_another_file(char const *filename, char *filepath);
+
+/**
+ * @brief Create a cor file from a .s file
+ *
+ * @param str
+ * @return char*
+ */
+extern char* create_cor_file(const char* str);
 #endif /* !asm_h_ */

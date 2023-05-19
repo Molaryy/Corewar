@@ -40,7 +40,7 @@ static char **get_body(char **file)
     return cpy;
 }
 
-bool parse_body(file_t *file, char *filepath)
+extern bool parse_body(file_t *file, char *filepath)
 {
     char **fileTab = get_file(filepath);
 
