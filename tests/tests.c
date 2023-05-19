@@ -50,5 +50,12 @@ Test(in_another_file, no_filename)
     cr_assert_str_eq(filepath, "Jon_Snow.s", "Error: Expected filepath to be 'Jon_Snow.s'");
 }
 
-
+// Test de la fonction create_cor_file
+Test(create_cor_file, basic_test)
+{
+    const char* str = "champion/Jon_Snow.s";
+    char* filepath = create_cor_file(str);
+    cr_assert_str_eq(filepath, "Jon_Snow.cor", "Error: Expected filepath to be 'Jon_Snow.cor'");
+    free(filepath);
+}
 
