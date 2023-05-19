@@ -41,6 +41,7 @@ SRC_ASM += $(PARSING)/$(BODY)/check_type_arguments.c
 SRC_ASM += $(PARSING)/$(BODY)/add_label_to_link.c
 
 SRC_ASM += $(COMPILER)/compiler.c
+SRC_ASM += $(COMPILER)/create_cor.c
 
 SRC_ASM += $(INIT)/init_asm.c
 
