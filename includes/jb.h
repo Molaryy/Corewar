@@ -192,4 +192,13 @@ bool is_digit(char c);
  * @param base 
  */
 void my_putnbr_base(int nb, char const *base);
+
+/**
+ * @brief copy of a char
+ * 
+ * @param dest 
+ * @param src 
+ * @return char* 
+ */
+extern char *q_strcpy(char *dest, char const *src);
 #endif /* JB_H_ */

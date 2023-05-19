@@ -47,6 +47,7 @@ SRC += $(JB)/$(FEAT)/$(STR)/my_trim.c
 SRC += $(JB)/$(FEAT)/$(STR)/my_strdup.c
 SRC += $(JB)/$(FEAT)/$(STR)/my_strcpy.c
 SRC += $(JB)/$(FEAT)/$(STR)/q_strcpy.c
+SRC += $(JB)/$(FEAT)/$(STR)/my_strchr.c
 
 
 
