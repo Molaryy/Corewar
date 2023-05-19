@@ -7,7 +7,7 @@
 
 #include "jb.h"
 
-int my_strlen(char const *str)
+extern int my_strlen(char const *str)
 {
     size_t i = 0;
 
