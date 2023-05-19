@@ -54,6 +54,7 @@ SRC += $(JB)/$(PRINT)/my_put_nbr.c
 SRC += $(JB)/$(PRINT)/my_putchar.c
 SRC += $(JB)/$(PRINT)/my_putstr.c
 SRC += $(JB)/$(PRINT)/print_tab.c
+SRC += $(JB)/$(PRINT)/my_putnbr_base.c
 
 OBJ     =       $(SRC:.c=.o)
 
