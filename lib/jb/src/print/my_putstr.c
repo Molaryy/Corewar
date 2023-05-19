@@ -7,12 +7,14 @@
 
 #include <jb.h>
 
-void my_putstr(char const *str)
+extern void my_putstr(char const *str)
 {
     size_t i = 0;
 
-    if (str == NULL)
+    if (str == NULL) {
+        my_printf("(NULL)");
         return;
+    }
     for (; str[i] ; i++)
         write(1, &str[i], 1);
 }
