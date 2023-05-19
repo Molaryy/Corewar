@@ -17,7 +17,7 @@ static int get_instruction_code(const char *instruction, op_t *op_tab)
     return FAILURE;
 }
 
-extern void instruction_code(char *instruction)
+extern unsigned char instruction_code(char *instruction)
 {
     int code = get_instruction_code(instruction, op_tab);
     unsigned char instruction_byte;
@@ -28,7 +28,7 @@ extern void instruction_code(char *instruction)
     } else {
         instruction_byte = (unsigned char) code;
     }
-    printf("Byte -> 0x%02x\n", instruction_byte);
+    return instruction_byte;
 }
 
 extern void print_op_tab(const op_t *op_tab)
