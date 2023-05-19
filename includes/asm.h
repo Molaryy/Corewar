@@ -212,8 +212,8 @@ void print_bits(unsigned char byte);
 
 /**
  * @brief handle the cor file
- * 
- * @param filepath 
+ *
+ * @param filepath
  */
 void cor_file(char *filepath);
 #endif /* !asm_h_ */
