@@ -65,5 +65,5 @@ extern void coding_byte(char **params, size_t nbParams)
         params[2] = NULL;
 
     unsigned char byte = create_byte(params[0], params[1], params[2]);
-    printf("Byte value: %#x\n", byte);
+    my_printf("Byte value: 0x%h\n", byte);
 }
