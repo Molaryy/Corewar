@@ -11,7 +11,7 @@
 static void flags(char c, int *i, va_list list, int n)
 {
     if (c == 'c' || c == 's' || c == 'i' || c == 'd' || c == '%' || c == 'f'
-    || c == 't')
+    || c == 't' || c == 'h')
         *i += 1;
 
     switch (c) {
@@ -20,6 +20,7 @@ static void flags(char c, int *i, va_list list, int n)
         case 'i': n += my_put_nbr(va_arg(list, int)); break;
         case 'd': n += my_put_nbr(va_arg(list, int)); break;
         case 't': print_tab(va_arg(list, char **)); break;
+        case 'h': my_putnbr_base(va_arg(list, int), "0123456789abcdef"); break;
         case '%': n += my_putchar('%'); break;
     }
 }
