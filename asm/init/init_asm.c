@@ -30,6 +30,7 @@ static bool init_file(file_t *file)
         return false;
     file->origin_file = NULL;
     file->parsing_file = NULL;
+    file->body->labels = NULL;
     return true;
 }
 

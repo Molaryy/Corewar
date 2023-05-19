@@ -9,6 +9,7 @@
     #define asm_h_
     #include <stdio.h>
     #include "jb.h"
+    #include "link.h"
     #include "parser.h"
     #include <sys/stat.h>
     #include <sys/types.h>
@@ -29,6 +30,12 @@
     #define NAME_CMD_STRING         ".name"
     #define COMMENT_CMD_STRING      ".comment"
 
+    #define FIRST_CHAR              file->origin_file[i][0]
+
+    #define REGISTER 'r'
+    #define DIRECT_VALUE '%'
+    #define INDIRECT_VALUE is_digit(params[i][0])
+
     typedef struct header_s {
 
         char *name;
@@ -39,6 +46,7 @@
     typedef struct body_s {
 
         char **bodyArray;
+        link_t *labels;
 
     } body_t;
 
@@ -177,4 +185,28 @@ bool check_type_arguments(char **line, parser_t *pars, size_t start);
  * @return size_t
  */
 size_t get_number_params(char *instruction, parser_t *pars);
+
+/**
+ * @brief add labels name to link
+ *
+ * @param body
+ * @return true
+ * @return false
+ */
+bool add_labels_to_link(body_t *body);
+
+/**
+ * @brief function to code in byte the parameter
+ *
+ * @param params
+ * @param nbParams
+ */
+void coding_byte(char **params, size_t nbParams);
+
+/**
+ * @brief function to print byte
+ *
+ * @param byte
+ */
+void print_bits(unsigned char byte);
 #endif /* !asm_h_ */
