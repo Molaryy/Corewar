@@ -57,6 +57,7 @@ LIB += -L./lib/jb -llink
 
 TESTS += $(TEST)/tests.c
 TESTS += $(PARSING)/detect_file_extesion.c
+TESTS += $(TRANSCRIPTION)/coding_byte.c
 
 OBJ_A =	$(SRC_ASM:.c=.o)
 OBJ_C =	$(SRC_CORE:.c=.o)
