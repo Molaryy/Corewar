@@ -36,11 +36,19 @@
     #define DIRECT_VALUE '%'
     #define INDIRECT_VALUE is_digit(params[i][0])
 
+    #define MAX_BYTES 4
+
     typedef char    args_type_t;
     #define T_REG           1
     #define T_DIR           2
     #define T_IND           4
     #define T_LAB           8
+
+    typedef struct octet_s{
+
+        unsigned char bytes[MAX_BYTES];
+
+    } octet_t;
 
     typedef struct op_s {
         char *mnemonique;
@@ -88,6 +96,7 @@
         header_t *header;
         body_t *body;
         champ_t *champ;
+        octet_t octet_bytes;
         size_t nbLinesBody;
 
     } file_t;
@@ -236,7 +245,7 @@ bool add_labels_to_link(body_t *body);
  * @param params
  * @param nbParams
  */
-void coding_byte(char **params, size_t nbParams);
+unsigned char coding_byte(char **params, size_t nbParams);
 
 /**
  * @brief function to print byte
@@ -250,7 +259,7 @@ void print_bits(unsigned char byte);
  *
  * @param filepath
  */
-void cor_file(char *filepath);
+void cor_file(char *filepath, file_t *file);
 
 /**
  * @brief check folder for pathname
@@ -273,7 +282,7 @@ extern char* create_cor_file(const char* str);
  *
  * @param instruction
  */
-extern void instruction_code(char *instruction);
+extern unsigned char instruction_code(char *instruction);
 
 /**
  * @brief print the op table
@@ -281,4 +290,12 @@ extern void instruction_code(char *instruction);
  * @param op_tab
  */
 extern void print_op_tab(const op_t *op_tab);
+
+/**
+ * @brief get the byte into a structure and write into the .cor file
+ *
+ * @param filename
+ * @param file
+ */
+extern void get_byte_and_write(char *filename, file_t *file);
 #endif /* !asm_h_ */
