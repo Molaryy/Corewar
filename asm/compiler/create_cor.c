@@ -7,7 +7,7 @@
 
 #include "asm.h"
 
-static void in_another_file(char const *filename, char *filepath)
+extern void in_another_file(char const *filename, char *filepath)
 {
     char *slash = NULL;
     if (filename != NULL) {
@@ -18,7 +18,7 @@ static void in_another_file(char const *filename, char *filepath)
     }
 }
 
-static char* create_cor_file(const char* str)
+extern char* create_cor_file(const char* str)
 {
     const char* filename = my_strchr(str, '/');
     const char* extension = ".cor";
