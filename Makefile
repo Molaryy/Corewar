@@ -25,6 +25,8 @@ INIT = ./asm/init
 
 DESTROY = ./asm/destroy
 
+TRANSCRIPTION += ./asm/transcription
+
 SRC_ASM	+= $(BASE_ASM)/main.c
 
 SRC_ASM += $(PARSING)/detect_file_extesion.c
@@ -45,6 +47,8 @@ SRC_ASM += $(INIT)/init_asm.c
 SRC_ASM += $(DESTROY)/free_header.c
 SRC_ASM += $(DESTROY)/free_parser.c
 SRC_ASM += $(DESTROY)/free_body.c
+
+SRC_ASM += $(TRANSCRIPTION)/coding_byte.c
 
 SRC_CORE += $(BASE_CORE)/main.c
 
