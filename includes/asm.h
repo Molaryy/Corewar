@@ -216,4 +216,12 @@ void print_bits(unsigned char byte);
  * @param filepath
  */
 void cor_file(char *filepath);
+
+/**
+ * @brief check folder for pathname
+ * 
+ * @param filename 
+ * @param filepath 
+ */
+extern void in_another_file(char const *filename, char *filepath);
 #endif /* !asm_h_ */
