@@ -28,7 +28,7 @@ extern size_t compiler(char *filepath)
     parser_t *parser = NULL;
     char *params[] = {"r1", "%:crow", "%1"};
 
-    if (!init_compiler(file))
+    if (!init_compiler(file, parser))
         return FAILURE;
     if (!detect_file_extension(filepath))
         return FAILURE;
