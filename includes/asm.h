@@ -127,7 +127,7 @@ size_t compiler(char *filepath);
  * @return true
  * @return false
  */
-bool init_compiler(file_t *file);
+bool init_compiler(file_t *file, parser_t *pars);
 
 /**
  * @brief take the filepath and transform into char**
@@ -144,6 +144,7 @@ char **get_file(char *filepath);
  * @param parser
  */
 void free_header(file_t *file, parser_t *parser);
+
 
 /**
  * @brief fonction to check if line is equal to a commentary
