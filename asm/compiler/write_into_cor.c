@@ -2,37 +2,37 @@
 ** EPITECH PROJECT, 2023
 ** corewar
 ** File description:
-** write_into_cor
+** write into a file
 */
 
 #include "asm.h"
 
-static void write_bytes_to_file(const unsigned char *bytes, size_t size,
-                const char *filename)
+static void write_bytes_to_fd(file_t *file, size_t size)
 {
-    int file = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-
-    if (file == -1) {
-        my_printf("Error when opening the file.\n");
-        return;
-    }
-    ssize_t written = write(file, bytes, size);
-    if (written == -1) {
-        my_printf("Error when writing to the file.\n");
-    } else if (written != size) {
-        my_printf("Error: number of bytes written different from the size.\n");
-    } else {
-        my_printf("The bytes have been written to the file successfully\n.");
-    }
-    close(file);
+    if (file->fd == -1)
+        exit(FAILURE);
+    write(file->fd, file->ins_bytes->byte, size);
 }
 
 extern void get_byte_and_write(char *filename, file_t *file)
 {
-    char *params[] = {"r1", "%:crow", "%1"};
+    write_header(file, filename);
+    file->ins_bytes = malloc(sizeof(instruc_byte_t));
 
-    file->octet_bytes.bytes[0] = instruction_code("sti");
-    file->octet_bytes.bytes[1] = coding_byte(params, 3);
-
-    write_bytes_to_file(file->octet_bytes.bytes, MAX_BYTES, filename);
+    for (size_t i = 0; i != file->nbLinesBody; i++) {
+        if (file->champ[i].nbParams > 1)
+            file->ins_bytes->byte = malloc(sizeof(unsigned char) * 2);
+        else
+            file->ins_bytes->byte = malloc(sizeof(unsigned char));
+        file->ins_bytes->byte[0] = instruction_code(file->champ[i].paramName);
+        if (file->champ[i].nbParams > 1)
+            file->ins_bytes->byte[1] = coding_byte(file->champ[i].params,
+                                    file->champ[i].nbParams);
+        if (file->champ[i].nbParams > 1)
+            write_bytes_to_fd(file, 2);
+        else
+            write_bytes_to_fd(file, 1);
+        parameters_in_byte(file, file->champ[i].paramName,
+                file->champ[i].params, file->champ[i].nbParams);
+    }
 }
