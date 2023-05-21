@@ -11,6 +11,7 @@
 extern void in_another_file(char const *filename, char *filepath)
 {
     char *slash = NULL;
+
     if (filename != NULL) {
         slash = my_strchr(filepath, '/');
         if (slash != NULL) {
@@ -43,8 +44,9 @@ extern char* create_cor_file(const char* str)
     return filepath;
 }
 
-extern void cor_file(char *filepath)
+extern void cor_file(char *filepath, file_t *file)
 {
     char *filename = create_cor_file(filepath);
-    my_printf("%s\n", filename);
+
+    get_byte_and_write(filename, file);
 }

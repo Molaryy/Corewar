@@ -36,10 +36,41 @@
     #define DIRECT_VALUE '%'
     #define INDIRECT_VALUE is_digit(params[i][0])
 
+    #define MAX_BYTES 4
+
+    typedef char    args_type_t;
+    #define T_REG           1
+    #define T_DIR           2
+    #define T_IND           4
+    #define T_LAB           8
+
+    typedef struct octet_s{
+
+        unsigned char bytes[MAX_BYTES];
+
+    } octet_t;
+
+    typedef struct op_s {
+        char *mnemonique;
+        char nbr_args;
+        char type[MAX_ARGS_NUMBER];
+        char code;
+        int nbr_cycles;
+        char *comment;
+    } op_t;
+
+    extern  op_t    op_tab[];
+
+    #define COREWAR_EXEC_MAGIC      0xea83f3
+    #define PROG_NAME_LENGTH        128
+    #define COMMENT_LENGTH          2048
+
     typedef struct header_s {
 
-        char *name;
-        char *description;
+        int magic;
+        char name[PROG_NAME_LENGTH + 1];
+        char description[COMMENT_LENGTH + 1];
+        int  prog_size;
 
     } header_t;
 
@@ -65,6 +96,7 @@
         header_t *header;
         body_t *body;
         champ_t *champ;
+        octet_t octet_bytes;
         size_t nbLinesBody;
 
     } file_t;
@@ -95,7 +127,7 @@ size_t compiler(char *filepath);
  * @return true
  * @return false
  */
-bool init_compiler(file_t *file);
+bool init_compiler(file_t *file, parser_t *pars);
 
 /**
  * @brief take the filepath and transform into char**
@@ -112,6 +144,7 @@ char **get_file(char *filepath);
  * @param parser
  */
 void free_header(file_t *file, parser_t *parser);
+
 
 /**
  * @brief fonction to check if line is equal to a commentary
@@ -213,7 +246,7 @@ bool add_labels_to_link(body_t *body);
  * @param params
  * @param nbParams
  */
-void coding_byte(char **params, size_t nbParams);
+unsigned char coding_byte(char **params, size_t nbParams);
 
 /**
  * @brief function to print byte
@@ -227,7 +260,7 @@ void print_bits(unsigned char byte);
  *
  * @param filepath
  */
-void cor_file(char *filepath);
+void cor_file(char *filepath, file_t *file);
 
 /**
  * @brief check folder for pathname
@@ -244,4 +277,26 @@ extern void in_another_file(char const *filename, char *filepath);
  * @return char*
  */
 extern char* create_cor_file(const char* str);
+
+/**
+ * @brief get the instruction byte value
+ *
+ * @param instruction
+ */
+extern unsigned char instruction_code(char *instruction);
+
+/**
+ * @brief print the op table
+ *
+ * @param op_tab
+ */
+extern void print_op_tab(const op_t *op_tab);
+
+/**
+ * @brief get the byte into a structure and write into the .cor file
+ *
+ * @param filename
+ * @param file
+ */
+extern void get_byte_and_write(char *filename, file_t *file);
 #endif /* !asm_h_ */

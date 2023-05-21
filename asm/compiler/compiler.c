@@ -26,8 +26,9 @@ extern size_t compiler(char *filepath)
     file->body = malloc(sizeof(body_t));
     file->header = malloc(sizeof(header_t));
     parser_t *parser = NULL;
+    char *params[] = {"r1", "%:crow", "%1"};
 
-    if (!init_compiler(file))
+    if (!init_compiler(file, parser))
         return FAILURE;
     if (!detect_file_extension(filepath))
         return FAILURE;
@@ -38,5 +39,6 @@ extern size_t compiler(char *filepath)
     if (parsing_compiler(parser, file, filepath) == FAILURE)
         return FAILURE;
     free_header(file, parser);
+    cor_file(filepath, file);
     return SUCCESS;
 }

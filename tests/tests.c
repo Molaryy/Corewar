@@ -67,3 +67,13 @@ Test(create_cor_file, no_folder)
     free(filepath);
 }
 
+Test(cor_file, test_create_cor_file)
+{
+    char filepath1[] = "Jon_snow.s";
+    char filepath2[] = "champion/Jon_snow.s";
+    char filepath3[] = "champion/champion/Jon_snow.s";
+
+    cor_file(filepath1);
+    cor_file(filepath2);
+    cor_file(filepath3);
+}
