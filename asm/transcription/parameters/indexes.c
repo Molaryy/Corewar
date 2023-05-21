@@ -7,7 +7,7 @@
 
 #include "asm.h"
 
-unsigned int get_value(const char* param, int opt)
+extern unsigned int get_value(const char* param, int opt)
 {
     unsigned int value = 0;
 
