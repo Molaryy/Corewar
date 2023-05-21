@@ -18,7 +18,7 @@ unsigned char* get_register_bytes(unsigned int value, parambyte_t *paramByte)
     return bytes;
 }
 
-unsigned char* get_direct_bytes(unsigned int value, parambyte_t *paramByte)
+extern unsigned char* get_direct_bytes(unsigned int value, parambyte_t *paramByte)
 {
     unsigned char* bytes = NULL;
 
