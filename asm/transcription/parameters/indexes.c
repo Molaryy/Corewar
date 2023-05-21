@@ -40,7 +40,7 @@ unsigned int find_index(char *instruction)
     return 84;
 }
 
-void value_sup_2(parambyte_t *paramBytes[], char **param, file_t *file,
+extern void value_sup_2(parambyte_t *paramBytes[], char **param, file_t *file,
                     unsigned int value)
 {
     if (value == 2) {
