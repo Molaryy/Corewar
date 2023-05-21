@@ -7,7 +7,7 @@
 
 #include "asm.h"
 
-parambyte_t *create_param_byte(const char* param)
+extern parambyte_t *create_param_byte(const char* param)
 {
     parambyte_t *paramByte = malloc(sizeof(parambyte_t));
     unsigned int value = 0;
@@ -27,7 +27,7 @@ parambyte_t *create_param_byte(const char* param)
     return paramByte;
 }
 
-parambyte_t *create_zjmp_bytes(const char *param)
+extern parambyte_t *create_zjmp_bytes(const char *param)
 {
     parambyte_t *paramByte = malloc(sizeof(parambyte_t));
     unsigned int value = 0;
@@ -42,7 +42,7 @@ parambyte_t *create_zjmp_bytes(const char *param)
     return paramByte;
 }
 
-parambyte_t *create_ldi_bytes(const char *param, int i)
+extern parambyte_t *create_ldi_bytes(const char *param, int i)
 {
     parambyte_t *paramByte = malloc(sizeof(parambyte_t));
     unsigned int value = 0;
@@ -66,7 +66,7 @@ parambyte_t *create_ldi_bytes(const char *param, int i)
     return paramByte;
 }
 
-parambyte_t *create_sti_bytes(const char *param, int i)
+extern parambyte_t *create_sti_bytes(const char *param, int i)
 {
     parambyte_t *paramByte = malloc(sizeof(parambyte_t));
     unsigned int value = 0;
@@ -90,7 +90,7 @@ parambyte_t *create_sti_bytes(const char *param, int i)
     return paramByte;
 }
 
-parambyte_t *create_fork_bytes(const char *param)
+extern parambyte_t *create_fork_bytes(const char *param)
 {
     parambyte_t *paramByte = malloc(sizeof(parambyte_t));
     unsigned int value = 0;
