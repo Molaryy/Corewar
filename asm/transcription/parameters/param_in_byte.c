@@ -21,7 +21,7 @@ void print_byte(parambyte_t **paramBytes, int i)
     my_printf("\n");
 }
 
-void parameters_in_byte(file_t *file, char *instruction, char **params,
+extern void parameters_in_byte(file_t *file, char *instruction, char **params,
                         size_t nbParams)
 {
     parambyte_t *paramBytes[file->champ->nbParams];
