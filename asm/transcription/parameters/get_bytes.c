@@ -7,7 +7,8 @@
 
 #include "asm.h"
 
-extern unsigned char* get_register_bytes(unsigned int value, parambyte_t *paramByte)
+extern unsigned char* get_register_bytes(unsigned int value,
+        parambyte_t *paramByte)
 {
     unsigned char* bytes = malloc(sizeof(unsigned char));
 
@@ -18,7 +19,8 @@ extern unsigned char* get_register_bytes(unsigned int value, parambyte_t *paramB
     return bytes;
 }
 
-extern unsigned char* get_direct_bytes(unsigned int value, parambyte_t *paramByte)
+extern unsigned char* get_direct_bytes(unsigned int value,
+        parambyte_t *paramByte)
 {
     unsigned char* bytes = NULL;
 
@@ -35,7 +37,8 @@ extern unsigned char* get_direct_bytes(unsigned int value, parambyte_t *paramByt
     return bytes;
 }
 
-extern unsigned char* get_indirect_bytes(unsigned int value, parambyte_t *paramByte)
+extern unsigned char* get_indirect_bytes(unsigned int value,
+            parambyte_t *paramByte)
 {
     unsigned char* bytes = NULL;
 
