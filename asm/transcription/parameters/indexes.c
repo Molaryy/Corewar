@@ -61,7 +61,7 @@ void value_sup_2(parambyte_t *paramBytes[], char **param, file_t *file,
     }
 }
 
-int get_instruction_index(unsigned int flags, parambyte_t *paramBytes[],
+extern int get_instruction_index(unsigned int flags, parambyte_t *paramBytes[],
                             char **param, file_t *file)
 {
     unsigned int value = flags & 0xFF;
