@@ -22,7 +22,7 @@ unsigned int get_value(const char* param, int opt)
     return value;
 }
 
-unsigned int find_index(char *instruction)
+extern unsigned int find_index(char *instruction)
 {
     char *instruction_index[] = {
         "zjmp",
