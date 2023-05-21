@@ -44,11 +44,13 @@
     #define T_IND           4
     #define T_LAB           8
 
-    typedef struct octet_s{
-
-        unsigned char bytes[MAX_BYTES];
-
-    } octet_t;
+    /*
+    ** size (in bytes)
+    */
+    #define IND_SIZE        2
+    #define DIR_SIZE        4
+    #define REG_SIZE        DIR_SIZE
+    #define LAB_SIZE        8
 
     typedef struct op_s {
         char *mnemonique;
@@ -80,6 +82,7 @@
         link_t *labels;
 
     } body_t;
+
     typedef struct champ_s {
 
         char *paramName;
@@ -89,6 +92,19 @@
 
     } champ_t;
 
+    typedef struct instruc_byte_s {
+
+        unsigned char* byte;
+
+    } instruc_byte_t;
+
+    typedef struct ParamByte_s {
+
+        unsigned char* bytes;
+        size_t size;
+
+    } parambyte_t;
+
     typedef struct file_s {
 
         char **origin_file;
@@ -96,8 +112,10 @@
         header_t *header;
         body_t *body;
         champ_t *champ;
-        octet_t octet_bytes;
         size_t nbLinesBody;
+        instruc_byte_t *ins_bytes;
+        char combinedDataHeader[PROG_NAME_LENGTH + COMMENT_LENGTH];
+        int fd;
 
     } file_t;
 
@@ -298,4 +316,127 @@ extern void print_op_tab(const op_t *op_tab);
  * @param file
  */
 extern void get_byte_and_write(char *filename, file_t *file);
+
+/**
+ * @brief write the header
+ * @param filename;
+ * @param file
+ */
+extern void write_header(file_t *file, char *filename);
+
+/**
+ * @brief Get the register bytes object
+ *
+ * @param value
+ * @param paramByte
+ * @return unsigned*
+ */
+unsigned char* get_register_bytes(unsigned int value, parambyte_t *paramByte);
+
+/**
+ * @brief Get the direct bytes object
+ *
+ * @param value
+ * @param paramByte
+ * @return unsigned*
+ */
+unsigned char* get_direct_bytes(unsigned int value, parambyte_t *paramByte);
+
+/**
+ * @brief Get the indirect bytes object
+ *
+ * @param value
+ * @param paramByte
+ * @return unsigned*
+ */
+unsigned char* get_indirect_bytes(unsigned int value, parambyte_t *paramByte);
+
+/**
+ * @brief Get the value object
+ *
+ * @param param
+ * @param opt
+ * @return unsigned int
+ */
+unsigned int get_value(const char* param, int opt);
+
+/**
+ * @brief Create a param byte object
+ *
+ * @param param
+ * @return parambyte_t*
+ */
+parambyte_t *create_param_byte(const char* param);
+
+/**
+ * @brief Create a zjmp bytes object
+ *
+ * @param param
+ * @return parambyte_t*
+ */
+parambyte_t *create_zjmp_bytes(const char* param);
+
+/**
+ * @brief Create a ldi bytes object
+ *
+ * @param param
+ * @param i
+ * @return parambyte_t*
+ */
+parambyte_t *create_ldi_bytes(const char *param, int i);
+
+/**
+ * @brief Create a sti bytes object
+ *
+ * @param param
+ * @param i
+ * @return parambyte_t*
+ */
+parambyte_t *create_sti_bytes(const char *param, int i);
+
+/**
+ * @brief Create a fork bytes object
+ *
+ * @param param
+ * @return parambyte_t*
+ */
+parambyte_t *create_fork_bytes(const char *param);
+
+/**
+ * @brief function to get the byte of parameter
+ *
+ * @param instruction
+ * @param params
+ */
+void parameters_in_byte(file_t *file, char *instruction, char **params,
+                        size_t nbParams);
+
+
+/**
+ * @brief Get the instruction index object
+ *
+ * @param flags
+ * @param paramBytes
+ * @param param
+ * @param file
+ * @return int
+ */
+int get_instruction_index(unsigned int flags, parambyte_t *paramBytes[],
+                            char **param, file_t *file);
+
+/**
+ * @brief find param that have index
+ *
+ * @param instruction
+ * @return unsigned int
+ */
+unsigned int find_index(char *instruction);
+
+/**
+ * @brief print byte to file
+ *
+ * @param paramByte
+ * @param fd
+ */
+void print_bytes_to_file(const parambyte_t* paramByte, int fd);
 #endif /* !asm_h_ */
