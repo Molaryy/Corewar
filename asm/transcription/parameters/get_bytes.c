@@ -23,10 +23,8 @@ extern unsigned char* get_direct_bytes(unsigned int value, parambyte_t *paramByt
     unsigned char* bytes = NULL;
 
     bytes = malloc(sizeof(unsigned int));
-    if (bytes == NULL) {
-        printf("Erreur d'allocation mémoire.\n");
+    if (bytes == NULL)
         exit(EXIT_FAILURE);
-    }
     for (int i = sizeof(unsigned int) - 1; i >= 0; i--) {
         bytes[i] = (unsigned char)value;
         value >>= 8;
@@ -40,10 +38,8 @@ extern unsigned char* get_indirect_bytes(unsigned int value, parambyte_t *paramB
     unsigned char* bytes = NULL;
 
     bytes = malloc(sizeof(unsigned short));
-    if (bytes == NULL) {
-        printf("Erreur d'allocation mémoire.\n");
+    if (bytes == NULL)
         exit(EXIT_FAILURE);
-    }
     for (int i = sizeof(unsigned short) - 1; i >= 0; i--) {
         bytes[i] = (unsigned char)value;
         value >>= 8;
