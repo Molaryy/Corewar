@@ -7,7 +7,7 @@
 
 #include "asm.h"
 
-unsigned char* get_register_bytes(unsigned int value, parambyte_t *paramByte)
+extern unsigned char* get_register_bytes(unsigned int value, parambyte_t *paramByte)
 {
     unsigned char* bytes = malloc(sizeof(unsigned char));
 
