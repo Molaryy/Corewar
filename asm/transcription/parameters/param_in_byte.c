@@ -7,7 +7,7 @@
 
 #include "asm.h"
 
-void print_bytes_to_file(const parambyte_t* paramByte, int fd)
+extern void print_bytes_to_file(const parambyte_t* paramByte, int fd)
 {
     if (fd == -1)
         exit(EXIT_FAILURE);
