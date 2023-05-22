@@ -440,4 +440,22 @@ unsigned int find_index(char *instruction);
  * @param fd
  */
 void print_bytes_to_file(const parambyte_t* paramByte, int fd);
+
+
+/**
+ * @brief debug for the champion structure
+ *
+ * @param champ
+ */
+void print_champion(champ_t *champ, size_t len);
+
+/**
+ * @brief Get the type object
+ *
+ * @param c
+ * @param name
+ * @param pos
+ * @return size_t
+ */
+size_t get_type(char c, char *name, size_t pos);
 #endif /* !asm_h_ */

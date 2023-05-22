@@ -9,17 +9,23 @@
 
 extern int my_put_nbr(int nb)
 {
-    char c = '0';
-    int number = 1;
+    long max = 2147483647;
+    long min = -2147483647;
 
-    if (nb == 0) {
-        write(1, "0", 1);
-        return 1;
+    if (nb >= max)
+        my_putstr("2147483647");
+    if (nb <= min)
+        my_putstr("-2147483647");
+    if (nb < 0) {
+        my_putchar('-');
+        my_put_nbr(nb * -1);
+        return 0;
     }
-    for (; (nb / number) >= 10; number *= 10);
-    for (; number > 0; number = number / 10) {
-        c = (nb / number) % 10 + '0';
-        write (1, &c, 1);
+    if (nb >= 10) {
+        my_put_nbr(nb / 10);
+        my_putchar(nb % 10 + '0');
+    } else if (nb < 10) {
+        my_putchar(nb + '0');
     }
     return 0;
 }

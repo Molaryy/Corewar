@@ -13,9 +13,6 @@ static bool instruction_exists(char **tab, parser_t *pars, size_t *start)
 {
     char *instruction = NULL;
 
-    print_linked_tab(tab);
-    my_printf("\n");
-
     if (tab[0][my_strlen(tab[0]) - 1] == ':'){
         instruction = tab[1];
         *start = 1;

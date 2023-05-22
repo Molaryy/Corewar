@@ -38,6 +38,7 @@ SRC += $(JB)/$(FEAT)/$(ARRAY)/cpy_tab.c
 
 SRC += $(JB)/$(FEAT)/$(BOOL)/is_alphanumeric.c
 SRC += $(JB)/$(FEAT)/$(BOOL)/str_contains_char.c
+SRC += $(JB)/$(FEAT)/$(BOOL)/is_separator.c
 
 SRC += $(JB)/$(FEAT)/$(INT)/my_getnbr.c
 SRC += $(JB)/$(FEAT)/$(INT)/my_strlen.c
@@ -53,7 +54,9 @@ SRC += $(JB)/$(FEAT)/$(STR)/my_strcpy.c
 SRC += $(JB)/$(FEAT)/$(STR)/q_strcpy.c
 SRC += $(JB)/$(FEAT)/$(STR)/q_strcat.c
 SRC += $(JB)/$(FEAT)/$(STR)/my_strchr.c
-
+SRC += $(JB)/$(FEAT)/$(STR)/clean_str.c
+SRC += $(JB)/$(FEAT)/$(STR)/remove_beg_str.c
+SRC += $(JB)/$(FEAT)/$(STR)/str_limit.c
 
 
 SRC += $(JB)/$(PRINT)/my_printf.c

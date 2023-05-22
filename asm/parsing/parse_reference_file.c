@@ -91,6 +91,7 @@ extern parser_t *init_parser_reference(char *filepath)
     parser_t *parser = NULL;
     size_t len = count_tab(parsTab);
 
+
     if (!parsTab || len != NB_INSTRIUCTIONS)
         return NULL;
     parser = malloc(sizeof(parser_t) *(len));

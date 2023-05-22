@@ -9,36 +9,11 @@
 #include "asm.h"
 #include "parser.h"
 
-static size_t get_type(char c, char *name, size_t pos)
-{
-    size_t valueToReturn = 0;
-    char *instructions[] = {"live", "fork", "zjump", "lfork", NULL};
-
-    switch (c) {
-        case 'r': valueToReturn = 0; break;
-        case '%': valueToReturn = 2; break;
-        case '-': valueToReturn = 2; break;
-        default: valueToReturn = 2; break;
-    }
-    for (size_t i = 0; instructions[i]; i++) {
-        if (my_strcmp(name, instructions[i]))
-            valueToReturn = 1;
-    }
-    if (my_strcmp(name, "ld") && valueToReturn != 0)
-        valueToReturn = 1;
-    if (my_strcmp(name, "lld") && valueToReturn != 0)
-        valueToReturn = 1;
-    if (my_strcmp(name, "sti") && (pos == 2 || pos == 3) && valueToReturn == 0)
-        valueToReturn = 2;
-    return valueToReturn;
-}
-
 static bool check_one_arg(parser_t *pars, size_t type, char *name)
 {
     for (size_t i = 0; i < NB_INSTRIUCTIONS; i++){
         if (!my_strcmp(pars[i].name, name))
             continue;
-        my_printf("type == %d && P1 == %d\n", type, pars[i].p1);
         if (pars[i].p1 == type)
             return true;
     }
@@ -63,10 +38,12 @@ static bool check_three_args(parser_t *pars, size_t type, size_t j, char *name)
     for (size_t i = 0; i < NB_INSTRIUCTIONS; i++){
         if (!my_strcmp(pars[i].name, name))
             continue;
-        if (pars[i].p1 == type && j == 0)
+        if (pars[i].p1 == type && j == 0) {
             return true;
-        if (pars[i].p2 == type && j == 1)
+        }
+        if (pars[i].p2 == type && j == 1){
             return true;
+        }
         if (pars[i].p3 == type && j == 2)
             return true;
     }
