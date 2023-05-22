@@ -7,15 +7,6 @@
 
 #include "jb.h"
 
-static bool is_separator(char c, char *separator)
-{
-    for (size_t i = 0; separator[i]; i++) {
-        if (separator[i] == c)
-            return false;
-    }
-    return true;
-}
-
 static size_t my_cols_counter(char const *str, size_t i, char *separator)
 {
     size_t word = 0;
