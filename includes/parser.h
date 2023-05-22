@@ -7,7 +7,7 @@
 
 #ifndef PARSER_H_
     #define PARSER_H_
-    #define NB_INSTRIUCTIONS 14
+    #define NB_INSTRIUCTIONS 16
 
     typedef struct file_s file_t;
 
