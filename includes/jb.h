@@ -234,4 +234,49 @@ char **cpy_tab(char **tab, size_t start);
  * @param tab
  */
 void print_linked_tab(char **tab);
+
+/**
+ * @brief clean a str
+ *
+ * @param str
+ * @param separators
+ * @return char*
+ */
+char *clean_str(char const *str, char const *separators);
+
+/**
+ * @brief remove str beginnig
+ *
+ * @param str
+ * @param separators
+ * @return char*
+ */
+char *remove_str_beg_separator(char *str, char const *separators);
+
+/**
+ * @brief detects if a char is a separator
+ *
+ * @param c
+ * @param separator
+ * @return true
+ * @return false
+ */
+bool is_separator(char c, char const *separator);
+
+/**
+ * @brief detect when there is a #
+ *
+ * @param str
+ * @param separators
+ * @return char*
+ */
+char *remove_after_separator(char *str, char const *separators);
+
+/**
+ * @brief memset of an str
+ *
+ * @param str
+ * @return char*
+ */
+char *str_set(char *str);
 #endif /* JB_H_ */
