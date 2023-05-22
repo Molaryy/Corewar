@@ -29,6 +29,8 @@ TRANSCRIPTION += ./asm/transcription
 
 PARAMETER_BYTE += ./asm/transcription/parameters
 
+DEBUG += ./asm/debug/
+
 SRC_ASM	+= $(BASE_ASM)/main.c
 
 SRC_ASM += $(PARSING)/detect_file_extesion.c
@@ -41,6 +43,7 @@ SRC_ASM += $(PARSING)/$(BODY)/get_body.c
 SRC_ASM += $(PARSING)/$(BODY)/check_nb_arguments.c
 SRC_ASM += $(PARSING)/$(BODY)/check_type_arguments.c
 SRC_ASM += $(PARSING)/$(BODY)/add_label_to_link.c
+SRC_ASM += $(PARSING)/$(BODY)/check_params.c
 
 SRC_ASM += $(COMPILER)/compiler.c
 SRC_ASM += $(COMPILER)/create_cor.c
@@ -62,7 +65,11 @@ SRC_ASM += $(PARAMETER_BYTE)/get_bytes.c
 SRC_ASM += $(PARAMETER_BYTE)/param_in_byte.c
 SRC_ASM += $(PARAMETER_BYTE)/indexes.c
 
+SRC_ASM += $(DEBUG)/print_champ.c
+
+
 SRC_CORE += $(BASE_CORE)/main.c
+
 
 LIB += -L./lib/jb -llink
 
