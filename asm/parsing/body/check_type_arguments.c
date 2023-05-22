@@ -63,15 +63,10 @@ static bool check_three_args(parser_t *pars, size_t type, size_t j, char *name)
     for (size_t i = 0; i < NB_INSTRIUCTIONS; i++){
         if (!my_strcmp(pars[i].name, name))
             continue;
-        if (pars[i].p1 == type && j == 0) {
-            //my_printf("P1 = %d && type = %d\n", pars[i].p1, type);
+        if (pars[i].p1 == type && j == 0)
             return true;
-        }
-        if (pars[i].p2 == type && j == 1){
-            //my_printf("P2 = %d && type = %d\n", pars[i].p2, type);
+        if (pars[i].p2 == type && j == 1)
             return true;
-        }
-        //my_printf("P2 = %d && type = %d\n", pars[i].p2, type);
         if (pars[i].p3 == type && j == 2)
             return true;
     }
@@ -86,14 +81,11 @@ extern bool check_type_arguments(char **line, parser_t *pars, size_t start)
 
     if (!line || !pars)
         return false;
-
     for (size_t i = start + 1, j = 0; line[i] ; i++, j++) {
         nbParams = get_number_params(line[start], pars);
         type = get_type(line[i][0], line[start], i);
-        my_printf("type = %d\n", type);
         switch (nbParams) {
-            case 1: checkArg = check_one_arg(pars, type, line[start]);
-                break;
+            case 1: checkArg = check_one_arg(pars, type, line[start]); break;
             case 2: checkArg = check_two_args(pars, type, j, line[start]);
                 break;
             case 3: checkArg = check_three_args(pars, type, j, line[start]);
