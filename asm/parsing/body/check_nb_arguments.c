@@ -13,6 +13,9 @@ static bool instruction_exists(char **tab, parser_t *pars, size_t *start)
 {
     char *instruction = NULL;
 
+    print_linked_tab(tab);
+    my_printf("\n");
+
     if (tab[0][my_strlen(tab[0]) - 1] == ':'){
         instruction = tab[1];
         *start = 1;
@@ -40,20 +43,31 @@ extern size_t get_number_params(char *instruction, parser_t *pars)
     return 0;
 }
 
+static size_t getlen_and_params(char **tab, size_t start, parser_t *pars,
+                                size_t *nbParams)
+{
+    size_t len = 0;
+
+    for (size_t i = start; tab[i]; i++)
+        len++;
+    *nbParams = get_number_params(tab[start], pars);
+    return len;
+}
+
 static bool count_params(char *line, parser_t *pars)
 {
-    char **tab = str_to_array_separator(line, " ,");
-    size_t start = 0;
+    char **tab = str_to_array_separator(line, " ,\t");
     size_t len = 0;
+    size_t start = 0;
     size_t nbParams = 0;
 
     if (!tab)
         return false;
+    if (tab[0][my_strlen(tab[0]) - 1] == ':' && tab[1] == NULL)
+        return true;
     if (!instruction_exists(tab, pars, &start))
         return false;
-    for (size_t i = start; tab[i]; i++)
-        len++;
-    nbParams = get_number_params(tab[start], pars);
+    len = getlen_and_params(tab, start, pars, &nbParams);
     if (nbParams != (len -1)){
         free_array_str(tab);
         return false;
