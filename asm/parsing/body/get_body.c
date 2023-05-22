@@ -24,8 +24,10 @@ static char **get_body(char **file)
     size_t len = 0;
     char **cpy = NULL;
 
-    for (size_t i = 0; file[i] ; i++)
-        file[i] = clean_string(file[i]);
+    for (size_t i = 0; file[i]; i++){
+        file[i] = remove_str_beg_separator(file[i], " \t");
+        file[i] = remove_after_separator(file[i], "#");
+    }
     len = count_lines_body(file);
     if (!(cpy = malloc(sizeof(char *) * (len + 1))))
         return NULL;
@@ -38,6 +40,13 @@ static char **get_body(char **file)
     }
     free_array_str(file);
     return cpy;
+}
+
+static size_t check_start(char c, size_t start)
+{
+    if (c == ':')
+        start = 0;
+    return start;
 }
 
 static bool fill_champ(champ_t *champ, size_t len, char **body)
@@ -57,6 +66,7 @@ static bool fill_champ(champ_t *champ, size_t len, char **body)
         } else
             champ[i].paramName = my_strcpy(pars[0]);
         champ[i].nbParams = count_tab(pars) - start;
+        start = check_start(pars[0][my_strlen(pars[0]) - 1], start);
         champ[i].params = cpy_tab(pars, start);
         free_array_str(pars);
     }
