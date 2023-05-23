@@ -119,8 +119,8 @@ clean:
 	$(MAKE) -C lib/jb clean --no-print-directory
 
 fclean:	clean
-	rm -f $(BASE_ASM)/$(BASE_ASM)
-	rm -f $(BASE_CORE)/$(BASE_CORE)
+	rm -f $(BASE_ASM)/$(NAME_A)
+	rm -f $(BASE_CORE)/$(NAME_C)
 	$(MAKE) -C lib/jb fclean --no-print-directory
 	rm -f *.cor
 
