@@ -119,6 +119,7 @@ fclean:	clean
 	rm -f $(BASE_ASM)/$(BASE_ASM)
 	rm -f $(BASE_CORE)/$(BASE_CORE)
 	$(MAKE) -C lib/jb fclean --no-print-directory
+	rm -f *.cor
 
 re: fclean all
 

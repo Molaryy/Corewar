@@ -35,7 +35,7 @@ extern size_t get_type(char c, char *name, size_t pos)
         default: valueToReturn = 2; break;
     }
     for (size_t i = 0; instructions[i]; i++) {
-        if (my_strcmp(name, instructions[i]))
+        if (my_strcmp(name, instructions[i]) && valueToReturn != 0)
             valueToReturn = 1;
     }
     valueToReturn = check_value(name, valueToReturn, pos);

@@ -10,7 +10,7 @@
 extern void print_linked_tab(char **tab)
 {
     if (tab == NULL){
-        my_printf("tab = NULL\n");
+        my_printf("(NULL)\n");
         return;
     }
     for (size_t i = 0; tab[i]; i++){
@@ -24,7 +24,7 @@ extern void print_tab(char **tab)
 {
 
     if (tab == NULL){
-        my_printf("tab = NULL\n");
+        my_printf("(NULL)\n");
         return;
     }
     for (size_t i = 0; tab[i]; i++)
