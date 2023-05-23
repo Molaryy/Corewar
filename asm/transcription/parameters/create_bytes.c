@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2023
-** create_byte
+** corewar
 ** File description:
-** dzq
+** create byte
 */
 
 #include "asm.h"
