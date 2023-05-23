@@ -67,10 +67,7 @@ static bool fill_champ(champ_t *champ, size_t len, char **body)
             champ[i].paramName = my_strcpy(pars[0]);
         champ[i].nbParams = count_tab(pars) - start;
         start = check_start(pars[0][my_strlen(pars[0]) - 1], start);
-        if (pars[1] != NULL)
-            champ[i].params = cpy_tab(pars, start);
-        else
-            champ[i].params = NULL;
+        champ[i].params = get_tab(pars, start);
         free_array_str(pars);
     }
     return true;
@@ -87,6 +84,5 @@ extern bool parse_body(file_t *file, char *filepath)
     if (!(file->champ = malloc(sizeof(champ_t) * len)))
         return false;
     fill_champ(file->champ, file->nbLinesBody, file->body->bodyArray);
-    print_champion(file->champ, file->nbLinesBody);
     return true;
 }

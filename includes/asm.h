@@ -458,4 +458,13 @@ void print_champion(champ_t *champ, size_t len);
  * @return size_t
  */
 size_t get_type(char c, char *name, size_t pos);
+
+/**
+ * @brief Get the tab objectget
+ *
+ * @param pars
+ * @param start
+ * @return char**
+ */
+char **get_tab(char **pars, size_t start);
 #endif /* !asm_h_ */
