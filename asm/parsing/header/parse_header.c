@@ -47,7 +47,6 @@ extern int parse_header(file_t *file, char *filepath)
 {
     char **parser = NULL;
     size_t status = 0;
-    size_t count = 0;
 
     file->origin_file = get_file(filepath);
     clean_array(file->origin_file);
