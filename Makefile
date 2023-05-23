@@ -11,8 +11,6 @@ TEST = tests
 
 BASE_ASM	=	./asm
 
-BASE_CORE = ./corewar
-
 PARSING = ./asm/parsing
 
 BODY = ./body
@@ -67,9 +65,15 @@ SRC_ASM += $(PARAMETER_BYTE)/indexes.c
 
 SRC_ASM += $(DEBUG)/print_champ.c
 
+ROOT_COR = ./corewar
+
+BASE_CORE = ./corewar/src
+
+PARSE_CORE = ./$(BASE_CORE)/parser
 
 SRC_CORE += $(BASE_CORE)/main.c
-
+SRC_CORE += $(BASE_CORE)/op.c
+SRC_CORE += $(PARSE_CORE)/parser.c
 
 LIB += -L./lib/jb -llink
 
@@ -83,8 +87,8 @@ TESTS += $(COMPILER)/create_cor.c
 OBJ_A =	$(SRC_ASM:.c=.o)
 OBJ_C =	$(SRC_CORE:.c=.o)
 
-NAME_A    =       name_a
-NAME_C    =       name_c
+NAME_A    =       asm
+NAME_C    =       corewar
 
 DOT_O = *.o
 
@@ -92,12 +96,8 @@ CFLAGS  =       -W -Wall -Wextra -I includes/
 
 all:	$(OBJ_A) $(OBJ_C)
 	$(MAKE) -C lib/jb --no-print-directory
-	gcc -o $(NAME_A) $(OBJ_A) $(LIB) $(CFLAGS)
-	mv $(NAME_A) $(BASE_ASM)
-	mv $(BASE_ASM)/$(NAME_A) $(BASE_ASM)/$(BASE_ASM)
-	gcc -o $(NAME_C) $(OBJ_C) $(LIB) $(CFLAGS)
-	mv $(NAME_C) $(BASE_CORE)
-	mv $(BASE_CORE)/$(NAME_C) $(BASE_CORE)/$(BASE_CORE)
+	gcc -o $(BASE_ASM)/$(NAME_A) $(OBJ_A) $(LIB) $(CFLAGS)
+	gcc -o $(ROOT_COR)/$(NAME_C) $(OBJ_C) $(LIB) $(CFLAGS)
 
 clean:
 	rm -f $(BASE_ASM)/$(BASE_ASM)
@@ -113,6 +113,8 @@ clean:
 	rm -f $(BASE_CORE)/$(DOT_O)
 	rm -f $(BASE_ASM)/$(BASE_ASM)
 	rm -f $(BASE_CORE)/$(BASE_ASM)
+	rm -f $(BASE_ASM)/$(NAME_A)
+	rm -f $(BASE_COR)/$(NAME_C)
 	$(MAKE) -C lib/jb clean --no-print-directory
 
 fclean:	clean
