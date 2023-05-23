@@ -11,7 +11,7 @@
 
 extern void free_parser(parser_t *pars)
 {
-    for (size_t i = 0 ; i < NB_INSTRIUCTIONS ; i++) {
+    for (size_t i = 0 ; i < NB_INSTRUCTIONS ; i++) {
         if (pars[i].name) {
             free(pars[i].name);
         }
