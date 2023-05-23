@@ -495,4 +495,14 @@ bool get_index(char c);
  * @return size_t
  */
 size_t check_start(char c, size_t start);
+
+/*
+ * @brief Get the tab objectget
+ *
+ * @param pars
+ * @param start
+ * @return char**
+ */
+char **get_tab(char **pars, size_t start);
+
 #endif /* !asm_h_ */

@@ -1,3 +1,4 @@
+	.name "John Snow"
         .comment "Winter is coming"
 
         sti r1, %:crow, %1
