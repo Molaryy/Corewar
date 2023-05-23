@@ -11,7 +11,7 @@
 
 static bool check_one_arg(parser_t *pars, size_t type, char *name)
 {
-    for (size_t i = 0; i < NB_INSTRIUCTIONS; i++){
+    for (size_t i = 0; i < NB_INSTRUCTIONS; i++){
         if (!my_strcmp(pars[i].name, name))
             continue;
         if (pars[i].p1 == type)
@@ -22,7 +22,7 @@ static bool check_one_arg(parser_t *pars, size_t type, char *name)
 
 static bool check_two_args(parser_t *pars, size_t type, size_t j, char *name)
 {
-    for (size_t i = 0; i < NB_INSTRIUCTIONS; i++){
+    for (size_t i = 0; i < NB_INSTRUCTIONS; i++){
         if (!my_strcmp(pars[i].name, name))
             continue;
         if (pars[i].p1 == type && j == 0)
@@ -35,7 +35,7 @@ static bool check_two_args(parser_t *pars, size_t type, size_t j, char *name)
 
 static bool check_three_args(parser_t *pars, size_t type, size_t j, char *name)
 {
-    for (size_t i = 0; i < NB_INSTRIUCTIONS; i++){
+    for (size_t i = 0; i < NB_INSTRUCTIONS; i++){
         if (!my_strcmp(pars[i].name, name))
             continue;
         if (pars[i].p1 == type && j == 0) {

@@ -42,7 +42,9 @@ SRC_ASM += $(PARSING)/$(BODY)/check_nb_arguments.c
 SRC_ASM += $(PARSING)/$(BODY)/check_type_arguments.c
 SRC_ASM += $(PARSING)/$(BODY)/add_label_to_link.c
 SRC_ASM += $(PARSING)/$(BODY)/check_params.c
-SRC_ASM += $(PARSING)/$(BODY)/get_tab.c
+SRC_ASM += $(PARSING)/$(BODY)/create_champ.c
+SRC_ASM += $(PARSING)/$(BODY)/check_index.c
+
 
 SRC_ASM += $(COMPILER)/compiler.c
 SRC_ASM += $(COMPILER)/create_cor.c

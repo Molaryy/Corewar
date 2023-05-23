@@ -22,7 +22,7 @@ static bool instruction_exists(char **tab, parser_t *pars, size_t *start)
     }
     if (instruction == NULL)
         return false;
-    for (size_t i = 0; i < NB_INSTRIUCTIONS; i++) {
+    for (size_t i = 0; i < NB_INSTRUCTIONS; i++) {
         if (my_strcmp(pars[i].name, instruction))
             return true;
     }
@@ -33,7 +33,7 @@ extern size_t get_number_params(char *instruction, parser_t *pars)
 {
     if (!instruction)
         return 0;
-    for (size_t i = 0; i < NB_INSTRIUCTIONS ; i++) {
+    for (size_t i = 0; i < NB_INSTRUCTIONS ; i++) {
         if (my_strcmp(instruction, pars[i].name))
             return pars[i].nb_params;
     }

@@ -42,11 +42,15 @@ static char **get_body(char **file)
     return cpy;
 }
 
-static size_t check_start(char c, size_t start)
+static void get_label(char **pars, champ_t *champ, size_t i, size_t *start)
 {
-    if (c == ':')
-        start = 0;
-    return start;
+    if (pars[0][my_strlen(pars[0]) - 1] == ':') {
+        champ[i].label = my_strcpy(pars[0]);
+        champ[i].paramName = my_strcpy(pars[1]);
+        champ[i].index = i;
+        *start = 2;
+    } else
+        champ[i].paramName = my_strcpy(pars[0]);
 }
 
 static bool fill_champ(champ_t *champ, size_t len, char **body)
@@ -54,22 +58,19 @@ static bool fill_champ(champ_t *champ, size_t len, char **body)
     char **pars = NULL;
     size_t start = 1;
 
+    champ = init_champ(champ, len);
     for (size_t i = 0; i < len; i++) {
         start = 1;
         if (!(pars = str_to_array_separator(body[i], "\t ,")))
             return false;
-        champ[i].label = NULL;
-        if (pars[0][my_strlen(pars[0]) - 1] == ':') {
-            champ[i].label = my_strcpy(pars[0]);
-            champ[i].paramName = my_strcpy(pars[1]);
-            start = 2;
-        } else
-            champ[i].paramName = my_strcpy(pars[0]);
+        get_label(pars, champ, i, &start);
         champ[i].nbParams = count_tab(pars) - start;
-        start = check_start(pars[0][my_strlen(pars[0]) - 1], start);
-        champ[i].params = get_tab(pars, start);
+        check_start(pars[0][my_strlen(pars[0]) - 1], start);
+        if (pars[1] != NULL)
+            champ[i].params = cpy_tab(pars, start);
         free_array_str(pars);
     }
+    check_index(champ, len);
     return true;
 }
 
@@ -84,5 +85,6 @@ extern bool parse_body(file_t *file, char *filepath)
     if (!(file->champ = malloc(sizeof(champ_t) * len)))
         return false;
     fill_champ(file->champ, file->nbLinesBody, file->body->bodyArray);
+    print_champion(file->champ, file->nbLinesBody);
     return true;
 }

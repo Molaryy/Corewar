@@ -87,8 +87,10 @@
 
         char *paramName;
         size_t nbParams;
+        size_t index;
         char *label;
         char **params;
+        bool isIndex[3];
 
     } champ_t;
 
@@ -460,6 +462,41 @@ void print_champion(champ_t *champ, size_t len);
 size_t get_type(char c, char *name, size_t pos);
 
 /**
+ * @brief init the champion structure
+ *
+ * @param champ
+ * @param len
+ * @return champ_t*
+ */
+champ_t *init_champ(champ_t *champ, size_t len);
+
+/**
+ * @brief Construct a new check index object
+ *
+ * @param champ
+ * @param len
+ */
+void check_index(champ_t *champ, size_t len);
+
+/**
+ * @brief Get the Index object
+ *
+ * @param c
+ * @return true
+ * @return false
+ */
+bool get_index(char c);
+
+/**
+ * @brief check start
+ *
+ * @param c
+ * @param start
+ * @return size_t
+ */
+size_t check_start(char c, size_t start);
+
+/*
  * @brief Get the tab objectget
  *
  * @param pars
@@ -467,4 +504,5 @@ size_t get_type(char c, char *name, size_t pos);
  * @return char**
  */
 char **get_tab(char **pars, size_t start);
+
 #endif /* !asm_h_ */
