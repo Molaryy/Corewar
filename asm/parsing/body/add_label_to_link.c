@@ -17,12 +17,15 @@ static bool check_repetition_label(body_t *body)
 {
     size_t count = 0;
     link_t *link = body->labels;
+    link_t *tmp = body->labels;
 
     for (; body->labels; body->labels = body->labels->next) {
         for (; link ; link = link->next)
             count_repetitions(body->labels->data, link->data, &count);
+        link = tmp;
         if (count > 1)
             return false;
+        count = 0;
     }
     return true;
 }
@@ -42,8 +45,10 @@ extern bool add_labels_to_link(body_t *body)
             add_link_end(&body->labels, my_strcpy(pars[0]));
         free_array_str(pars);
     }
-    if (!check_repetition_label(body))
+    if (!check_repetition_label(body)) {
+        free_links(&(body->labels));
         return false;
+    }
     free_links(&(body->labels));
     return true;
 }

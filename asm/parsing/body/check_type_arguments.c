@@ -41,7 +41,7 @@ static bool check_three_args(parser_t *pars, size_t type, size_t j, char *name)
         if (pars[i].p1 == type && j == 0) {
             return true;
         }
-        if (pars[i].p2 == type && j == 1){
+        if (pars[i].p2 == type && j == 1) {
             return true;
         }
         if (pars[i].p3 == type && j == 2)
