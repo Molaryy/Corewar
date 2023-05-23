@@ -1,0 +1,10 @@
+.DS_Store
+.idea
+*.log
+tmp/
+
+
+corewar_binaries
+Jon_Snow.cor
+op.c
+op.h
