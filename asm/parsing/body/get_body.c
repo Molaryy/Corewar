@@ -13,7 +13,7 @@ static size_t count_lines_body(char **file)
     size_t count = 0;
 
     for (size_t i = 0; file[i] ; i++) {
-        if (file[i][0] != '.' && file[i][0] != '#')
+        if (file[i][0] != '.' && file[i][0] != '#' && file[i][0] != '\0')
             count++;
     }
     return count;
@@ -33,7 +33,7 @@ static char **get_body(char **file)
         return NULL;
     cpy[len] = NULL;
     for (size_t i = 0, j = 0; file[i] ; i++) {
-        if (file[i][0] != '.' && file[i][0] != '#') {
+        if (file[i][0] != '.' && file[i][0] != '#' && file[i][0] != '\0') {
             cpy[j] = my_strcpy(file[i]);
             j++;
         }
@@ -85,6 +85,5 @@ extern bool parse_body(file_t *file, char *filepath)
     if (!(file->champ = malloc(sizeof(champ_t) * len)))
         return false;
     fill_champ(file->champ, file->nbLinesBody, file->body->bodyArray);
-    print_champion(file->champ, file->nbLinesBody);
     return true;
 }
