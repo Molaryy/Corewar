@@ -121,6 +121,7 @@
         instruc_byte_t *ins_bytes;
         char combinedDataHeader[PROG_NAME_LENGTH + COMMENT_LENGTH];
         int fd;
+        size_t nbLabels;
 
     } file_t;
 
@@ -262,7 +263,7 @@ size_t get_number_params(char *instruction, parser_t *pars);
  * @return true
  * @return false
  */
-bool add_labels_to_link(body_t *body);
+bool add_labels_to_link(body_t *body, file_t *file);
 
 /**
  * @brief function to code in byte the parameter
