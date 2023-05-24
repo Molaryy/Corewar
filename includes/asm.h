@@ -243,7 +243,8 @@ bool check_instruction_number_arguments(body_t *body, parser_t *pars);
  * @return true
  * @return false
  */
-bool check_type_arguments(char **line, parser_t *pars, size_t start);
+bool check_type_arguments(char **line, parser_t *pars, size_t start,
+                                size_t minus);
 
 /**
  * @brief Get the number params object
