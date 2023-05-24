@@ -11,22 +11,22 @@ void get_size_each_argument(file_t *file, int i, int j)
 {
     if (!file->champ[i].isIndex[j]) {
         if (file->champ[i].params[j][0] == 'r') {
-            printf("inst -> [%s] register -> %s\n", file->champ[i].paramName,
-                                            file->champ[i].params[j]);
+            //printf("inst -> [%s] register -> %s\n", file->champ[i].paramName,
+                         //                   file->champ[i].params[j]);
             file->header->prog_size++;
         } else if (file->champ[i].params[j][0] == '%') {
             file->header->prog_size += 4;
-            printf("inst -> [%s] direct -> %s\n", file->champ[i].paramName,
-                                            file->champ[i].params[j]);
+            //printf("inst -> [%s] direct -> %s\n", file->champ[i].paramName,
+                                            //file->champ[i].params[j]);
         } else {
             file->header->prog_size += 2;
-            printf("inst -> [%s] indirect -> %s\n", file->champ[i].paramName,
-                                            file->champ[i].params[j]);
+            //printf("inst -> [%s] indirect -> %s\n", file->champ[i].paramName,
+                                           // file->champ[i].params[j]);
         }
     } else {
         file->header->prog_size += 2;
-        printf("inst -> [%s] index -> %s\n", file->champ[i].paramName,
-                    file->champ[i].params[j]);
+        //printf("inst -> [%s] index -> %s\n", file->champ[i].paramName,
+                   // file->champ[i].params[j]);
     }
 }
 
