@@ -65,5 +65,7 @@ extern int parse_header(file_t *file, char *filepath)
                 return FAILURE;
         break;
     }
+    if (!file->header->name || !file->header->description)
+        return FAILURE;
     return status;
 }
