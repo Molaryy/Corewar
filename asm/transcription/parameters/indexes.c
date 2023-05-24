@@ -30,6 +30,7 @@ extern unsigned int find_index(char *instruction)
         "sti",
         "fork",
         "lldi",
+        "lfork",
         NULL,
     };
 
@@ -45,7 +46,7 @@ extern void value_sup_2(parambyte_t *paramBytes[], char **param, file_t *file,
 {
     if (value == 2) {
         for (int i = 0; i != 3; i++) {
-            paramBytes[i] = create_sti_bytes(param[i], i);
+            paramBytes[i] = create_sti_bytes(param[i]);
             print_bytes_to_file(paramBytes[i], file->fd);
         }
     }
@@ -55,9 +56,13 @@ extern void value_sup_2(parambyte_t *paramBytes[], char **param, file_t *file,
     }
     if (value == 4) {
         for (int i = 0; i != 3; i++) {
-            paramBytes[i] = create_ldi_bytes(param[i], i);
+            paramBytes[i] = create_ldi_bytes(param[i]);
             print_bytes_to_file(paramBytes[i], file->fd);
         }
+    }
+    if (value == 5) {
+            paramBytes[0] = create_fork_bytes(param[0]);
+            print_bytes_to_file(paramBytes[0], file->fd);
     }
 }
 
@@ -72,7 +77,7 @@ extern int get_instruction_index(unsigned int flags, parambyte_t *paramBytes[],
     }
     if (value == 1) {
         for (int i = 0; i != 3; i++) {
-            paramBytes[i] = create_ldi_bytes(param[i], i);
+            paramBytes[i] = create_ldi_bytes(param[i]);
             print_bytes_to_file(paramBytes[i], file->fd);
         }
     }
