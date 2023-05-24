@@ -14,21 +14,27 @@ static size_t check_value(char *name, size_t valueToReturn, size_t pos)
         valueToReturn = 1;
     if (my_strcmp(name, "lld") && valueToReturn != 0)
         valueToReturn = 1;
-    if (my_strcmp(name, "sti") && (pos == 2 || pos == 3) && valueToReturn == 0)
+    if (my_strcmp(name, "and") && (pos == 1 || pos == 2))
         valueToReturn = 2;
-    if (my_strcmp(name, "xor") && (pos == 1 || pos == 2) && valueToReturn == 0)
+    if (my_strcmp(name, "or") && (pos == 1 || pos == 2))
         valueToReturn = 2;
-    if (my_strcmp(name, "ldi") && (pos == 1 || pos == 2) && valueToReturn == 0)
+    if (my_strcmp(name, "xor") && (pos == 1 || pos == 2))
+        valueToReturn = 2;
+    if (my_strcmp(name, "ldi") && (pos == 1 || pos == 2))
+        valueToReturn = 2;
+    if (my_strcmp(name, "sti") && (pos == 2 || pos == 3))
+        valueToReturn = 2;
+    if (my_strcmp(name, "lldi") && (pos == 1 || pos == 2))
         valueToReturn = 2;
     return valueToReturn;
 }
 
 extern size_t get_type(char c, char *name, size_t pos)
 {
-    size_t valueToReturn = 0;
-    char *instructions[] = {"live", "fork", "zjmp", "lfork", NULL};
+    size_t valueToReturn = 9999;
+    char *instructions[] = {"live", "zjmp", "fork", "lfork", NULL};
 
-    my_printf("pos = %d\n", pos);
+    my_printf("PARAM - [%d]\n", pos);
     switch (c) {
         case 'r': valueToReturn = 0; break;
         case '%': valueToReturn = 2; break;
