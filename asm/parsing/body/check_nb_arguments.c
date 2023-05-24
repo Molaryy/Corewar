@@ -9,13 +9,15 @@
 #include "asm.h"
 #include "parser.h"
 
-static bool instruction_exists(char **tab, parser_t *pars, size_t *start)
+static bool instruction_exists(char **tab, parser_t *pars, size_t *start,
+                                size_t pos)
 {
     char *instruction = NULL;
 
     if (tab[0][my_strlen(tab[0]) - 1] == ':'){
         instruction = tab[1];
         *start = 1;
+        pars[pos].minus = 1;
     } else {
         instruction = tab[0];
         *start = 0;
@@ -51,7 +53,7 @@ static size_t getlen_and_params(char **tab, size_t start, parser_t *pars,
     return len;
 }
 
-static bool count_params(char *line, parser_t *pars)
+static bool count_params(char *line, parser_t *pars, size_t pos)
 {
     char **tab = str_to_array_separator(line, " ,\t");
     size_t len = 0;
@@ -62,14 +64,14 @@ static bool count_params(char *line, parser_t *pars)
         return false;
     if (tab[0][my_strlen(tab[0]) - 1] == ':' && tab[1] == NULL)
         return true;
-    if (!instruction_exists(tab, pars, &start))
+    if (!instruction_exists(tab, pars, &start, pos))
         return false;
     len = getlen_and_params(tab, start, pars, &nbParams);
-    if (nbParams != (len -1)){
+    if (nbParams != (len - 1)){
         free_array_str(tab);
         return false;
     }
-    if (!check_type_arguments(tab, pars, start))
+    if (!check_type_arguments(tab, pars, start, pars[pos].minus))
         return false;
     free_array_str(tab);
     return true;
@@ -80,7 +82,7 @@ extern bool check_instruction_number_arguments(body_t *body, parser_t *pars)
     if (!body || !pars)
         return false;
     for (size_t i = 0; body->bodyArray[i] ; i++) {
-        if (!count_params(body->bodyArray[i], pars))
+        if (!count_params(body->bodyArray[i], pars, i))
             return false;
     }
     return true;
