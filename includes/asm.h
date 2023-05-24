@@ -14,6 +14,9 @@
     #include <sys/stat.h>
     #include <sys/types.h>
     #include <fcntl.h>
+    #include <endian.h>
+
+    #define _BSD_SOURCE
     #define FAILURE 84
     #define SUCCESS 0
     #define MEM_SIZE                (6 * 1024)
@@ -71,8 +74,8 @@
 
         int magic;
         char name[PROG_NAME_LENGTH + 1];
-        char description[COMMENT_LENGTH + 1];
         int  prog_size;
+        char description[COMMENT_LENGTH + 1];
 
     } header_t;
 
@@ -386,7 +389,7 @@ parambyte_t *create_zjmp_bytes(const char* param);
  * @param i
  * @return parambyte_t*
  */
-parambyte_t *create_ldi_bytes(const char *param, int i);
+parambyte_t *create_ldi_bytes(const char *param);
 
 /**
  * @brief Create a sti bytes object
@@ -395,7 +398,7 @@ parambyte_t *create_ldi_bytes(const char *param, int i);
  * @param i
  * @return parambyte_t*
  */
-parambyte_t *create_sti_bytes(const char *param, int i);
+parambyte_t *create_sti_bytes(const char *param);
 
 /**
  * @brief Create a fork bytes object
