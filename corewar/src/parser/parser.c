@@ -30,7 +30,7 @@ char *parse_name_stack_create(char *file_content, unsigned int file_size)
     return res;
 }
 
-void parse_stack_create(champion_t *champ, stack_t *stack, char *file_content,
+char *code_stack_create(champion_t *champ, stack_t *stack, char *file_content,
     unsigned int file_size)
 {
     unsigned int i = 0;
@@ -39,8 +39,9 @@ void parse_stack_create(champion_t *champ, stack_t *stack, char *file_content,
 
     for (unsigned int j = (PROG_NAME_LENGTH + COMMENT_LENGTH) + 16; j <
         file_size; j++) {
-
+        code[i++] = file_content[j];
     }
+    return code;
 }
 
 stack_t stack_create(champion_t *champ, char *filename)
@@ -56,6 +57,6 @@ stack_t stack_create(champion_t *champ, char *filename)
     tmp = parse_name_stack_create(file_content, file_size);
     champ->name = trim_str(tmp, PROG_NAME_LENGTH);
     free(tmp);
-    parse_stack_create(champ, &stack, file_content, (unsigned int) file_size);
+    stack.code = parse_stack_create(champ, &stack, file_content, (unsigned int) file_size);
     return stack;
 }

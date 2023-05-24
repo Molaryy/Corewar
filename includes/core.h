@@ -98,8 +98,12 @@ typedef struct header_s header_t;
     # define CYCLE_DELTA     5
     # define NBR_LIVE        40
 
+typedef struct uint32_t {
+    unsigned char byte[8];
+} uint32_t;
+
 typedef struct process_t {
-    register_t registers[REG_NUMBER];
+    uint32_t registers[REG_NUMBER];
     op_t operation;
 } process_t;
 
@@ -109,8 +113,7 @@ typedef struct funct_t {
 
 typedef struct stack_t {
     unsigned char current_index;
-    int num_func;
-    funct_t *functions;
+    char *code;
 } stack_t;
 
 typedef struct champion_t {
