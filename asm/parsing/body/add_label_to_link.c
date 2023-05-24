@@ -50,7 +50,7 @@ extern bool add_labels_to_link(body_t *body, file_t *file)
         free_links(&(body->labels));
         return false;
     }
-    file->nbLabels = listlen(body->labels);
+    file->nbLabels = link_len(body->labels);
     free_links(&(body->labels));
     return true;
 }
