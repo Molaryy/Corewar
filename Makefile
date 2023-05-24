@@ -118,7 +118,7 @@ clean:
 	rm -f liblist.a
 	rm -f $(BASE_ASM)/$(DOT_O)
 	rm -f $(BASE_CORE)/$(DOT_O)
-	rm -f $(BASE_ASM)/$(BASE_ASM)
+	rm -f $(NAME_C)/$(NAME_C)
 	$(MAKE) -C lib/jb clean --no-print-directory
 
 fclean:	clean
