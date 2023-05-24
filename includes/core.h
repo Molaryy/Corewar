@@ -7,6 +7,11 @@
 
 #ifndef CORE_H_
     #define CORE_H_
+
+    #include <sys/stat.h>
+    #include <stdlib.h>
+    #include <fcntl.h>
+
     #include "jb.h"
 
 // %3 number 3
@@ -14,8 +19,8 @@
 //
 
 # define MEM_SIZE                (6*1024)
-# define IDX_MOD                 512   /* modulo of the index < */
-# define MAX_ARGS_NUMBER         4     /* this may not be changed 2^*IND_SIZE */
+# define IDX_MOD                 512
+# define MAX_ARGS_NUMBER         4
 
 # define COMMENT_CHAR            '#'
 # define LABEL_CHAR              ':'
@@ -75,11 +80,11 @@ extern  op_t    op_tab[];
 */
 # define PROG_NAME_LENGTH        128
 # define COMMENT_LENGTH          2048
+# define COREWAR_EXEC_MAGIC      0xea83f3
 
 struct header_s
 {
    int  magic;
-# define COREWAR_EXEC_MAGIC      0xea83f3        /* why not */
    char prog_name[PROG_NAME_LENGTH + 1];
    int  prog_size;
    char comment[COMMENT_LENGTH + 1];
@@ -93,18 +98,6 @@ typedef struct header_s header_t;
 # define CYCLE_TO_DIE    1536    /* number of cycle before beig declared dead */
 # define CYCLE_DELTA     5
 # define NBR_LIVE        40
-
-
-typedef struct champion_t {
-    int prog_nbr;
-    int loaded_addr;
-    char *filename;
-} champion_t;
-
-typedef struct vm_param_t {
-    int nbr_cycle;
-    champion_t *progs;
-} vm_param_t;
 
 typedef struct process_t {
     register_t registers[REG_NUMBER];
@@ -120,5 +113,79 @@ typedef struct stack_t {
     int num_func;
     funct_t *functions;
 } stack_t;
+
+typedef struct champion_t {
+    int prog_nbr;
+    int loaded_addr;
+    char *filename;
+    stack_t stack;
+    char *name;
+} champion_t;
+
+typedef struct vm_param_t {
+    int nbr_cycle;
+    champion_t *progs;
+} vm_param_t;
+
+typedef struct info_corewar_t {
+    champion_t *champions;
+    int nb_champions;
+} info_corewar_t;
+
+/* ===========================================================================
+** corewar/src/helper/get.c
+** ===========================================================================
+*/
+
+/*
+** @brief gets the file size of the given filename
+** @param filename char* filename or path
+** @returns size of file given
+*/
+char *get_file_content(char *filename);
+
+/*
+** @brief gets the file size of the given filename
+** @param filename char* filename or path
+** @returns size of file given
+*/
+size_t get_file_size(char *filename);
+
+/* ===========================================================================
+**                            END FILE
+** ===========================================================================
+*/
+
+/* ===========================================================================
+** corewar/src/parser/parser.c
+** ===========================================================================
+*/
+
+/*
+** @brief this will creatd a champion_t structure that inside will call the
+** stack_create function inside, a child structure of champion_t
+** @param prog_nbr int the program or champion index to be referenced in
+** output
+** @param loaded_addr int where to load the champions code in the stack
+** @param filename char* filename to find all the necessairy thing for
+** the champion
+** @returns champion_t
+*/
+champion_t champion_create(int prog_nbr, int loaded_addr, char *filename);
+
+/*
+** @brief this will create the stack of code to be run by the champion
+** any unammed functions will be put into an anonymous function to be run
+** sequentially
+** @param filename char* filename of the parent function champion_create
+** to populate attributes and code of the champion
+** @returns stack_t
+*/
+stack_t stack_create(char *filename);
+
+/* ===========================================================================
+**                            END FILE
+** ===========================================================================
+*/
 
 #endif // CORE_H_

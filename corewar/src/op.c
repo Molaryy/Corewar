@@ -8,7 +8,7 @@
 ** Last update Tue Mar 22 16:44:20 2011 Astek
 */
 
-#include "op.h"
+#include "core.h"
 
 op_t    op_tab[] =
   {
