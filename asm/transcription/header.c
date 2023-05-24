@@ -7,21 +7,44 @@
 
 #include "asm.h"
 
+void get_size_each_argument(file_t *file, int i, int j)
+{
+    if (!file->champ[i].isIndex[j]) {
+        if (file->champ[i].params[j][0] == 'r') {
+            printf("inst -> [%s] register -> %s\n", file->champ[i].paramName,
+                                            file->champ[i].params[j]);
+            file->header->prog_size++;
+        } else if (file->champ[i].params[j][0] == '%') {
+            file->header->prog_size += 4;
+            printf("inst -> [%s] direct -> %s\n", file->champ[i].paramName,
+                                            file->champ[i].params[j]);
+        } else {
+            file->header->prog_size += 2;
+            printf("inst -> [%s] indirect -> %s\n", file->champ[i].paramName,
+                                            file->champ[i].params[j]);
+        }
+    } else {
+        file->header->prog_size += 2;
+        printf("inst -> [%s] index -> %s\n", file->champ[i].paramName,
+                    file->champ[i].params[j]);
+    }
+}
+
 void write_header(file_t *file, char *filename)
 {
-    int data = 0xea83f3;
-    unsigned char header[PROG_NAME_LENGTH + COMMENT_LENGTH] = {0};
-
-    for (size_t i = 0; i < sizeof(data); i++) {
-        header[i] = (data >> (8 * (sizeof(data) - 1 - i)));
+    file->header->magic = htobe32(COREWAR_EXEC_MAGIC);
+    file->header->prog_size = 0;
+    for (int i = 0; i != file->nbLinesBody; i++) {
+        file->header->prog_size++;
+        if (file->champ[i].nbParams > 1)
+            file->header->prog_size++;
+        if (file->champ[i].params == NULL)
+            continue;
+        for (int j = 0; file->champ[i].params[j]; j++) {
+            get_size_each_argument(file, i, j);
+        }
     }
-    for (size_t j = 0; j < PROG_NAME_LENGTH; j++) {
-        header[sizeof(data) + j] = file->header->name[j];
-    }
-    for (size_t k = 0; k < COMMENT_LENGTH; k++) {
-        header[sizeof(data) + PROG_NAME_LENGTH + k] =
-                            file->header->description[k];
-    }
+    my_printf("prog_size -> %d\n", file->header->prog_size);
     file->fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-    write(file->fd, header, sizeof(header));
+    write(file->fd, file->header, sizeof(header_t));
 }
