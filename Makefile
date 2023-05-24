@@ -42,7 +42,9 @@ SRC_ASM += $(PARSING)/$(BODY)/check_nb_arguments.c
 SRC_ASM += $(PARSING)/$(BODY)/check_type_arguments.c
 SRC_ASM += $(PARSING)/$(BODY)/add_label_to_link.c
 SRC_ASM += $(PARSING)/$(BODY)/check_params.c
-SRC_ASM += $(PARSING)/$(BODY)/get_tab.c
+SRC_ASM += $(PARSING)/$(BODY)/create_champ.c
+SRC_ASM += $(PARSING)/$(BODY)/check_index.c
+
 
 SRC_ASM += $(COMPILER)/compiler.c
 SRC_ASM += $(COMPILER)/create_cor.c
@@ -117,14 +119,11 @@ clean:
 	rm -f $(BASE_ASM)/$(DOT_O)
 	rm -f $(BASE_CORE)/$(DOT_O)
 	rm -f $(BASE_ASM)/$(BASE_ASM)
-	rm -f $(BASE_CORE)/$(BASE_ASM)
-	rm -f $(BASE_ASM)/$(NAME_A)
-	rm -f $(ROOT_COR)/$(NAME_C)
 	$(MAKE) -C lib/jb clean --no-print-directory
 
 fclean:	clean
-	rm -f $(BASE_ASM)/$(BASE_ASM)
-	rm -f $(ROOT_COR)/$(NAME_C)
+	rm -f $(BASE_ASM)/$(NAME_A)
+	rm -f $(BASE_CORE)/$(NAME_C)
 	$(MAKE) -C lib/jb fclean --no-print-directory
 
 re: fclean all

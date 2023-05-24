@@ -6,6 +6,7 @@
 */
 
 #include "asm.h"
+#include "link.h"
 
 static void count_repetitions(char *data, char *label, size_t *count)
 {
@@ -30,7 +31,7 @@ static bool check_repetition_label(body_t *body)
     return true;
 }
 
-extern bool add_labels_to_link(body_t *body)
+extern bool add_labels_to_link(body_t *body, file_t *file)
 {
     char **pars = NULL;
 
@@ -49,6 +50,7 @@ extern bool add_labels_to_link(body_t *body)
         free_links(&(body->labels));
         return false;
     }
+    file->nbLabels = listlen(body->labels);
     free_links(&(body->labels));
     return true;
 }

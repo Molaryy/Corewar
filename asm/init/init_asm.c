@@ -14,14 +14,12 @@ static bool init_header(header_t *header)
     return true;
 }
 
-static bool init_body(body_t *body, parser_t *pars)
+static parser_t *init_body(body_t *body, parser_t *pars)
 {
-    if (body == NULL)
-        return false;
     body->bodyArray = NULL;
     body->labels = NULL;
     pars = NULL;
-    return true;
+    return pars;
 }
 
 static bool init_file(file_t *file)
@@ -38,8 +36,7 @@ extern bool init_compiler(file_t *file, parser_t *pars)
 {
     if (!init_header(file->header))
         return false;
-    if (!init_body(file->body, pars))
-        return false;
+    init_body(file->body, pars);
     if (!init_file(file))
         return false;
     return true;

@@ -14,6 +14,9 @@
     #include <sys/stat.h>
     #include <sys/types.h>
     #include <fcntl.h>
+    #include <endian.h>
+
+    #define _BSD_SOURCE
     #define FAILURE 84
     #define SUCCESS 0
     #define MEM_SIZE                (6 * 1024)
@@ -71,8 +74,8 @@
 
         int magic;
         char name[PROG_NAME_LENGTH + 1];
-        char description[COMMENT_LENGTH + 1];
         int  prog_size;
+        char description[COMMENT_LENGTH + 1];
 
     } header_t;
 
@@ -87,8 +90,10 @@
 
         char *paramName;
         size_t nbParams;
+        size_t index;
         char *label;
         char **params;
+        bool isIndex[3];
 
     } champ_t;
 
@@ -238,7 +243,8 @@ bool check_instruction_number_arguments(body_t *body, parser_t *pars);
  * @return true
  * @return false
  */
-bool check_type_arguments(char **line, parser_t *pars, size_t start);
+bool check_type_arguments(char **line, parser_t *pars, size_t start,
+                                size_t minus);
 
 /**
  * @brief Get the number params object
@@ -384,7 +390,7 @@ parambyte_t *create_zjmp_bytes(const char* param);
  * @param i
  * @return parambyte_t*
  */
-parambyte_t *create_ldi_bytes(const char *param, int i);
+parambyte_t *create_ldi_bytes(const char *param);
 
 /**
  * @brief Create a sti bytes object
@@ -393,7 +399,7 @@ parambyte_t *create_ldi_bytes(const char *param, int i);
  * @param i
  * @return parambyte_t*
  */
-parambyte_t *create_sti_bytes(const char *param, int i);
+parambyte_t *create_sti_bytes(const char *param);
 
 /**
  * @brief Create a fork bytes object
@@ -460,6 +466,41 @@ void print_champion(champ_t *champ, size_t len);
 size_t get_type(char c, char *name, size_t pos);
 
 /**
+ * @brief init the champion structure
+ *
+ * @param champ
+ * @param len
+ * @return champ_t*
+ */
+champ_t *init_champ(champ_t *champ, size_t len);
+
+/**
+ * @brief Construct a new check index object
+ *
+ * @param champ
+ * @param len
+ */
+void check_index(champ_t *champ, size_t len);
+
+/**
+ * @brief Get the Index object
+ *
+ * @param c
+ * @return true
+ * @return false
+ */
+bool get_index(char c);
+
+/**
+ * @brief check start
+ *
+ * @param c
+ * @param start
+ * @return size_t
+ */
+size_t check_start(char c, size_t start);
+
+/*
  * @brief Get the tab objectget
  *
  * @param pars
@@ -467,4 +508,5 @@ size_t get_type(char c, char *name, size_t pos);
  * @return char**
  */
 char **get_tab(char **pars, size_t start);
+
 #endif /* !asm_h_ */
