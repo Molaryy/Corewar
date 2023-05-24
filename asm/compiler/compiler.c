@@ -15,7 +15,7 @@ static size_t parsing_compiler(parser_t *parser, file_t *file, char *filepath)
         return FAILURE;
     if (!check_instruction_number_arguments(file->body, parser))
         return FAILURE;
-    if (!add_labels_to_link(file->body))
+    if (!add_labels_to_link(file->body, file))
         return FAILURE;
     return SUCCESS;
 }
@@ -37,6 +37,6 @@ extern size_t compiler(char *filepath)
         return FAILURE;
     if (parsing_compiler(parser, file, filepath) == FAILURE)
         return FAILURE;
-    //cor_file(filepath, file);
+    cor_file(filepath, file);
     return SUCCESS;
 }
