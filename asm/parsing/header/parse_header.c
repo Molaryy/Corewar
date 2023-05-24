@@ -8,11 +8,6 @@
 #include "asm.h"
 #include "jb.h"
 
-extern void clean_array(char **array)
-{
-    for (int i = 0; array[i]; i++)
-        clean_string(array[i]);
-}
 
 static bool check_header_compenents(char **parser)
 {
@@ -27,20 +22,28 @@ static bool check_header_compenents(char **parser)
     return true;
 }
 
-extern int check_header(char **parser, file_t *file, size_t status)
+static bool get_header(char *line, file_t *file)
 {
-    clean_array(parser);
-    if (!parser[1])
-        return FAILURE;
-    if (!check_header_compenents(parser))
-        return FAILURE;
-    if (is_name(parser[0]))
-        q_strcpy(file->header->name, parser[1]);
-    if (is_description(parser[0]))
-        q_strcpy(file->header->description, parser[1]);
-    if (!check_nb_arg(parser, 2))
-        status = FAILURE;
-    return status;
+    char **pars = NULL;
+    char **args = NULL;
+
+    if (!(pars = str_to_array_separator(line, "\"")))
+        return false;
+    if (!(args = str_to_array_separator(line, " \t")))
+        return false;
+    if (!pars[1])
+        return false;
+    if (my_strcmp(args[0], ".name")) {
+        if (my_strlen(pars[1]) > 129)
+            return false;
+        q_strcpy(file->header->name, pars[1]);
+    }
+    if (my_strcmp(args[0], ".comment")){
+        if (my_strlen(pars[1]) > 2049)
+            return false;
+        q_strcpy(file->header->description, pars[1]);
+    }
+    return true;
 }
 
 extern int parse_header(file_t *file, char *filepath)
@@ -49,18 +52,18 @@ extern int parse_header(file_t *file, char *filepath)
     size_t status = 0;
 
     file->origin_file = get_file(filepath);
-    clean_array(file->origin_file);
-    for (int i = 0; file->origin_file[i]; i++) {
-        if (file->origin_file[i][0] != '.' && file->origin_file[i][0] != '#')
-            break;
-        if (!is_commentary(file->origin_file[i])) {
-            parser = str_to_array_separator(file->origin_file[i], "\"");
-            status = check_header(parser, file, status);
-            free_array_str(parser);
-        }
-        if (status == FAILURE)
-            return status;
+    for (size_t i = 0; file->origin_file[i]; i++) {
+        file->origin_file[i] = remove_str_beg_separator(file->origin_file[i],
+        " \t");
+        if (file->origin_file[i][0] == '#')
+            continue;
+        if (file->origin_file[i][0] == '.' &&
+        get_header(file->origin_file[i], file))
+            continue;
+        if (file->origin_file[i][0] == '.' &&
+        !get_header(file->origin_file[i], file))
+                return FAILURE;
+        break;
     }
-    my_printf("name -> %s\n", file->header->name);
     return status;
 }
