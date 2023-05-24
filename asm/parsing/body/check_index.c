@@ -43,7 +43,7 @@ static champ_t *fill_index(size_t j, size_t i, champ_t *champ, char **tab)
 
 extern void check_index(champ_t *champ, size_t len)
 {
-    char *tab[] = {"zjump", "ldi", "sti", "fork", "lldi", "lfork",  NULL};
+    char *tab[] = {"zjmp", "ldi", "sti", "fork", "lldi", "lfork",  NULL};
 
     for (size_t i = 0; i < len; i++) {
         for (size_t j = 0; tab[j]; j++)
