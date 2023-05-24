@@ -7,104 +7,96 @@
 
 #ifndef CORE_H_
     #define CORE_H_
+
+    #include <sys/stat.h>
+    #include <stdlib.h>
+    #include <fcntl.h>
+
     #include "jb.h"
 
-// %3 number 3
-// 3 3 index from current
-//
+    #define TRUE 0
+    #define FALSE -1
 
-# define MEM_SIZE                (6*1024)
-# define IDX_MOD                 512   /* modulo of the index < */
-# define MAX_ARGS_NUMBER         4     /* this may not be changed 2^*IND_SIZE */
+    // %3 number 3
+    // 3 3 index from current
+    //
 
-# define COMMENT_CHAR            '#'
-# define LABEL_CHAR              ':'
-# define DIRECT_CHAR             '%'
-# define SEPARATOR_CHAR          ','
+    # define MEM_SIZE                (6 * 1024)
+    # define IDX_MOD                 512
+    # define MAX_ARGS_NUMBER         4
 
-# define LABEL_CHARS             "abcdefghijklmnopqrstuvwxyz_0123456789"
+    # define COMMENT_CHAR            '#'
+    # define LABEL_CHAR              ':'
+    # define DIRECT_CHAR             '%'
+    # define SEPARATOR_CHAR          ','
 
-# define NAME_CMD_STRING         ".name"
-# define COMMENT_CMD_STRING      ".comment"
+    # define LABEL_CHARS             "abcdefghijklmnopqrstuvwxyz_0123456789"
 
-/*
-** regs
-*/
+    # define NAME_CMD_STRING         ".name"
+    # define COMMENT_CMD_STRING      ".comment"
 
-# define REG_NUMBER      16              /* r1 <--> rx */
+    /*
+    ** regs
+    */
 
-/*
-**
-*/
+    # define REG_NUMBER      16              /* r1 <--> rx */
 
-typedef char    args_type_t;
+    /*
+    **
+    */
 
-# define T_REG           1       /* register */
-# define T_DIR           2       /* direct  (ld  #1,r1  put 1 into r1) */
-# define T_BOTH          3       /* bot deirect or register */
-# define T_IND           4       /* indirect always relative
-                                   ( ld 1,r1 put what's in the address (1+pc)
-                                   into r1 (4 bytes )) */
+    typedef char    args_type_t;
 
-struct  op_s
-{
-   char         *mnemonique;
-   char         nbr_args;
-   args_type_t  type[MAX_ARGS_NUMBER];
-   char         code;
-   int          nbr_cycles;
-   char         *comment;
-};
+    # define T_REG           1       /* register */
+    # define T_DIR           2       /* direct  (ld  #1,r1  put 1 into r1) */
+    # define T_BOTH          3       /* bot deirect or register */
+    # define T_IND           4       /* indirect always relative
+                                    ( ld 1,r1 put what's in the address (1+pc)
+                                    into r1 (4 bytes )) */
 
-typedef struct op_s     op_t;
+typedef struct op_s {
+    char *mnemonique;
+    char nbr_args;
+    args_type_t type[MAX_ARGS_NUMBER];
+    char code;
+    int nbr_cycles;
+    char *comment;
+} op_t;
 
-/*
-** size (in bytes)
-*/
-# define IND_SIZE        2
-# define DIR_SIZE        4
-# define REG_SIZE        DIR_SIZE
+    /*
+    ** size (in bytes)
+    */
+    # define IND_SIZE        2
+    # define DIR_SIZE        4
+    # define REG_SIZE        DIR_SIZE
 
 /*
 ** op_tab
 */
 extern  op_t    op_tab[];
 
-/*
-** header
-*/
-# define PROG_NAME_LENGTH        128
-# define COMMENT_LENGTH          2048
+    /*
+    ** header
+    */
+    # define PROG_NAME_LENGTH        128
+    # define COMMENT_LENGTH          2048
+    # define COREWAR_EXEC_MAGIC      0xea83f3
 
-struct header_s
-{
-   int  magic;
-# define COREWAR_EXEC_MAGIC      0xea83f3        /* why not */
-   char prog_name[PROG_NAME_LENGTH + 1];
-   int  prog_size;
-   char comment[COMMENT_LENGTH + 1];
+struct header_s {
+    int  magic;
+    char prog_name[PROG_NAME_LENGTH + 1];
+    int  prog_size;
+    char comment[COMMENT_LENGTH + 1];
 };
 
 typedef struct header_s header_t;
 
-/*
-** live
-*/
-# define CYCLE_TO_DIE    1536    /* number of cycle before beig declared dead */
-# define CYCLE_DELTA     5
-# define NBR_LIVE        40
-
-
-typedef struct champion_t {
-    int prog_nbr;
-    int loaded_addr;
-    char *filename;
-} champion_t;
-
-typedef struct vm_param_t {
-    int nbr_cycle;
-    champion_t *progs;
-} vm_param_t;
+    /*
+    ** live
+    */
+    # define CYCLE_TO_DIE    1536
+    # define CYCLE_DELTA     5
+    # define NBR_LIVE        40
 
 typedef struct process_t {
     register_t registers[REG_NUMBER];
@@ -121,4 +113,103 @@ typedef struct stack_t {
     funct_t *functions;
 } stack_t;
 
+typedef struct champion_t {
+    int prog_nbr;
+    int loaded_addr;
+    char *filename;
+    stack_t stack;
+    char *name;
+} champion_t;
+
+typedef struct vm_param_t {
+    int nbr_cycle;
+    champion_t *progs;
+} vm_param_t;
+
+typedef struct info_corewar_t {
+    champion_t *champions;
+    int nb_champions;
+} info_corewar_t;
+
+/* ===========================================================================
+** corewar/src/helper/get.c
+** ===========================================================================
+*/
+
+/*
+** @brief gets the file size of the given filename
+** @param filename char* filename or path
+** @returns size of file given
+*/
+char *get_file_content(char *filename);
+
+/*
+** @brief gets the file size of the given filename
+** @param filename char* filename or path
+** @returns size of file given
+*/
+size_t get_file_size(char *filename);
+
+/* ===========================================================================
+**                            END FILE
+** ===========================================================================
+*/
+
+/* ===========================================================================
+** corewar/src/parser/parser.c
+** ===========================================================================
+*/
+
+/*
+** @brief this will creatd a champion_t structure that inside will call the
+** stack_create function inside, a child structure of champion_t
+** @param prog_nbr int the program or champion index to be referenced in
+** output
+** @param loaded_addr int where to load the champions code in the stack
+** @param filename char* filename to find all the necessairy thing for
+** the champion
+** @returns champion_t
+*/
+champion_t champion_create(int prog_nbr, int loaded_addr, char *filename);
+
+/*
+** @brief this will create the stack of code to be run by the champion
+** any unammed functions will be put into an anonymous function to be run
+** sequentially
+** @param filename char* filename of the parent function champion_create
+** to populate attributes and code of the champion
+** @returns stack_t
+*/
+stack_t stack_create(champion_t *champ, char *filename);
+
+/* ===========================================================================
+**                            END FILE
+** ===========================================================================
+*/
+
+
+/* ===========================================================================
+** corewar/src/helper/str.c
+** ===========================================================================
+*/
+
+/*
+** @brief this will check is a char is alpha numeric
+** @param c char to be tested
+** @return TRUE of FALSE macro
+*/
+int my_is_char_alphanumeric(char c);
+
+/*
+** @brief this will trim the string of unwanted chars
+** @param str char * to be tested
+** @param len int length of the given string since we can't test for \0
+** @return char * newly malloced string that was trimmed
+*/
+char *trim_str(char *str, int len);
+
+/* ===========================================================================
+**                            END FILE
+** ===========================================================================
+*/
 #endif // CORE_H_

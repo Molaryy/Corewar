@@ -74,9 +74,13 @@ BASE_CORE = ./corewar/src
 
 PARSE_CORE = ./$(BASE_CORE)/parser
 
+HELPER_CORE = ./$(BASE_CORE)/helper
+
 SRC_CORE += $(BASE_CORE)/main.c
 SRC_CORE += $(BASE_CORE)/op.c
 SRC_CORE += $(PARSE_CORE)/parser.c
+SRC_CORE += $(HELPER_CORE)/get.c
+SRC_CORE += $(HELPER_CORE)/str.c
 
 LIB += -L./lib/jb -llink
 
@@ -115,16 +119,12 @@ clean:
 	rm -f $(BASE_ASM)/$(DOT_O)
 	rm -f $(BASE_CORE)/$(DOT_O)
 	rm -f $(BASE_ASM)/$(BASE_ASM)
-	rm -f $(BASE_CORE)/$(BASE_ASM)
-	rm -f $(BASE_ASM)/$(NAME_A)
-	rm -f $(BASE_COR)/$(NAME_C)
 	$(MAKE) -C lib/jb clean --no-print-directory
 
 fclean:	clean
 	rm -f $(BASE_ASM)/$(NAME_A)
 	rm -f $(BASE_CORE)/$(NAME_C)
 	$(MAKE) -C lib/jb fclean --no-print-directory
-	rm -f *.cor
 
 re: fclean all
 

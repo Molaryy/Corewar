@@ -5,9 +5,10 @@
 ** main
 */
 
+#include "core.h"
+
 int main(int ac, char **av)
 {
-    (void) ac;
-    (void) av;
+    champion_t test = champion_create(0, 0, av[1]);
     return 0;
 }
