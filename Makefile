@@ -123,7 +123,7 @@ clean:
 
 fclean:	clean
 	rm -f $(BASE_ASM)/$(NAME_A)
-	rm -f $(BASE_CORE)/$(NAME_C)
+	rm -f corewar/$(NAME_C)
 	$(MAKE) -C lib/jb fclean --no-print-directory
 
 re: fclean all

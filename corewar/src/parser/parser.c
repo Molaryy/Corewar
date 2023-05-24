@@ -57,6 +57,7 @@ stack_t stack_create(champion_t *champ, char *filename)
     tmp = parse_name_stack_create(file_content, file_size);
     champ->name = trim_str(tmp, PROG_NAME_LENGTH);
     free(tmp);
-    stack.code = parse_stack_create(champ, &stack, file_content, (unsigned int) file_size);
+    stack.code = code_stack_create(champ, &stack, file_content, (unsigned int)
+        file_size);
     return stack;
 }
