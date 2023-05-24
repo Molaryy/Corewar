@@ -26,8 +26,9 @@ static size_t check_value(char *name, size_t valueToReturn, size_t pos)
 extern size_t get_type(char c, char *name, size_t pos)
 {
     size_t valueToReturn = 0;
-    char *instructions[] = {"live", "fork", "zjump", "lfork", NULL};
+    char *instructions[] = {"live", "fork", "zjmp", "lfork", NULL};
 
+    my_printf("pos = %d\n", pos);
     switch (c) {
         case 'r': valueToReturn = 0; break;
         case '%': valueToReturn = 2; break;
