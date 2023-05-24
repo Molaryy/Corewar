@@ -79,6 +79,7 @@ static bool start_parser_values(parser_t *pars, size_t len, char **file)
         if (!(params = str_to_array_separator(filePars[2], "() ")))
             return false;
         pars[i] = get_params(pars[i], params);
+        pars[i].minus = 0;
         free_array_str(filePars);
         free_array_str(params);
     }

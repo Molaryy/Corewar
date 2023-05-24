@@ -29,7 +29,6 @@ extern size_t compiler(char *filepath)
 
     if (!init_compiler(file, parser))
         return FAILURE;
-
     if (!detect_file_extension(filepath))
         return FAILURE;
     if (!(parser = init_parser_reference(".instructions.txt")))
