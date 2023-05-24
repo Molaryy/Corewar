@@ -52,18 +52,13 @@ extern int parse_header(file_t *file, char *filepath)
     size_t status = 0;
 
     file->origin_file = get_file(filepath);
-    for (size_t i = 0; file->origin_file[i]; i++) {
+    for (size_t i = 0; file->origin_file[i]
+    && (file->origin_file[i][0] == '#' ||
+    file->origin_file[i][0] == '.'); i++){
         file->origin_file[i] = remove_str_beg_separator(file->origin_file[i],
         " \t");
-        if (file->origin_file[i][0] == '#')
-            continue;
-        if (file->origin_file[i][0] == '.' &&
-        get_header(file->origin_file[i], file))
-            continue;
-        if (file->origin_file[i][0] == '.' &&
-        !get_header(file->origin_file[i], file))
+        if (!get_header(file->origin_file[i], file))
                 return FAILURE;
-        break;
     }
     return status;
 }
