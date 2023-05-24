@@ -20,10 +20,10 @@ static bool check_repetition_label(body_t *body)
     link_t *link = body->labels;
     link_t *tmp = body->labels;
 
-    for (; body->labels; body->labels = body->labels->next) {
+    my_printf("NOO JURE = %s\n", link->data);
+    for (; tmp; tmp = tmp->next) {
         for (; link ; link = link->next)
-            count_repetitions(body->labels->data, link->data, &count);
-        link = tmp;
+            count_repetitions(tmp->data, link->data, &count);
         if (count > 1)
             return false;
         count = 0;
