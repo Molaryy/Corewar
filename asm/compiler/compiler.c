@@ -38,6 +38,6 @@ extern size_t compiler(char *filepath)
         return FAILURE;
     if (parsing_compiler(parser, file, filepath) == FAILURE)
         return FAILURE;
-    //cor_file(filepath, file);
+    cor_file(filepath, file);
     return SUCCESS;
 }
