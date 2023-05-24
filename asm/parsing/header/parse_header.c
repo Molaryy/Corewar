@@ -61,5 +61,6 @@ extern int parse_header(file_t *file, char *filepath)
         if (status == FAILURE)
             return status;
     }
+    my_printf("name -> %s\n", file->header->name);
     return status;
 }
