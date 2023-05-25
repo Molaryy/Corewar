@@ -44,6 +44,8 @@ extern size_t get_type(char c, char *name, size_t pos)
         if (my_strcmp(name, instructions[i]) && valueToReturn != 0)
             valueToReturn = 1;
     }
+    if (my_strcmp(name, "st") && pos == 2)
+        valueToReturn = 2;
     valueToReturn = check_value(name, valueToReturn, pos);
     return valueToReturn;
 }
