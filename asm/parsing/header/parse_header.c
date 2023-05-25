@@ -8,29 +8,21 @@
 #include "asm.h"
 #include "jb.h"
 
-
-static bool check_header_compenents(char **parser)
+static void count_header(file_t *file, char *line)
 {
-    size_t countHeader = 0;
-
-    if (!parser || !parser[0])
-        return false;
-    if (my_strcmp(parser[0], ".name") || my_strcmp(parser[0], ".comment"))
-        countHeader++;
-    if (countHeader == 0)
-        return false;
-    return true;
+    if (my_strcmp(line, ".name"))
+        file->nbName += 1;
+    if (my_strcmp(line, ".comment"))
+        file->nbComment += 1;
 }
 
-static bool get_header(char *line, file_t *file)
+static bool get_header(char *line, file_t *file, char **pars)
 {
-    char **pars = NULL;
     char **args = NULL;
 
-    if (!(pars = str_to_array_separator(line, "\"")))
-        return false;
     if (!(args = str_to_array_separator(line, " \t")))
         return false;
+    count_header(file, args[0]);
     if (!pars[1])
         return false;
     if (my_strcmp(args[0], ".name")) {
@@ -48,17 +40,24 @@ static bool get_header(char *line, file_t *file)
 
 extern int parse_header(file_t *file, char *filepath)
 {
-    char **parser = NULL;
     size_t status = 0;
+    char **pars = NULL;
 
     file->origin_file = get_file(filepath);
-    for (size_t i = 0; file->origin_file[i]
-    && (file->origin_file[i][0] == '#' ||
-    file->origin_file[i][0] == '.'); i++){
+    for (size_t i = 0; file->origin_file[i]; i++) {
         file->origin_file[i] = remove_str_beg_separator(file->origin_file[i],
         " \t");
-        if (!get_header(file->origin_file[i], file))
+        if (file->origin_file[i][0] == '#')
+            continue;
+        if (!(pars = str_to_array_separator(file->origin_file[i], "\"")))
+            return false;
+        if (file->origin_file[i][0] == '.' &&
+        get_header(file->origin_file[i], file, pars))
+            continue;
+        if (file->origin_file[i][0] == '.' &&
+        !get_header(file->origin_file[i], file, pars))
                 return FAILURE;
+        break;
     }
     return status;
 }

@@ -94,6 +94,7 @@
         char *label;
         char **params;
         bool isIndex[3];
+        size_t minus;
 
     } champ_t;
 
@@ -122,6 +123,8 @@
         char combinedDataHeader[PROG_NAME_LENGTH + COMMENT_LENGTH];
         int fd;
         size_t nbLabels;
+        size_t nbName;
+        size_t nbComment;
 
     } file_t;
 
