@@ -530,7 +530,7 @@ extern void label_find(file_t *file);
  * @brief starting to count
  * 
  * @param file 
- * @param i 
+ * @param i
  * @return true
  * @return false
  */
