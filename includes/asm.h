@@ -531,7 +531,7 @@ extern void label_find(file_t *file);
  * 
  * @param file 
  * @param i 
- * @return true 
+ * @return true
  * @return false
  */
 bool starting_prog_size(file_t *file, int i);
