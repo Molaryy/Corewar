@@ -279,4 +279,13 @@ char *remove_after_separator(char *str, char const *separators);
  * @return char*
  */
 char *str_set(char *str);
+
+/**
+ * @brief check if a str is a number
+ *
+ * @param str
+ * @return bool
+ */
+extern bool my_str_isnum(char const *str);
+
 #endif /* JB_H_ */

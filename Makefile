@@ -76,13 +76,20 @@ PARSE_CORE = ./$(BASE_CORE)/parser
 
 HELPER_CORE = ./$(BASE_CORE)/helper
 
+CHAMPION_CORE = ./$(BASE_CORE)/champion
+
 SRC_CORE += $(BASE_CORE)/main.c
 SRC_CORE += $(BASE_CORE)/op.c
 SRC_CORE += $(PARSE_CORE)/parser.c
 SRC_CORE += $(HELPER_CORE)/get.c
 SRC_CORE += $(HELPER_CORE)/str.c
+SRC_CORE += $(CHAMPION_CORE)/champion.c
+SRC_CORE += $(CHAMPION_CORE)/stack.c
+SRC_CORE += $(HELPER_CORE)/stop.c
+SRC_CORE += $(HELPER_CORE)/debug.c
+SRC_CORE += $(HELPER_CORE)/free.c
 
-LIB += -L./lib/jb -llink
+LIB += -L./lib/jb -llink -L./lib/nc -lnc
 
 TESTS += $(TEST)/tests.c
 TESTS += $(PARSING)/detect_file_extesion.c
@@ -99,10 +106,11 @@ NAME_C    =       corewar
 
 DOT_O = *.o
 
-CFLAGS  =       -W -Wall -Wextra -I includes/
+CFLAGS  =       -W -Wall -Wextra -I includes/ -g
 
 all:	$(OBJ_A) $(OBJ_C)
 	$(MAKE) -C lib/jb --no-print-directory
+	$(MAKE) -C lib/nc --no-print-directory
 	gcc -o $(BASE_ASM)/$(NAME_A) $(OBJ_A) $(LIB) $(CFLAGS)
 	gcc -o $(ROOT_COR)/$(NAME_C) $(OBJ_C) $(LIB) $(CFLAGS)
 
@@ -119,16 +127,19 @@ clean:
 	rm -f $(BASE_ASM)/$(DOT_O)
 	rm -f $(BASE_CORE)/$(DOT_O)
 	rm -f $(NAME_C)/$(NAME_C)
+	$(MAKE) -C lib/nc clean --no-print-directory 
 	$(MAKE) -C lib/jb clean --no-print-directory
 
 fclean:	clean
 	rm -f $(BASE_ASM)/$(NAME_A)
 	rm -f corewar/$(NAME_C)
+	$(MAKE) -C lib/nc fclean --no-print-directory 
 	$(MAKE) -C lib/jb fclean --no-print-directory
 
 re: fclean all
 
 unit_tests: fclean
+	$(MAKE) -C lib/nc --no-print-directory
 	$(MAKE) -C lib/jb --no-print-directory
 	gcc $(TESTS) $(CFLAGS) $(LIB) -lcriterion -o $(TEST_NAME) \
 	--coverage

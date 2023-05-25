@@ -6,58 +6,60 @@
 */
 
 #include "core.h"
+#include "jb.h"
 
-#include <stdio.h>
-
-champion_t champion_create(int prog_nbr, int loaded_addr, char *filename)
+int parse_args_loop(info_corewar_t *info, int argc, char **argv, int *i)
 {
-    champion_t champ = {0};
+    int prog_num = info->nb_champions + 1;
+    int load_address = ((MEM_SIZE / 3) * (info->nb_champions + 1)) % MEM_SIZE;
+    char *filename;
 
-    champ.filename = filename;
-    champ.prog_nbr = prog_nbr;
-    champ.loaded_addr = loaded_addr;
-    champ.stack = stack_create(&champ, filename);
-    return champ;
-}
-
-char *parse_name_stack_create(char *file_content, unsigned int file_size)
-{
-    char *res = (char *) malloc(PROG_NAME_LENGTH);
-
-    for (unsigned int i = 0; i < PROG_NAME_LENGTH && i < file_size; i++) {
-        res[i] = file_content[i];
+    for (; *i < argc; (*i)++) {
+        if (my_strcmp("-n", argv[*i]))
+            prog_num = my_getnbr(argv[++(*i)]);
+        if (my_strcmp("-a", argv[*i]))
+            load_address = my_getnbr(argv[++(*i)]);
+        if (access(argv[*i], R_OK) == 0) {
+            filename = my_strdup(argv[(*i)++]);
+            info->champions[++(info->nb_champions)] = champion_create(prog_num,
+                load_address, filename);
+            return TRUE;
+        }
+        if (my_strcmp("-n", argv[*i]) || my_strcmp("-a", argv[*i]))
+            continue;
+        return FALSE;
     }
-    return res;
+    return FALSE;
 }
 
-char *code_stack_create(champion_t *champ, stack_t *stack, char *file_content,
-    unsigned int file_size)
+int parse_args_dump(info_corewar_t *info, int argc, char **argv, int *i)
 {
-    unsigned int i = 0;
-    char *code = malloc(sizeof(unsigned char) * (file_size - (PROG_NAME_LENGTH
-        + COMMENT_LENGTH) + 16));
-
-    for (unsigned int j = (PROG_NAME_LENGTH + COMMENT_LENGTH) + 16; j <
-        file_size; j++) {
-        code[i++] = file_content[j];
+    if (my_strcmp("-dump", argv[*i])) {
+        if (my_str_isnum(argv[++(*i)]) == false)
+            return FALSE;
+        info->dump = my_getnbr(argv[++(*i)]);
+        return TRUE;
     }
-    return code;
+    return TRUE;
 }
 
-stack_t stack_create(champion_t *champ, char *filename)
+info_corewar_t parse_args(int argc, char **argv)
 {
-    stack_t stack = {0};
-    char *file_content = get_file_content(filename);
-    size_t file_size = get_file_size(filename);
-    char *tmp;
+    info_corewar_t info;
+    int i = 1;
 
-    if (file_size == (size_t) -1) {
+    if (argc < 2)
         exit(84);
+    info.nb_champions = -1;
+    info.dump = -1;
+    if (parse_args_dump(&info, argc, argv, &i) == FALSE)
+        exit(84);
+    while (i < argc) {
+        if (parse_args_loop(&info, argc, argv, &i) == FALSE ||
+            my_strcmp(info.champions[info.nb_champions].name, "ERROR")) {
+            my_printf("Invalid file\n");
+            stop(&info, 84);
+        }
     }
-    tmp = parse_name_stack_create(file_content, file_size);
-    champ->name = trim_str(tmp, PROG_NAME_LENGTH);
-    free(tmp);
-    stack.code = code_stack_create(champ, &stack, file_content, (unsigned int)
-        file_size);
-    return stack;
+    return info;
 }
