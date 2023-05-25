@@ -8,20 +8,6 @@
 #include "asm.h"
 #include "jb.h"
 
-
-static bool check_header_compenents(char **parser)
-{
-    size_t countHeader = 0;
-
-    if (!parser || !parser[0])
-        return false;
-    if (my_strcmp(parser[0], ".name") || my_strcmp(parser[0], ".comment"))
-        countHeader++;
-    if (countHeader == 0)
-        return false;
-    return true;
-}
-
 static bool get_header(char *line, file_t *file)
 {
     char **pars = NULL;
@@ -48,7 +34,6 @@ static bool get_header(char *line, file_t *file)
 
 extern int parse_header(file_t *file, char *filepath)
 {
-    char **parser = NULL;
     size_t status = 0;
 
     file->origin_file = get_file(filepath);
