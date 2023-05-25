@@ -44,7 +44,6 @@ void write_header(file_t *file, char *filename)
             get_size_each_argument(file, i, j);
         }
     }
-    my_printf("prog_size -> %d\n", file->header->prog_size);
     file->fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
     write(file->fd, file->header, sizeof(header_t));
 }

@@ -34,7 +34,6 @@ extern size_t get_type(char c, char *name, size_t pos)
     size_t valueToReturn = 9999;
     char *instructions[] = {"live", "zjmp", "fork", "lfork", NULL};
 
-    my_printf("PARAM - [%d]\n", pos);
     switch (c) {
         case 'r': valueToReturn = 0; break;
         case '%': valueToReturn = 2; break;

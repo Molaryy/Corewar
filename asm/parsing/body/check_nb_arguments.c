@@ -9,26 +9,26 @@
 #include "asm.h"
 #include "parser.h"
 
-static bool instruction_exists(char **tab, parser_t *pars, size_t *start,
-                                size_t pos)
+static size_t instruction_exists(char **tab, parser_t *pars, size_t *start)
 {
     char *instruction = NULL;
+    size_t minus = 0;
 
     if (tab[0][my_strlen(tab[0]) - 1] == ':'){
         instruction = tab[1];
         *start = 1;
-        pars[pos].minus = 1;
+        minus = 1;
     } else {
         instruction = tab[0];
         *start = 0;
     }
     if (instruction == NULL)
-        return false;
+        return FAILURE;
     for (size_t i = 0; i < NB_INSTRUCTIONS; i++) {
         if (my_strcmp(pars[i].name, instruction))
-            return true;
+            return minus;
     }
-    return false;
+    return minus;
 }
 
 extern size_t get_number_params(char *instruction, parser_t *pars)
@@ -53,25 +53,26 @@ static size_t getlen_and_params(char **tab, size_t start, parser_t *pars,
     return len;
 }
 
-static bool count_params(char *line, parser_t *pars, size_t pos)
+static bool count_params(char *line, parser_t *pars)
 {
-    char **tab = str_to_array_separator(line, " ,\t");
+    char **tab = str_to_array_separator(line, ", \t");
     size_t len = 0;
     size_t start = 0;
     size_t nbParams = 0;
+    size_t minus = 0;
 
     if (!tab)
         return false;
     if (tab[0][my_strlen(tab[0]) - 1] == ':' && tab[1] == NULL)
         return true;
-    if (!instruction_exists(tab, pars, &start, pos))
+    if ((minus = instruction_exists(tab, pars, &start)) == FAILURE)
         return false;
     len = getlen_and_params(tab, start, pars, &nbParams);
     if (nbParams != (len - 1)){
         free_array_str(tab);
         return false;
     }
-    if (!check_type_arguments(tab, pars, start, pars[pos].minus))
+    if (!check_type_arguments(tab, pars, start, minus))
         return false;
     free_array_str(tab);
     return true;
@@ -82,7 +83,7 @@ extern bool check_instruction_number_arguments(body_t *body, parser_t *pars)
     if (!body || !pars)
         return false;
     for (size_t i = 0; body->bodyArray[i] ; i++) {
-        if (!count_params(body->bodyArray[i], pars, i))
+        if (!count_params(body->bodyArray[i], pars))
             return false;
     }
     return true;

@@ -20,7 +20,6 @@ static bool check_repetition_label(body_t *body)
     link_t *link = body->labels;
     link_t *tmp = body->labels;
 
-    my_printf("NOO JURE = %s\n", link->data);
     for (; tmp; tmp = tmp->next) {
         for (; link ; link = link->next)
             count_repetitions(tmp->data, link->data, &count);
@@ -28,6 +27,25 @@ static bool check_repetition_label(body_t *body)
             return false;
         count = 0;
     }
+    return true;
+}
+
+static bool is_label_alphanumeric(link_t *link, file_t *file)
+{
+    link_t *tmp = link;
+    char *label = NULL;
+
+    if (!link)
+        return false;
+    for (; tmp; tmp = tmp->next) {
+        if (!(label = my_strcpy(tmp->data)))
+            return false;
+        label[my_strlen(label) - 1] = '\0';
+        if (!is_str_alphanumeric(label)){
+            return false;
+        }
+    }
+    file->nbLabels = link_len(link);
     return true;
 }
 
@@ -50,7 +68,7 @@ extern bool add_labels_to_link(body_t *body, file_t *file)
         free_links(&(body->labels));
         return false;
     }
-    file->nbLabels = link_len(body->labels);
-    free_links(&(body->labels));
+    if (!is_label_alphanumeric(body->labels, file))
+        return false;
     return true;
 }
