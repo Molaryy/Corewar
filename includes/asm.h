@@ -521,7 +521,7 @@ char **get_tab(char **pars, size_t start);
 
 /**
  * @brief get the label
- * 
+ *
  * @param file
  */
 extern void label_find(file_t *file);
