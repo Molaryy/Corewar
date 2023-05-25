@@ -541,7 +541,7 @@ bool starting_prog_size(file_t *file, int i);
  * 
  * @param param 
  * @param file 
- * @param value 
+ * @param value
  * @return unsigned int
  */
 unsigned int one_label_handling(const char *param, file_t *file,
