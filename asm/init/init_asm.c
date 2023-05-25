@@ -39,5 +39,7 @@ extern bool init_compiler(file_t *file, parser_t *pars)
     init_body(file->body, pars);
     if (!init_file(file))
         return false;
+    file->nbComment = 0;
+    file->nbName = 0;
     return true;
 }

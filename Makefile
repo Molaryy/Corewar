@@ -100,7 +100,7 @@ NAME_C    =       corewar
 
 DOT_O = *.o
 
-CFLAGS  =       -W -Wall -Wextra -I includes/
+CFLAGS  =       -W -Wall -Wextra -I includes/ -g
 
 all:	$(OBJ_A) $(OBJ_C)
 	$(MAKE) -C lib/jb --no-print-directory

@@ -34,7 +34,6 @@ extern size_t get_type(char c, char *name, size_t pos)
     size_t valueToReturn = 9999;
     char *instructions[] = {"live", "zjmp", "fork", "lfork", NULL};
 
-    my_printf("PARAM - [%d]\n", pos);
     switch (c) {
         case 'r': valueToReturn = 0; break;
         case '%': valueToReturn = 2; break;
@@ -45,6 +44,8 @@ extern size_t get_type(char c, char *name, size_t pos)
         if (my_strcmp(name, instructions[i]) && valueToReturn != 0)
             valueToReturn = 1;
     }
+    if (my_strcmp(name, "st") && pos == 2)
+        valueToReturn = 2;
     valueToReturn = check_value(name, valueToReturn, pos);
     return valueToReturn;
 }
