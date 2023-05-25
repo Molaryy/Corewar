@@ -528,7 +528,7 @@ extern void label_find(file_t *file);
 
 /**
  * @brief starting to count
- * 
+ *
  * @param file
  * @param i
  * @return true
