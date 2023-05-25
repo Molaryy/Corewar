@@ -12,20 +12,17 @@ extern parambyte_t *create_param_byte(const char* param, file_t *file)
     parambyte_t *paramByte = malloc(sizeof(parambyte_t));
     unsigned int value = 0;
 
-    if (paramByte == NULL)
-        exit(EXIT_FAILURE);
-    if (param[0] == 'r') {
-        file->offset++;
-        value = get_value(param, 0);
-        paramByte->bytes = get_register_bytes(value, paramByte);
-    } else if (param[0] == '%') {
+    if (param[0] == '%') {
         file->offset += 4;
         if (param[1] != ':') {
             value = get_value(param, 1);
             paramByte->bytes = get_direct_bytes(value, paramByte);
-        } else {
+        } else
             my_printf("offset -> %d\n", file->offset);
-        }
+    } else if (param[0] == 'r') {
+        file->offset++;
+        value = get_value(param, 0);
+        paramByte->bytes = get_register_bytes(value, paramByte);
     } else {
         file->offset += 4;
         value = get_value(param, 2);
@@ -57,17 +54,14 @@ extern parambyte_t *create_ldi_bytes(const char *param, file_t *file)
 {
     parambyte_t *paramByte = malloc(sizeof(parambyte_t));
     unsigned int value = 0;
-    if (paramByte == NULL)
-        exit(EXIT_FAILURE);
+
     if (param[0] == '%') {
         file->offset += 2;
         if (param[1] != ':') {
             value = get_value(param, 1);
             paramByte->bytes = get_indirect_bytes(value, paramByte);
-        } else {
-            my_printf("offset -> %d\n", file->offset);
+        } else
             paramByte->bytes = get_indirect_bytes(value, paramByte);
-        }
     } else if (param[0] == 'r') {
         file->offset++;
         value = get_value(param, 0);
@@ -84,17 +78,14 @@ extern parambyte_t *create_sti_bytes(const char *param, file_t *file)
 {
     parambyte_t *paramByte = malloc(sizeof(parambyte_t));
     unsigned int value = 0;
-    if (paramByte == NULL)
-        exit(EXIT_FAILURE);
+
     if (param[0] == '%') {
         file->offset += 2;
         if (param[1] != ':') {
             value = get_value(param, 1);
             paramByte->bytes = get_indirect_bytes(value, paramByte);
-        } else {
-            my_printf("offset -> %d\n", file->offset);
+        } else
             paramByte->bytes = get_indirect_bytes(value, paramByte);
-        }
     } else if (param[0] == 'r') {
         file->offset ++;
         value = get_value(param, 0);
