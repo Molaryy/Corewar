@@ -40,7 +40,6 @@ extern void get_byte_and_write(char *filename, file_t *file)
     label_find(file);
     for (size_t i = 0; i != file->nbLinesBody; i++) {
         if (file->champ[i].paramName != NULL) {
-            my_printf("size -> %d\n", file->offset);
             infinit_loop(file, i);
         }
     }
