@@ -44,9 +44,8 @@ extern char **str_to_array_separator(char const *str, char *separator)
             return NULL;
         array[i][cols] = '\0';
         for (; str[j] != '\0' && (!is_separator(str[j], separator)); j++);
-        for (; str[j] != '\0' && is_separator(str[j], separator); j++, k++) {
+        for (; str[j] != '\0' && is_separator(str[j], separator); j++, k++)
             array[i][k] = str[j];
-        }
         k = 0;
     }
     array[lines] = NULL;
