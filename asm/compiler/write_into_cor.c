@@ -44,5 +44,4 @@ extern void get_byte_and_write(char *filename, file_t *file)
             infinit_loop(file, i);
         }
     }
-    my_printf("END size -> %d\n", file->offset);
 }
