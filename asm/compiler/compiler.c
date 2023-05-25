@@ -11,6 +11,8 @@
 
 static int get_index_label(char **tab)
 {
+    if (!tab)
+        return -1;
     for (size_t i = 0; tab[i]; i++) {
         if (tab[i][0] == '%' && tab[i][1] == ':')
             return i;
@@ -39,6 +41,8 @@ static bool check_if_label_exists(champ_t *champ, link_t *label, size_t len)
 
     for (size_t i = 0; i < len; i++) {
         tab = champ[i].params;
+        if (!tab)
+            continue;
         index = get_index_label(tab);
         if (index < 0)
             continue;
@@ -81,6 +85,6 @@ extern size_t compiler(char *filepath)
         return FAILURE;
     if (parsing_compiler(parser, file, filepath) == FAILURE)
         return FAILURE;
-    cor_file(filepath, file);
+    //cor_file(filepath, file);
     return SUCCESS;
 }
