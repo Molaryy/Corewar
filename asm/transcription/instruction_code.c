@@ -17,7 +17,7 @@ static int get_instruction_code(const char *instruction, op_t *op_tab)
     return FAILURE;
 }
 
-extern unsigned char instruction_code(char *instruction)
+extern unsigned char instruction_code(char *instruction, file_t *file)
 {
     int code = get_instruction_code(instruction, op_tab);
     unsigned char instruction_byte;
@@ -28,6 +28,7 @@ extern unsigned char instruction_code(char *instruction)
     } else {
         instruction_byte = (unsigned char) code;
     }
+    file->offset++;
     return instruction_byte;
 }
 

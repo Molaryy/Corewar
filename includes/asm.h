@@ -111,6 +111,13 @@
 
     } parambyte_t;
 
+    typedef struct label_find_s {
+
+        int adresse;
+        char *name;
+
+    } label_find_t;
+
     typedef struct file_s {
 
         char **origin_file;
@@ -274,7 +281,7 @@ bool add_labels_to_link(body_t *body, file_t *file);
  * @param params
  * @param nbParams
  */
-unsigned char coding_byte(char **params, size_t nbParams);
+unsigned char coding_byte(char **params, size_t nbParams, file_t *file);
 
 /**
  * @brief function to print byte
@@ -311,7 +318,7 @@ extern char* create_cor_file(const char* str);
  *
  * @param instruction
  */
-extern unsigned char instruction_code(char *instruction);
+extern unsigned char instruction_code(char *instruction, file_t *file);
 
 /**
  * @brief print the op table
@@ -377,7 +384,7 @@ unsigned int get_value(const char* param, int opt);
  * @param param
  * @return parambyte_t*
  */
-parambyte_t *create_param_byte(const char* param);
+parambyte_t *create_param_byte(const char* param, file_t *file);
 
 /**
  * @brief Create a zjmp bytes object
@@ -385,7 +392,7 @@ parambyte_t *create_param_byte(const char* param);
  * @param param
  * @return parambyte_t*
  */
-parambyte_t *create_zjmp_bytes(const char* param);
+parambyte_t *create_zjmp_bytes(const char* param, file_t *file);
 
 /**
  * @brief Create a ldi bytes object
@@ -394,7 +401,7 @@ parambyte_t *create_zjmp_bytes(const char* param);
  * @param i
  * @return parambyte_t*
  */
-parambyte_t *create_ldi_bytes(const char *param);
+parambyte_t *create_ldi_bytes(const char *param, file_t *file);
 
 /**
  * @brief Create a sti bytes object
@@ -403,7 +410,7 @@ parambyte_t *create_ldi_bytes(const char *param);
  * @param i
  * @return parambyte_t*
  */
-parambyte_t *create_sti_bytes(const char *param);
+parambyte_t *create_sti_bytes(const char *param, file_t *file);
 
 /**
  * @brief Create a fork bytes object
@@ -411,7 +418,7 @@ parambyte_t *create_sti_bytes(const char *param);
  * @param param
  * @return parambyte_t*
  */
-parambyte_t *create_fork_bytes(const char *param);
+parambyte_t *create_fork_bytes(const char *param, file_t *file);
 
 /**
  * @brief function to get the byte of parameter
@@ -513,4 +520,31 @@ size_t check_start(char c, size_t start);
  */
 char **get_tab(char **pars, size_t start);
 
+/**
+ * @brief get the label
+ *
+ * @param file
+ */
+extern void label_find(file_t *file);
+
+/**
+ * @brief starting to count
+ *
+ * @param file
+ * @param i
+ * @return true
+ * @return false
+ */
+bool starting_prog_size(file_t *file, int i);
+
+/**
+ * @brief handle the label for 1 param
+ *
+ * @param param
+ * @param file
+ * @param value
+ * @return unsigned int
+ */
+unsigned int one_label_handling(const char *param, file_t *file,
+                                unsigned int value);
 #endif /* !asm_h_ */

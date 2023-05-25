@@ -279,4 +279,13 @@ char *remove_after_separator(char *str, char const *separators);
  * @return char*
  */
 char *str_set(char *str);
+
+/**
+ * @brief remove first char
+ *
+ * @param str
+ * @param c
+ * @return char*
+ */
+char* remove_char(const char* str, char c);
 #endif /* JB_H_ */

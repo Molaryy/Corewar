@@ -14,7 +14,7 @@ extern void print_bytes_to_file(const parambyte_t* paramByte, int fd)
     write(fd, paramByte->bytes, sizeof(unsigned char) * paramByte->size);
 }
 
-void print_byte(parambyte_t **paramBytes, int i)
+extern void print_byte(parambyte_t **paramBytes, int i)
 {
     for (size_t j = 0; j < paramBytes[i]->size; j++)
         my_printf("0x%h ", paramBytes[i]->bytes[j]);
@@ -30,7 +30,7 @@ extern void parameters_in_byte(file_t *file, char *instruction, char **params,
 
     if (!is_index) {
         for (size_t i = 0; i < nbParams; i++) {
-            paramBytes[i] = create_param_byte(params[i]);
+            paramBytes[i] = create_param_byte(params[i], file);
             print_bytes_to_file(paramBytes[i], file->fd);
         }
     }
