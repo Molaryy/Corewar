@@ -26,7 +26,7 @@ char *code_stack_create(char *file_content,
 
     for (unsigned int j = (PROG_NAME_LENGTH + COMMENT_LENGTH) + 16; j <
         file_size; j++, i++) {
-        code[i] = file_content[j];
+        code[i] = (unsigned char) file_content[j];
     }
     return code;
 }
@@ -40,7 +40,7 @@ stack_t stack_create(champion_t *champ, char *filename)
 
     if (file_size == (size_t) -1) {
         champ->name = my_strdup("ERROR");
-        stack.code = malloc(sizeof(char));
+        stack.code = malloc(sizeof(unsigned char));
         free(filename);
         return stack;
     }

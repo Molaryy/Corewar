@@ -89,7 +89,8 @@ SRC_CORE += $(HELPER_CORE)/stop.c
 SRC_CORE += $(HELPER_CORE)/debug.c
 SRC_CORE += $(HELPER_CORE)/free.c
 
-LIB += -L./lib/jb -llink -L./lib/nc -lnc
+LIB += -L./lib/jb -llink
+LIB_CORE += -Llib/nc -lnc
 
 TESTS += $(TEST)/tests.c
 TESTS += $(PARSING)/detect_file_extesion.c
@@ -112,7 +113,7 @@ all:	$(OBJ_A) $(OBJ_C)
 	$(MAKE) -C lib/jb --no-print-directory
 	$(MAKE) -C lib/nc --no-print-directory
 	gcc -o $(BASE_ASM)/$(NAME_A) $(OBJ_A) $(LIB) $(CFLAGS)
-	gcc -o $(ROOT_COR)/$(NAME_C) $(OBJ_C) $(LIB) $(CFLAGS)
+	gcc -o $(ROOT_COR)/$(NAME_C) $(OBJ_C) $(LIB_CORE) $(CFLAGS)
 
 clean:
 	rm -f $(BASE_ASM)/$(BASE_ASM)

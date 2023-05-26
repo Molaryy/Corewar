@@ -86,7 +86,7 @@ SRC	=	concat_params.c		\
 
 OBJ	=	$(SRC:.c=.o)
 
-CFLAGS	=	-I../../includes
+CFLAGS	=	-I../../includes -g
 
 NAME	=	libnc.a
 

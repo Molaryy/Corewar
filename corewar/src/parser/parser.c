@@ -6,7 +6,7 @@
 */
 
 #include "core.h"
-#include "jb.h"
+#include "nc.h"
 
 int parse_args_loop(info_corewar_t *info, int argc, char **argv, int *i)
 {
@@ -15,9 +15,9 @@ int parse_args_loop(info_corewar_t *info, int argc, char **argv, int *i)
     char *filename;
 
     for (; *i < argc; (*i)++) {
-        if (my_strcmp("-n", argv[*i]))
+        if (my_strcmp("-n", argv[*i]) == 0)
             prog_num = my_getnbr(argv[++(*i)]);
-        if (my_strcmp("-a", argv[*i]))
+        if (my_strcmp("-a", argv[*i]) == 0)
             load_address = my_getnbr(argv[++(*i)]);
         if (access(argv[*i], R_OK) == 0) {
             filename = my_strdup(argv[(*i)++]);
@@ -25,7 +25,7 @@ int parse_args_loop(info_corewar_t *info, int argc, char **argv, int *i)
                 load_address, filename);
             return TRUE;
         }
-        if (my_strcmp("-n", argv[*i]) || my_strcmp("-a", argv[*i]))
+        if (my_strcmp("-n", argv[*i]) == 0 || my_strcmp("-a", argv[*i]) == 0)
             continue;
         return FALSE;
     }
@@ -34,8 +34,8 @@ int parse_args_loop(info_corewar_t *info, int argc, char **argv, int *i)
 
 int parse_args_dump(info_corewar_t *info, int argc, char **argv, int *i)
 {
-    if (my_strcmp("-dump", argv[*i])) {
-        if (my_str_isnum(argv[++(*i)]) == false)
+    if (my_strcmp("-dump", argv[*i]) == 0) {
+        if (my_str_isnum(argv[++(*i)]) == 0)
             return FALSE;
         info->dump = my_getnbr(argv[++(*i)]);
         return TRUE;
@@ -56,7 +56,7 @@ info_corewar_t parse_args(int argc, char **argv)
         exit(84);
     while (i < argc) {
         if (parse_args_loop(&info, argc, argv, &i) == FALSE ||
-            my_strcmp(info.champions[info.nb_champions].name, "ERROR")) {
+            my_strcmp(info.champions[info.nb_champions].name, "ERROR") == 0) {
             my_printf("Invalid file\n");
             stop(&info, 84);
         }

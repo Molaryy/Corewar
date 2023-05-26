@@ -69,7 +69,7 @@ SRC += $(JB)/$(PRINT)/my_putnbr_base.c
 
 OBJ     =       $(SRC:.c=.o)
 
-CFLAGS	=	-I ../../includes/ -Wall -Wextra -g
+CFLAGS	=	-I ../../includes/ -Wall -Wextra
 
 NAME    =	liblink.a
 
