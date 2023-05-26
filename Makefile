@@ -128,13 +128,13 @@ clean:
 	rm -f $(BASE_ASM)/$(DOT_O)
 	rm -f $(BASE_CORE)/$(DOT_O)
 	rm -f $(NAME_C)/$(NAME_C)
-	$(MAKE) -C lib/nc clean --no-print-directory 
+	$(MAKE) -C lib/nc clean --no-print-directory
 	$(MAKE) -C lib/jb clean --no-print-directory
 
 fclean:	clean
 	rm -f $(BASE_ASM)/$(NAME_A)
 	rm -f corewar/$(NAME_C)
-	$(MAKE) -C lib/nc fclean --no-print-directory 
+	$(MAKE) -C lib/nc fclean --no-print-directory
 	$(MAKE) -C lib/jb fclean --no-print-directory
 
 re: fclean all
