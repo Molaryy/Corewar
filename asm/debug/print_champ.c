@@ -19,6 +19,8 @@ extern void print_champion(champ_t *champ, size_t len)
         print_linked_tab(champ[i].params);
         my_printf("\n[%d]-[%d]-[%d]\n", champ[i].isIndex[0],
         champ[i].isIndex[1], champ[i].isIndex[2]);
+        my_printf("Is label: [%d]-[%d]-[%d]\n", champ[i].isLabel[0],
+        champ[i].isLabel[1], champ[i].isLabel[2]);
         my_printf("\n-----END-----\n\n");
     }
 }
