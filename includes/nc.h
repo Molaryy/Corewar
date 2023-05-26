@@ -163,7 +163,7 @@ char **my_strtok_a(char const * str, char *delimeters);
 
 /* ===========================================================================
 ** ../lib/my/realloc_char.c
-** ==========================================================================
+** ===========================================================================
 */
 int get_arrlen(char **arr);
 int free_arr(char **arr);
@@ -172,8 +172,29 @@ char **cust_realloc_char(char **arr, char *new);
 
 /* ===========================================================================
 ** ../lib/my/my_strtok_quotes.c
-** ==========================================================================
+** ===========================================================================
 */
 char **my_strtok_quotes(char *str, char *delimiter);
 
+/*
+** ===========================================================================
+** ../lib/my/my_strncat_n.c
+** ===========================================================================
+*/
+
+/*
+** @brief Concatenates two strings, but only n characters from the second
+** string and mallocs it.
+** @param left The first string.
+** @param right The second string.
+** @param n The number of characters to concatenate.
+** @return The concatenated string.
+*/
+char *my_strncat_n(char *left, char *right, int n);
+
+
+/* ===========================================================================
+**                                 END FILE
+** ===========================================================================
+*/
 #endif

@@ -13,3 +13,9 @@ void free_3(char *str1, char *str2, char *str3)
     free(str2);
     free(str3);
 }
+
+void free_2(char *str1, char *str2)
+{
+    free(str1);
+    free(str2);
+}

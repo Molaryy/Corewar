@@ -5,10 +5,7 @@
 ** debugger to display some data
 */
 
-#include <stdio.h>
-
 #include "core.h"
-#include "nc.h"
 
 void display_champion(champion_t *champion)
 {
@@ -17,7 +14,7 @@ void display_champion(champion_t *champion)
     my_printf("Champion load address: %d\n", champion->loaded_addr);
     my_printf("Champion code size: %d\n", champion->stack.code_size);
     my_printf("Champion code: ");
-    for (int i = 0; i < champion->stack.code_size; i++) {
+    for (unsigned int i = 0; i < champion->stack.code_size; i++) {
         if (i % 2 == 0)
             my_printf("%08X ", (unsigned int)champion->stack.code[i]);
         else

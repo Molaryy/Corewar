@@ -7,27 +7,39 @@
 
 #include "core.h"
 
-size_t get_file_size(char *filename)
+static size_t size_of_file(int fd)
 {
-    struct stat file_info;
+    size_t len = 0;
+    size_t res = 1;
+    char *buffer = malloc(sizeof(char) * 2);
 
-    if (stat(filename, &file_info) < 0) {
-        return (size_t) -1;
+    if (!buffer)
+        return 0;
+    for (size_t i = 0; res > 0; i++) {
+        res = read(fd, buffer, 2);
+        len += res;
     }
-    return file_info.st_size;
+    close(fd);
+    return len;
 }
 
-char *get_file_content(char *filename)
+file_t get_file_content(char *filename)
 {
+    file_t file = {0};
     int fd = open(filename, O_RDONLY);
-    struct stat file_info;
-    char *buffer;
 
-    if (fd < 0 || stat(filename, &file_info) < 0) {
-        return NULL;
+    file.file_size = (size_t) -1;
+    if (fd < 0)
+        return file;
+    file.file_size = size_of_file(fd);
+    fd = open(filename, O_RDONLY);
+    my_printf("file size: %d\n", (int) file.file_size);
+    file.file_content = malloc(sizeof(char) * ((int)file.file_size));
+    if (!file.file_content) {
+        file.file_size = (size_t) -1;
+        return file;
     }
-    buffer = malloc(sizeof(char) * (file_info.st_size + 1));
-    buffer[file_info.st_size] = '\0';
-    read(fd, buffer, file_info.st_size);
-    return buffer;
+    read(fd, file.file_content, file.file_size);
+    close(fd);
+    return file;
 }

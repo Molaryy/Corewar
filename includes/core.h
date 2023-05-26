@@ -8,13 +8,16 @@
 #ifndef CORE_H_
     #define CORE_H_
 
-    #include <sys/stat.h>
     #include <stdlib.h>
     #include <fcntl.h>
     #include <unistd.h>
 
+    #include "nc.h"
+
     #define TRUE 0
     #define FALSE -1
+
+    #define READ_LEN 3
 
     // %3 number 3
     // 3 3 index from current
@@ -146,18 +149,12 @@ typedef struct info_corewar_t {
 */
 
 /*
-** @brief gets the file size of the given filename
+** @brief gets the file size of the given filename and gets the file contents
+** of the given filename
 ** @param filename char* filename or path
-** @returns size of file given
+** @returns file_t struct with file contents and file size
 */
-char *get_file_content(char *filename);
-
-/*
-** @brief gets the file size of the given filename
-** @param filename char* filename or path
-** @returns size of file given
-*/
-size_t get_file_size(char *filename);
+file_t get_file_content(char *filename);
 
 /* ===========================================================================
 **                            END FILE
@@ -289,6 +286,34 @@ void display_champion(champion_t *champion);
 ** ===========================================================================
 */
 
+
+/* ===========================================================================
+** corewar/src/helper/free.c
+** ===========================================================================
+*/
+
+/*
+** @brief this will free 3 mallocs
+** @param str1 char * first malloc to be freed
+** @param str2 char * second malloc to be freed
+** @param str3 char * third malloc to be freed
+** @return void
+*/
 void free_3(char *str1, char *str2, char *str3);
+
+/*
+** @brief this will free 2 mallocs
+** @param str1 char * first malloc to be freed
+** @param str2 char * second malloc to be freed
+** @return void
+*/
+void free_2(char *str1, char *str2);
+
+/* ===========================================================================
+**                            END FILE
+** ===========================================================================
+*/
+
+
 
 #endif // CORE_H_

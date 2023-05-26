@@ -83,6 +83,7 @@ SRC	=	concat_params.c		\
 		my_strtok_a.c	\
 		realloc_char.c	\
 		my_strtok_quotes.c	\
+		my_strncat_n.c	\
 
 OBJ	=	$(SRC:.c=.o)
 
