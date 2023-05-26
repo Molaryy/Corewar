@@ -286,6 +286,14 @@ char *str_set(char *str);
  * @param str
  * @return bool
  */
-extern bool my_str_isnum(char const *str);
+bool my_str_isnum(char const *str);
 
+/*
+ * @brief remove first char
+ *
+ * @param str
+ * @param c
+ * @return char*
+ */
+char* remove_char(const char* str, char c);
 #endif /* JB_H_ */
