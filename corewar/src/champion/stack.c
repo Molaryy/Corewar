@@ -27,7 +27,6 @@ char *code_stack_create(char *file_content,
     for (unsigned int j = ((PROG_NAME_LENGTH + COMMENT_LENGTH) + 16)
         ; j < file_size; j++, i++) {
         code[i] = (unsigned char) file_content[j];
-        write(1, &file_content[j], 1);
     }
     return code;
 }
