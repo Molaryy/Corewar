@@ -24,9 +24,10 @@ char *code_stack_create(char *file_content,
     char *code = malloc(sizeof(unsigned char) * (file_size - (PROG_NAME_LENGTH
         + COMMENT_LENGTH) + 16));
 
-    for (unsigned int j = (PROG_NAME_LENGTH + COMMENT_LENGTH) + 16; j <
-        file_size; j++, i++) {
+    for (unsigned int j = ((PROG_NAME_LENGTH + COMMENT_LENGTH) + 16)
+        ; j < file_size; j++, i++) {
         code[i] = (unsigned char) file_content[j];
+        write(1, &file_content[j], 1);
     }
     return code;
 }
@@ -47,8 +48,8 @@ stack_t stack_create(champion_t *champ, char *filename)
     file_content = get_file_content(filename);
     tmp = parse_name_stack_create(file_content, file_size);
     champ->name = trim_str(tmp, PROG_NAME_LENGTH);
-    stack.code_size = (unsigned int) file_size -(PROG_NAME_LENGTH +
-        COMMENT_LENGTH) + 16;
+    stack.code_size = (unsigned int) file_size - ((PROG_NAME_LENGTH +
+        COMMENT_LENGTH) + 16);
     stack.code = code_stack_create(file_content, (unsigned int) file_size);
     free_3(file_content, tmp, filename);
     return stack;
