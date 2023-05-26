@@ -55,7 +55,7 @@ static unsigned char create_byte(char* param1, char* param2, char* param3)
     return result_byte;
 }
 
-extern unsigned char coding_byte(char **params, size_t nbParams)
+extern unsigned char coding_byte(char **params, size_t nbParams, file_t *file)
 {
     unsigned char byte;
 
@@ -67,5 +67,6 @@ extern unsigned char coding_byte(char **params, size_t nbParams)
         params[2] = NULL;
 
     byte = create_byte(params[0], params[1], params[2]);
+    file->offset++;
     return byte;
 }

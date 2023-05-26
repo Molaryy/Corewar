@@ -65,6 +65,7 @@ SRC_ASM += $(PARAMETER_BYTE)/create_bytes.c
 SRC_ASM += $(PARAMETER_BYTE)/get_bytes.c
 SRC_ASM += $(PARAMETER_BYTE)/param_in_byte.c
 SRC_ASM += $(PARAMETER_BYTE)/indexes.c
+SRC_ASM += $(PARAMETER_BYTE)/label_find.c
 
 SRC_ASM += $(DEBUG)/print_champ.c
 
