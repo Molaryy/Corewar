@@ -40,7 +40,7 @@ void padding_right_hexa(long long int nb, int *char_count,
 
 int my_convert_hexa(va_list arguments, int *char_count, specifier_t specifier)
 {
-    long long int nb = va_arg(arguments, int);
+    unsigned int nb = va_arg(arguments, unsigned int);
     char flag = specifier.conversion_specifier;
     int hash = specifier.flag == '#' ? 1 : 0;
 

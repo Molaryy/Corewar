@@ -97,6 +97,11 @@ typedef struct header_s header_t;
     # define CYCLE_DELTA     5
     # define NBR_LIVE        40
 
+typedef struct file_t {
+    char *file_content;
+    size_t file_size;
+} file_t;
+
 typedef struct uint32_t {
     unsigned char byte[8];
 } uint32_t;
