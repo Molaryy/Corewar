@@ -18,8 +18,10 @@ void display_champion(champion_t *champion)
     my_printf("Champion code size: %d\n", champion->stack.code_size);
     my_printf("Champion code: ");
     for (int i = 0; i < champion->stack.code_size; i++) {
-        my_printf("%08X %08X\n", (unsigned int)champion->stack.code[i],
-            (unsigned int) champion->stack.code[++i]);
+        if (i % 2 == 0)
+            my_printf("%08X ", (unsigned int)champion->stack.code[i]);
+        else
+            my_printf("%08X\n", (unsigned int)champion->stack.code[i]);
     }
     my_printf("\n");
 }
