@@ -132,6 +132,8 @@
         size_t nbLabels;
         size_t nbName;
         size_t nbComment;
+        int offset;
+        label_find_t *label_find;
 
     } file_t;
 
