@@ -20,7 +20,7 @@ void display_champion(champion_t *champion)
     for (int i = 0; i < champion->stack.code_size; i++) {
         if (i % 2 == 0)
             my_printf("%08X ", (unsigned int)champion->stack.code[i]);
-        else 
+        else
             my_printf("%08X\n", (unsigned int)champion->stack.code[i]);
     }
     my_printf("\n");
