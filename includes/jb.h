@@ -281,14 +281,6 @@ char *remove_after_separator(char *str, char const *separators);
 char *str_set(char *str);
 
 /**
- * @brief check if a str is a number
- *
- * @param str
- * @return bool
- */
-bool my_str_isnum(char const *str);
-
-/*
  * @brief remove first char
  *
  * @param str
@@ -296,4 +288,13 @@ bool my_str_isnum(char const *str);
  * @return char*
  */
 char* remove_char(const char* str, char c);
+
+/**
+ * @brief move memorr
+ *
+ * @param destination
+ * @param source
+ * @param num_bytes
+ */
+void my_memmove(void* destination, const void* source, size_t num_bytes);
 #endif /* JB_H_ */
