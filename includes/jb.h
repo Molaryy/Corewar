@@ -281,6 +281,14 @@ char *remove_after_separator(char *str, char const *separators);
 char *str_set(char *str);
 
 /**
+ * @brief check if a str is a number
+ *
+ * @param str
+ * @return bool
+ */
+bool my_str_isnum(char const *str);
+
+/*
  * @brief remove first char
  *
  * @param str

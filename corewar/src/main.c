@@ -9,6 +9,8 @@
 
 int main(int ac, char **av)
 {
-    champion_t test = champion_create(0, 0, av[1]);
-    return 0;
+    info_corewar_t info = parse_args(ac, av);
+
+    display_info(&info);
+    stop(&info, 0);
 }

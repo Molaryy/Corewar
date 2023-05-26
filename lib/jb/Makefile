@@ -57,6 +57,7 @@ SRC += $(JB)/$(FEAT)/$(STR)/my_strchr.c
 SRC += $(JB)/$(FEAT)/$(STR)/clean_str.c
 SRC += $(JB)/$(FEAT)/$(STR)/remove_beg_str.c
 SRC += $(JB)/$(FEAT)/$(STR)/str_limit.c
+SRC += $(JB)/$(FEAT)/$(STR)/my_str_isnum.c
 
 
 SRC += $(JB)/$(PRINT)/my_printf.c
@@ -68,7 +69,7 @@ SRC += $(JB)/$(PRINT)/my_putnbr_base.c
 
 OBJ     =       $(SRC:.c=.o)
 
-CFLAGS	=	-I ../../includes/ -Wall -Wextra
+CFLAGS	=	-I ../../includes/ -Wall -Wextra -g
 
 NAME    =	liblink.a
 

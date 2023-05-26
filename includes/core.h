@@ -11,8 +11,7 @@
     #include <sys/stat.h>
     #include <stdlib.h>
     #include <fcntl.h>
-
-    #include "jb.h"
+    #include <unistd.h>
 
     #define TRUE 0
     #define FALSE -1
@@ -98,8 +97,12 @@ typedef struct header_s header_t;
     # define CYCLE_DELTA     5
     # define NBR_LIVE        40
 
+typedef struct uint32_t {
+    unsigned char byte[8];
+} uint32_t;
+
 typedef struct process_t {
-    register_t registers[REG_NUMBER];
+    uint32_t registers[REG_NUMBER];
     op_t operation;
 } process_t;
 
@@ -109,8 +112,8 @@ typedef struct funct_t {
 
 typedef struct stack_t {
     unsigned char current_index;
-    int num_func;
-    funct_t *functions;
+    char *code;
+    unsigned code_size;
 } stack_t;
 
 typedef struct champion_t {
@@ -127,8 +130,9 @@ typedef struct vm_param_t {
 } vm_param_t;
 
 typedef struct info_corewar_t {
-    champion_t *champions;
+    champion_t champions[100];
     int nb_champions;
+    int dump;
 } info_corewar_t;
 
 /* ===========================================================================
@@ -156,31 +160,60 @@ size_t get_file_size(char *filename);
 */
 
 /* ===========================================================================
-** corewar/src/parser/parser.c
+** corewar/src/champion/champion.c
 ** ===========================================================================
 */
 
 /*
-** @brief this will creatd a champion_t structure that inside will call the
+** @brief this will created a champion_t structure that inside will call the
 ** stack_create function inside, a child structure of champion_t
 ** @param prog_nbr int the program or champion index to be referenced in
 ** output
 ** @param loaded_addr int where to load the champions code in the stack
-** @param filename char* filename to find all the necessairy thing for
+** @param filename char* filename to find all the necessary thing for
 ** the champion
 ** @returns champion_t
 */
 champion_t champion_create(int prog_nbr, int loaded_addr, char *filename);
 
+/* ===========================================================================
+**                            END FILE
+** ===========================================================================
+*/
+
+
+/* ===========================================================================
+** corewar/src/champion/stack.c
+** ===========================================================================
+*/
+
 /*
 ** @brief this will create the stack of code to be run by the champion
-** any unammed functions will be put into an anonymous function to be run
+** any unnamed functions will be put into an anonymous function to be run
 ** sequentially
 ** @param filename char* filename of the parent function champion_create
 ** to populate attributes and code of the champion
 ** @returns stack_t
 */
 stack_t stack_create(champion_t *champ, char *filename);
+
+/* ===========================================================================
+**                            END FILE
+** ===========================================================================
+*/
+
+/* ===========================================================================
+** corewar/src/parser/parser.c
+** ===========================================================================
+*/
+
+/*
+** @brief this will parse the args given and make the champions
+** @param argc int number of args
+** @param argv char** array of args
+** @returns int either TRUE macro if successful or FALSE macro if not
+*/
+info_corewar_t parse_args(int argc, char **argv);
 
 /* ===========================================================================
 **                            END FILE
@@ -212,4 +245,45 @@ char *trim_str(char *str, int len);
 **                            END FILE
 ** ===========================================================================
 */
+
+
+/* ===========================================================================
+** corewar/src/helper/stop.c
+** ===========================================================================
+*/
+
+/*
+** @brief this will free all necessary resources and exit the program
+** @param info info_corewar_t * info structure to be freed
+** @param int value to be exited
+** @return void
+*/
+void stop(info_corewar_t *info, int status);
+
+/* ===========================================================================
+**                            END FILE
+** ===========================================================================
+*/
+
+
+/* ===========================================================================
+** corewar/src/helper/debug.c
+** ===========================================================================
+*/
+
+/*
+** @brief this will display the debug information so the content of the
+** champion_t structure
+** @param champion champion_t * champion to be displayed
+** @return void
+*/
+void display_champion(champion_t *champion);
+
+/* ===========================================================================
+**                            END FILE
+** ===========================================================================
+*/
+
+void free_3(char *str1, char *str2, char *str3);
+
 #endif // CORE_H_
