@@ -94,6 +94,7 @@
         char *label;
         char **params;
         bool isIndex[3];
+        bool isLabel[3];
         size_t minus;
 
     } champ_t;
