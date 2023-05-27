@@ -7,15 +7,15 @@
 
 #include "core.h"
 
-process_t *process_create_null(int pc)
+process_t process_create_null(void)
 {
-    process_t *process = malloc(sizeof(process_t));
+    process_t process = {0};
 
-    process->pc = pc % MEM_SIZE;
-    process->carry = 0;
-    process->cycle = 0;
-    process->alive = 1;
+    process.pc = -1;
+    process.carry = 0;
+    process.cycle = 0;
+    process.alive = 1;
     for (int j = 0; j < REG_NUMBER; j++)
-        set_32uint(0, process->registers[j].byte);
+        set_32uint(0, process.registers[j].byte);
     return process;
 }

@@ -115,10 +115,12 @@ typedef struct process_t {
     int carry;
     int cycle;
     int alive;
+    int index_id;
 } process_t;
 
 typedef struct vm_t {
-    process_t **memory;
+    unsigned char *memory;
+    process_t *processes;
     int cycle_to_die;
 } vm_t;
 
@@ -375,7 +377,7 @@ void free_2(char *str1, char *str2);
 ** @return process_t ** array of process_t ** to be run with NULL being the
 ** memory that is unassigned
 */
-process_t **init_memory(info_corewar_t *info);
+void init_memory(info_corewar_t *info);
 
 /*
 ** @brief this will initialize the processes of the champions given as args
@@ -417,7 +419,7 @@ process_t *init_process(int loaded_addr, unsigned int *index,
 ** process will be directly to the right of the current process modulo MEM_SIZE
 ** @return process_t * newly malloced process_t struct
 */
-process_t *process_create_null(int pc);
+process_t process_create_null(void);
 
 /* ===========================================================================
 **                            END FILE
