@@ -11,6 +11,7 @@
     #include <stdlib.h>
     #include <fcntl.h>
     #include <unistd.h>
+    #include "cursors.h"
 
     #include "nc.h"
 
@@ -139,10 +140,15 @@ typedef struct champion_t {
 
 typedef struct info_corewar_t {
     champion_t champions[100];
+    cursor_t *cursors;
     int nb_champions;
     int dump;
     vm_t vm;
 } info_corewar_t;
+
+typedef struct instruction_s {
+    void (*ptr)(unsigned char *mem, cursor_node_t *cursor, process_t *process);
+} instruction_t;
 
 /* ===========================================================================
 ** corewar/src/helper/get.c
@@ -504,5 +510,53 @@ int get_champ_prog_nbr(info_corewar_t *info, int index);
 ** ===========================================================================
 */
 
+/* ===========================================================================
+** corewar/src/vm/run.c
+** ===========================================================================
+*/
+
+/**
+ * @brief Run the vm
+ *
+ * @param info info_corewar_t *
+ */
+void run_vm(info_corewar_t *info);
+
+/* ===========================================================================
+**                            END FILE
+** ===========================================================================
+*/
+
+/* ===========================================================================
+** corewar/src/instructions/do_instruction.c
+** ===========================================================================
+*/
+
+/**
+ * @brief Do the instruction of a cursor
+ *
+ * @param mem unsigned char *
+ * @param cursor cursor_node_t *
+ * @param proc process_t *
+ */
+void do_instruction(unsigned char *mem, cursor_node_t *cursor, process_t *proc);
+
+/* ===========================================================================
+**                            END FILE
+** ===========================================================================
+*/
+
+/* ===========================================================================
+** corewar/src/instructions/instruction_live.c
+** ===========================================================================
+*/
+
+void instruction_live(unsigned char *mem, cursor_node_t *cursor,
+    process_t *proc);
+
+/* ===========================================================================
+**                            END FILE
+** ===========================================================================
+*/
 
 #endif // CORE_H_
