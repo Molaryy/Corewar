@@ -380,7 +380,7 @@ unsigned char* get_indirect_bytes(unsigned int value, parambyte_t *paramByte);
  * @param opt
  * @return unsigned int
  */
-unsigned int get_value(const char* param, int opt);
+int get_value(const char* param, int opt);
 
 /**
  * @brief Create a param byte object
@@ -562,4 +562,13 @@ extern unsigned int one_label_handling(const char *param, file_t *file,
  */
 extern void register_go(file_t *file, parambyte_t *paramByte,
                     const char *param, unsigned int value);
+
+/**
+ * @brief Get the value neg object
+ *
+ * @param param
+ * @param opt
+ * @return unsigned int
+ */
+extern int get_value_neg(const char* param, int opt);
 #endif /* !asm_h_ */
