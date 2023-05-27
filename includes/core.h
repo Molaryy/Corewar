@@ -106,12 +106,16 @@ typedef struct file_t {
 } file_t;
 
 typedef struct uint32_t {
-    unsigned char byte[8];
+    unsigned char byte[4];
 } uint32_t;
 
 typedef struct process_t {
     uint32_t registers[REG_NUMBER];
     op_t operation;
+    int pc;
+    int carry;
+    int cycle;
+    int alive;
 } process_t;
 
 typedef struct funct_t {
@@ -156,10 +160,31 @@ typedef struct info_corewar_t {
 */
 file_t get_file_content(char *filename);
 
+int get_address(int num_champs, int index, int length);
+
 /* ===========================================================================
 **                            END FILE
 ** ===========================================================================
 */
+
+
+/* ===========================================================================
+** corewar/src/helper/misc.c
+** ===========================================================================
+*/
+
+/*
+** @brief checks if a given filename is a file or not
+** @param filename char* filename or path
+** @returns boolean macro
+*/
+int is_file(const char *filename);
+
+/* ===========================================================================
+**                            END FILE
+** ===========================================================================
+*/
+
 
 /* ===========================================================================
 ** corewar/src/champion/champion.c
@@ -280,6 +305,13 @@ void stop(info_corewar_t *info, int status);
 ** @return void
 */
 void display_champion(champion_t *champion);
+
+/*
+** @brief this will display the content of the info_corewar_t structure
+** @param info info_corewar_t structure
+** @return void
+*/
+void display_info(info_corewar_t *info);
 
 /* ===========================================================================
 **                            END FILE

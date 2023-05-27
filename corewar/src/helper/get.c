@@ -43,3 +43,18 @@ file_t get_file_content(char *filename)
     close(fd);
     return file;
 }
+
+int get_address(int num_champ, int champ_index, int arr_len)
+{
+    return (arr_len / num_champ + 1) * champ_index;
+}
+
+int get_num_champs(int argc, char **argv)
+{
+    int res = 0;
+
+    for (int i = 0; i < argc; i++)
+        if (is_file(argv[i]) == TRUE)
+            res++;
+    return res;
+}

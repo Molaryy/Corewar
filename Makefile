@@ -89,6 +89,7 @@ SRC_CORE += $(CHAMPION_CORE)/stack.c
 SRC_CORE += $(HELPER_CORE)/stop.c
 SRC_CORE += $(HELPER_CORE)/debug.c
 SRC_CORE += $(HELPER_CORE)/free.c
+SRC_CORE += $(HELPER_CORE)/misc.c
 
 LIB += -L./lib/jb -llink
 LIB_CORE += -Llib/nc -lnc
