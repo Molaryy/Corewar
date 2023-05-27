@@ -11,7 +11,7 @@ void cursor_delete(cursor_t *list)
 {
     if (!list)
         return;
-    while (list)
+    while (list->first)
         cursor_remove(list);
     free(list);
 }
