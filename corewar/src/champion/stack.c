@@ -49,6 +49,6 @@ stack_t stack_create(champion_t *champ, char *filename)
         COMMENT_LENGTH) + 16);
     stack.code = code_stack_create(file.file_content, (unsigned int)
         file.file_size);
-    free_3(file.file_content, tmp, filename);
+    free_2(file.file_content, tmp);
     return stack;
 }

@@ -18,6 +18,7 @@ void set_32uint(int value, unsigned char *array)
 unsigned int get_32uint(const unsigned char *array)
 {
     int value = 0;
+
     value |= (array[0] << 24);
     value |= (array[1] << 16);
     value |= (array[2] << 8);

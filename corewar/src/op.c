@@ -52,8 +52,9 @@ op_t   get_op(unsigned char opcode)
 {
     size_t i = 0;
 
-    for (; i < sizeof(op_tab) / sizeof(op_t); i++)
+    for (; i < sizeof(op_tab) / sizeof(op_t); i++) {
         if (op_tab[i].code == opcode)
-            break;
+            return cpy_op(&op_tab[i]);
+    }
     return cpy_op(&op_tab[i]);
 }
