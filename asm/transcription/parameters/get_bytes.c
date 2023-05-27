@@ -50,3 +50,11 @@ extern unsigned char* get_indirect_bytes(unsigned int value,
     paramByte->size = sizeof(unsigned short);
     return bytes;
 }
+
+extern void register_go(file_t *file, parambyte_t *paramByte,
+                    const char *param, unsigned int value)
+{
+    file->offset ++;
+    value = get_value(param, 0);
+    paramByte->bytes = get_register_bytes(value, paramByte);
+}
