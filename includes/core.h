@@ -59,7 +59,7 @@ typedef struct op_s {
     char *mnemonique;
     char nbr_args;
     args_type_t type[MAX_ARGS_NUMBER];
-    char code;
+    unsigned char code;
     int nbr_cycles;
     char *comment;
 } op_t;
@@ -113,7 +113,6 @@ typedef struct process_t {
     op_t operation;
     int pc;
     int carry;
-    int cycle;
     int alive;
     int index_id;
 } process_t;
@@ -121,11 +120,11 @@ typedef struct process_t {
 typedef struct vm_t {
     unsigned char *memory;
     process_t *processes;
+    int processes_size;
     int cycle_to_die;
 } vm_t;
 
 typedef struct stack_t {
-    unsigned char current_index;
     unsigned char *code;
     unsigned int code_size;
 } stack_t;
@@ -137,11 +136,6 @@ typedef struct champion_t {
     stack_t stack;
     char *name;
 } champion_t;
-
-typedef struct vm_param_t {
-    int nbr_cycle;
-    champion_t *progs;
-} vm_param_t;
 
 typedef struct info_corewar_t {
     champion_t champions[100];
@@ -419,7 +413,7 @@ process_t *init_process(int loaded_addr, unsigned int *index,
 ** process will be directly to the right of the current process modulo MEM_SIZE
 ** @return process_t * newly malloced process_t struct
 */
-process_t process_create_null(void);
+process_t process_create_null(int pc);
 
 /* ===========================================================================
 **                            END FILE
@@ -484,6 +478,26 @@ void init_vm(info_corewar_t *info);
 ** @return op_t * op_t struct of the given opcode
 */
 op_t   get_op(unsigned char opcode);
+
+/* ===========================================================================
+**                            END FILE
+** ===========================================================================
+*/
+
+
+/* ===========================================================================
+** corewar/src/process/init.c
+** ===========================================================================
+*/
+
+/*
+** @brief this will return the prog_num of the champion depending on the
+** position of the index inside the memory.
+** @param info info_corewar_t * info struct of the corewar
+** @param index int index of the memory
+** @return int prog_num of the champion
+*/
+int get_champ_prog_nbr(info_corewar_t *info, int index);
 
 /* ===========================================================================
 **                            END FILE
