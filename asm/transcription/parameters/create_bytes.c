@@ -33,7 +33,7 @@ extern parambyte_t *create_param_byte(const char* param, file_t *file, int i)
 extern parambyte_t *create_zjmp_bytes(const char *param, file_t *file, int i)
 {
     parambyte_t *paramByte = malloc(sizeof(parambyte_t));
-    unsigned int value = 0;
+    int value = 0;
 
     if (paramByte == NULL)
         exit(EXIT_FAILURE);
