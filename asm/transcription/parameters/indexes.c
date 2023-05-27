@@ -7,19 +7,28 @@
 
 #include "asm.h"
 
-extern unsigned int get_value(const char* param, int opt)
+extern int get_value(const char* param, int opt)
 {
-    unsigned int value = 0;
+    int sign = 1;
+    int value = 0;
+    int i = 0;
 
-    if (opt == 0)
-        value = (param[1] - '0');
+    if (opt == 0) {
+        param = remove_char(param, 'r');
+        value = my_getnbr(param);
+        return value;
+    }
     if (opt == 1)
-        for (int i = 1; param[i] != '\0'; i++)
-            value = (value << 3) + (value << 1) + (param[i] - '0');
+        i = 1;
     if (opt == 2)
-        for (int i = 0; param[i] != '\0'; i++)
-            value = (value << 3) + (value << 1) + (param[i] - '0');
-    return value;
+        i = 0;
+    if (param[0] == '-' || param[1] == '-') {
+        sign = -1;
+        i++;
+    }
+    for (; param[i] != '\0'; i++)
+        value = (value << 3) + (value << 1) + (param[i] - '0');
+    return value * sign;
 }
 
 extern unsigned int find_index(char *instruction)
