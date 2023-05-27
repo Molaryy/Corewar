@@ -41,47 +41,56 @@ extern unsigned int find_index(char *instruction)
     return 84;
 }
 
-extern void value_sup_2(parambyte_t *paramBytes[], char **param, file_t *file,
-                    unsigned int value)
+extern void value_sup_4(parambyte_t *paramBytes[], file_t *file,
+                    unsigned int value, int k)
 {
-    if (value == 2) {
-        for (int i = 0; i != 3; i++) {
-            paramBytes[i] = create_sti_bytes(param[i], file);
-            print_bytes_to_file(paramBytes[i], file->fd);
-        }
-    }
-    if (value == 3) {
-        paramBytes[0] = create_fork_bytes(param[0], file);
-        print_bytes_to_file(paramBytes[0], file->fd);
-    }
     if (value == 4) {
         for (int i = 0; i != 3; i++) {
-            paramBytes[i] = create_ldi_bytes(param[i], file);
+            paramBytes[i] = create_ldi_bytes(file->champ[k].params[i], file,
+                                                k);
             print_bytes_to_file(paramBytes[i], file->fd);
         }
     }
     if (value == 5) {
-            paramBytes[0] = create_fork_bytes(param[0], file);
+            paramBytes[0] = create_fork_bytes(file->champ[k].params[0],
+                            file, k);
             print_bytes_to_file(paramBytes[0], file->fd);
     }
 }
 
+extern void value_sup_2(parambyte_t *paramBytes[], file_t *file,
+                    unsigned int value, int k)
+{
+    if (value == 2) {
+        for (int i = 0; i != 3; i++) {
+            paramBytes[i] = create_sti_bytes(file->champ[k].params[i], file,
+                                                k);
+            print_bytes_to_file(paramBytes[i], file->fd);
+        }
+    }
+    if (value == 3) {
+        paramBytes[0] = create_fork_bytes(file->champ[k].params[0], file, k);
+        print_bytes_to_file(paramBytes[0], file->fd);
+    }
+    value_sup_4(paramBytes, file, value, k);
+}
+
 extern int get_instruction_index(unsigned int flags, parambyte_t *paramBytes[],
-                            char **param, file_t *file)
+                            file_t *file, int k)
 {
     unsigned int value = flags & 0xFF;
 
     if (value == 0) {
-        paramBytes[0] = create_zjmp_bytes(param[0], file);
+        paramBytes[0] = create_zjmp_bytes(file->champ[k].params[0], file, k);
         print_bytes_to_file(paramBytes[0], file->fd);
     }
     if (value == 1) {
         for (int i = 0; i != 3; i++) {
-            paramBytes[i] = create_ldi_bytes(param[i], file);
+            paramBytes[i] = create_ldi_bytes(file->champ[k].params[i], file, k);
             print_bytes_to_file(paramBytes[i], file->fd);
         }
     }
-    value_sup_2(paramBytes, param, file, value);
+    value_sup_2(paramBytes, file, value, k);
     if (value == 84)
         return false;
     return true;
