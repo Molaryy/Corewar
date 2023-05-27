@@ -7,10 +7,12 @@
 
 #ifndef CURSOR_H_
     #define CURSOR_H_
+    #include<stdbool.h>
 
 typedef struct cursor_node_s {
     long long position;
     int nb_cycle;
+    bool check;
     struct cursor_node_s *next;
     struct cursor_node_s *prev;
 } cursor_node_t;

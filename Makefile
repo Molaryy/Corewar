@@ -101,6 +101,7 @@ SRC_CORE += $(INSTRUCTION)/cursor_add.c
 SRC_CORE += $(INSTRUCTION)/cursor_remove.c
 SRC_CORE += $(INSTRUCTION)/cursor_delete.c
 SRC_CORE += $(INSTRUCTION)/do_instruction.c
+SRC_CORE += $(INSTRUCTION)/instruction_live.c
 SRC_CORE += $(CHAMPION_CORE)/get.c
 
 LIB += -L./lib/jb -llink

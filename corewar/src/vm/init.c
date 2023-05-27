@@ -48,4 +48,6 @@ void init_vm(info_corewar_t *info)
     info->vm.processes_size = 0;
     for (int i = 0; i < MEM_SIZE; i++)
         read_code(info->vm.memory, &i, &info->vm, get_champ_prog_nbr(info, i));
+    my_printf("first case = %d\n", info->vm.memory[0]);
+    my_printf("2nd case = %d\n", info->vm.memory[1]);
 }

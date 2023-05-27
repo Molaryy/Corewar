@@ -146,6 +146,10 @@ typedef struct info_corewar_t {
     vm_t vm;
 } info_corewar_t;
 
+typedef struct instruction_s {
+    void (*ptr)(unsigned char *mem, cursor_node_t *cursor, process_t *process);
+} instruction_t;
+
 /* ===========================================================================
 ** corewar/src/helper/get.c
 ** ===========================================================================
@@ -536,6 +540,19 @@ void run_vm(info_corewar_t *info);
  * @param proc process_t *
  */
 void do_instruction(unsigned char *mem, cursor_node_t *cursor, process_t *proc);
+
+/* ===========================================================================
+**                            END FILE
+** ===========================================================================
+*/
+
+/* ===========================================================================
+** corewar/src/instructions/instruction_live.c
+** ===========================================================================
+*/
+
+void instruction_live(unsigned char *mem, cursor_node_t *cursor,
+    process_t *proc);
 
 /* ===========================================================================
 **                            END FILE

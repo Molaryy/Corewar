@@ -18,6 +18,7 @@ void cursor_add(cursor_t *list, long long position, int nb_cycle)
         return;
     node->position = position;
     node->nb_cycle = nb_cycle;
+    node->check = false;
     node->prev = NULL;
     node->next = NULL;
     list->size++;
