@@ -112,7 +112,7 @@ typedef struct process_t {
     uint32_t registers[REG_NUMBER];
     op_t operation;
     int pc;
-    int carry;
+    int if_carry;
     int alive;
     int index_id;
 } process_t;

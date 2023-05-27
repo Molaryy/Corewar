@@ -19,10 +19,11 @@ void my_strcat_cust(unsigned char *dest, unsigned char *src, unsigned int
 void init_memory(info_corewar_t *info)
 {
     info->vm.processes = malloc(sizeof(process_t) * MEM_SIZE);
-
     info->vm.memory = malloc(sizeof(unsigned char) * MEM_SIZE);
-    for (int i = 0; i < MEM_SIZE; i++)
+    for (int i = 0; i < MEM_SIZE; i++) {
+        info->vm.memory[i] = 0;
         info->vm.processes[i] = process_create_null((i + 1) % MEM_SIZE);
+    }
 }
 
 void read_code(unsigned char *memory, int *index_memory, vm_t *vm, int prog_num)
@@ -31,8 +32,10 @@ void read_code(unsigned char *memory, int *index_memory, vm_t *vm, int prog_num)
         [*index_memory]);
     vm->processes[vm->processes_size].pc = *index_memory + vm->processes[
         vm->processes_size].operation.nbr_args + 1;
-    vm->processes[vm->processes_size].carry = 1;
+    vm->processes[vm->processes_size].if_carry = FALSE;
     vm->processes[vm->processes_size].index_id = *index_memory;
+    if (memory[*index_memory] == 9)
+        vm->processes[vm->processes_size].if_carry = TRUE;
     set_32uint(prog_num, vm->processes[vm->processes_size].registers[0].byte);
     (vm->processes_size)++;
 }
