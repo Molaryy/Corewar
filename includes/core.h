@@ -51,7 +51,6 @@
 
     # define T_REG           1       /* register */
     # define T_DIR           2       /* direct  (ld  #1,r1  put 1 into r1) */
-    # define T_BOTH          3       /* bot deirect or register */
     # define T_IND           4       /* indirect always relative
                                     ( ld 1,r1 put what's in the address (1+pc)
                                     into r1 (4 bytes )) */
@@ -118,14 +117,15 @@ typedef struct process_t {
     int alive;
 } process_t;
 
-typedef struct funct_t {
-    process_t *processes;
-} funct_t;
+typedef struct vm_t {
+    process_t **memory;
+    int cycle_to_die;
+} vm_t;
 
 typedef struct stack_t {
     unsigned char current_index;
-    char *code;
-    unsigned code_size;
+    unsigned char *code;
+    unsigned int code_size;
 } stack_t;
 
 typedef struct champion_t {
@@ -145,6 +145,7 @@ typedef struct info_corewar_t {
     champion_t champions[100];
     int nb_champions;
     int dump;
+    vm_t vm;
 } info_corewar_t;
 
 /* ===========================================================================
@@ -160,7 +161,22 @@ typedef struct info_corewar_t {
 */
 file_t get_file_content(char *filename);
 
+/*
+** @brief gets the address of the champion in the memory to be loaded
+** @param num_champs int number of champions
+** @param index int index of the champion
+** @param length int length of the memory
+** @returns int address of the champion
+*/
 int get_address(int num_champs, int index, int length);
+
+/*
+** @brief gets the number of .cor files in the arguments
+** @param argc int number of arguments
+** @param argv char** arguments
+** @returns int number of champions
+*/
+int get_num_champs(int argc, char **argv);
 
 /* ===========================================================================
 **                            END FILE
@@ -203,7 +219,7 @@ int is_file(const char *filename);
 */
 champion_t champion_create(int prog_nbr, int loaded_addr, char *filename);
 
-/* ===========================================================================
+/*==============================================================
 **                            END FILE
 ** ===========================================================================
 */
@@ -346,6 +362,131 @@ void free_2(char *str1, char *str2);
 ** ===========================================================================
 */
 
+
+/* ===========================================================================
+** corewar/src/process/process.c
+** ===========================================================================
+*/
+
+/*
+** @brief this will initialize the memory of the vm and put the champions in
+** with their processes
+** @param info info_corewar_t * info struct of the corewar
+** @return process_t ** array of process_t ** to be run with NULL being the
+** memory that is unassigned
+*/
+process_t **init_memory(info_corewar_t *info);
+
+/*
+** @brief this will initialize the processes of the champions given as args
+** @param info info_corewar_t * info struct of the corewar
+** @param processes process_t ** array of process_t ** to be edited
+** @param champion champion_t champion to be added mainly having the code
+** inside its stack_t struct
+** @return void
+*/
+void init_processes(process_t **processes, champion_t champion);
+
+/*
+** @brief this will create a process_t struct with the given parameters inside
+** the code inside the stack_t struct of the champion, it will parse the code
+** and populate it with its operation.
+** @param loaded_addr int where to load the champion in the memory
+** @param index unsigned int *index of the code to be parsed
+** @param code unsigned char * code to be parsed
+** @return process_t * newly malloced process_t struct and populated properly
+*/
+process_t *init_process(int loaded_addr, unsigned int *index,
+    unsigned char *code);
+
+/* ===========================================================================
+**                            END FILE
+** ===========================================================================
+*/
+
+
+/* ===========================================================================
+** corewar/src/process/helper.c
+** ===========================================================================
+*/
+
+/*
+** @brief this will create a template process_t struct with default values
+** and a pc of the next process directly to the right modulo MEM_SIZE
+** @param pc int program counter of the process so as said above the next
+** process will be directly to the right of the current process modulo MEM_SIZE
+** @return process_t * newly malloced process_t struct
+*/
+process_t *process_create_null(int pc);
+
+/* ===========================================================================
+**                            END FILE
+** ===========================================================================
+*/
+
+
+/* ===========================================================================
+** corewar/src/process/init.c
+** ===========================================================================
+*/
+
+/*
+** @brief this will set a 32bit unsigned integer which uses an array of 4
+** unsigned char which are 8 bits each for a total of 32 bits
+** @param value int value to be set
+** @param array unsigned char * array of 4 unsigned char to be set
+** @return void
+*/
+void set_32uint(int value, unsigned char* array);
+
+/*
+** @brief this will get a 32bit unsigned integer which uses an array of 4
+** unsigned char which are 8 bits each for a total of 32 bits
+** @param array unsigned char * array of 4 unsigned char to be get
+** @return unsigned int value of the 32bit unsigned integer
+*/
+unsigned int get_32uint(const unsigned char* array);
+
+/* ===========================================================================
+**                            END FILE
+** ===========================================================================
+*/
+
+
+/* ===========================================================================
+** corewar/src/process/init.c
+** ===========================================================================
+*/
+
+/*
+** @brief initialize the vm so memory and more
+** @param info info_corewar_t * info struct of the corewar
+** @return void
+*/
+void init_vm(info_corewar_t *info);
+
+/* ===========================================================================
+**                            END FILE
+** ===========================================================================
+*/
+
+
+/* ===========================================================================
+** corewar/src/process/init.c
+** ===========================================================================
+*/
+
+/*
+** @brief this will return the op_t struct of the given opcode
+** @param opcode unsigned char opcode to be tested
+** @return op_t * op_t struct of the given opcode
+*/
+op_t   get_op(unsigned char opcode);
+
+/* ===========================================================================
+**                            END FILE
+** ===========================================================================
+*/
 
 
 #endif // CORE_H_

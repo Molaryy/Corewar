@@ -13,5 +13,8 @@ void stop(info_corewar_t *info, int status)
         free(info->champions[i].name);
         free(info->champions[i].stack.code);
     }
+    for (int i = 0; i < MEM_SIZE; i++)
+        free(info->vm.memory[i]);
+    free(info->vm.memory);
     exit(status);
 }

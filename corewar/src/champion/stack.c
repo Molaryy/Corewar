@@ -7,7 +7,7 @@
 
 #include "core.h"
 
-char *parse_name_stack_create(char *file_content, unsigned int file_size)
+static char *parse_name_stack_create(char *file_content, unsigned int file_size)
 {
     char *res = (char *) malloc(PROG_NAME_LENGTH);
 
@@ -17,12 +17,12 @@ char *parse_name_stack_create(char *file_content, unsigned int file_size)
     return res;
 }
 
-char *code_stack_create(char *file_content,
+static unsigned char *code_stack_create(char *file_content,
     unsigned int file_size)
 {
     unsigned int i = 0;
-    char *code = malloc(sizeof(unsigned char) * (file_size - (PROG_NAME_LENGTH
-        + COMMENT_LENGTH) + 16));
+    unsigned char *code = malloc(sizeof(unsigned char) * (file_size -
+        (PROG_NAME_LENGTH + COMMENT_LENGTH) + 16));
 
     for (unsigned int j = ((PROG_NAME_LENGTH + COMMENT_LENGTH) + 16)
         ; j < file_size; j++, i++) {

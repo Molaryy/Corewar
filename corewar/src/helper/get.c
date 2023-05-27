@@ -33,7 +33,6 @@ file_t get_file_content(char *filename)
         return file;
     file.file_size = size_of_file(fd);
     fd = open(filename, O_RDONLY);
-    my_printf("file size: %d\n", (int) file.file_size);
     file.file_content = malloc(sizeof(char) * ((int)file.file_size));
     if (!file.file_content) {
         file.file_size = (size_t) -1;
