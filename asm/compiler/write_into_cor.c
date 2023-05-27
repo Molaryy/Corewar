@@ -29,7 +29,7 @@ extern void infinit_loop(file_t *file, int i)
     else
         write_bytes_to_fd(file, 1);
     parameters_in_byte(file, file->champ[i].paramName,
-        file->champ[i].params, file->champ[i].nbParams);
+        file->champ[i].params, i);
 }
 
 extern void get_byte_and_write(char *filename, file_t *file)
