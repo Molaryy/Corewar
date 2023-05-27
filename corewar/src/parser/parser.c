@@ -8,21 +8,20 @@
 #include "core.h"
 #include "nc.h"
 
-int parse_args_loop(info_corewar_t *info, int argc, char **argv, int *i)
+static int parse_args_loop(info_corewar_t *info, int argc, char **argv, int *i)
 {
     int prog_num = info->nb_champions + 1;
-    int load_address = ((MEM_SIZE / 3) * (info->nb_champions + 1)) % MEM_SIZE;
-    char *filename;
+    int load_address = get_address(get_num_champs(argc, argv), prog_num,
+        MEM_SIZE);
 
     for (; *i < argc; (*i)++) {
         if (my_strcmp("-n", argv[*i]) == 0)
             prog_num = my_getnbr(argv[++(*i)]);
         if (my_strcmp("-a", argv[*i]) == 0)
             load_address = my_getnbr(argv[++(*i)]);
-        if (access(argv[*i], R_OK) == 0) {
-            filename = my_strdup(argv[(*i)++]);
+        if (is_file(argv[*i]) == TRUE) {
             info->champions[++(info->nb_champions)] = champion_create(prog_num,
-                load_address, filename);
+                load_address, argv[(*i)++]);
             return TRUE;
         }
         if (my_strcmp("-n", argv[*i]) == 0 || my_strcmp("-a", argv[*i]) == 0)
@@ -32,7 +31,7 @@ int parse_args_loop(info_corewar_t *info, int argc, char **argv, int *i)
     return FALSE;
 }
 
-int parse_args_dump(info_corewar_t *info, int argc, char **argv, int *i)
+static int parse_args_dump(info_corewar_t *info, char **argv, int *i)
 {
     if (my_strcmp("-dump", argv[*i]) == 0) {
         if (my_str_isnum(argv[++(*i)]) == 0)
@@ -52,7 +51,7 @@ info_corewar_t parse_args(int argc, char **argv)
         exit(84);
     info.nb_champions = -1;
     info.dump = -1;
-    if (parse_args_dump(&info, argc, argv, &i) == FALSE)
+    if (parse_args_dump(&info, argv, &i) == FALSE)
         exit(84);
     while (i < argc) {
         if (parse_args_loop(&info, argc, argv, &i) == FALSE ||

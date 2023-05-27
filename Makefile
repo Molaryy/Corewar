@@ -70,14 +70,13 @@ SRC_ASM += $(PARAMETER_BYTE)/label_find.c
 SRC_ASM += $(DEBUG)/print_champ.c
 
 ROOT_COR = ./corewar
-
 BASE_CORE = ./corewar/src
-
 PARSE_CORE = ./$(BASE_CORE)/parser
-
 HELPER_CORE = ./$(BASE_CORE)/helper
-
 CHAMPION_CORE = ./$(BASE_CORE)/champion
+DATASTRUCTURE_CORE = ./$(BASE_CORE)/datastructure
+PROCESS_CORE = ./$(BASE_CORE)/process
+VM_CORE = ./$(BASE_CORE)/vm
 
 SRC_CORE += $(BASE_CORE)/main.c
 SRC_CORE += $(BASE_CORE)/op.c
@@ -89,6 +88,11 @@ SRC_CORE += $(CHAMPION_CORE)/stack.c
 SRC_CORE += $(HELPER_CORE)/stop.c
 SRC_CORE += $(HELPER_CORE)/debug.c
 SRC_CORE += $(HELPER_CORE)/free.c
+SRC_CORE += $(HELPER_CORE)/misc.c
+SRC_CORE += $(DATASTRUCTURE_CORE)/int32.c
+SRC_CORE += $(PROCESS_CORE)/init.c
+SRC_CORE += $(PROCESS_CORE)/helper.c
+SRC_CORE += $(VM_CORE)/init.c
 
 LIB += -L./lib/jb -llink
 LIB_CORE += -Llib/nc -lnc

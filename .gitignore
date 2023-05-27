@@ -5,6 +5,6 @@ tmp/
 
 
 corewar_binaries
-Jon_Snow.cor
+*.cor
 op.c
 op.h

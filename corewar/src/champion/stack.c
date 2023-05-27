@@ -7,7 +7,7 @@
 
 #include "core.h"
 
-char *parse_name_stack_create(char *file_content, unsigned int file_size)
+static char *parse_name_stack_create(char *file_content, unsigned int file_size)
 {
     char *res = (char *) malloc(PROG_NAME_LENGTH);
 
@@ -17,12 +17,12 @@ char *parse_name_stack_create(char *file_content, unsigned int file_size)
     return res;
 }
 
-char *code_stack_create(char *file_content,
+static unsigned char *code_stack_create(char *file_content,
     unsigned int file_size)
 {
     unsigned int i = 0;
-    char *code = malloc(sizeof(unsigned char) * (file_size - (PROG_NAME_LENGTH
-        + COMMENT_LENGTH) + 16));
+    unsigned char *code = malloc(sizeof(unsigned char) * (file_size -
+        (PROG_NAME_LENGTH + COMMENT_LENGTH) + 16));
 
     for (unsigned int j = ((PROG_NAME_LENGTH + COMMENT_LENGTH) + 16)
         ; j < file_size; j++, i++) {
@@ -34,22 +34,21 @@ char *code_stack_create(char *file_content,
 stack_t stack_create(champion_t *champ, char *filename)
 {
     stack_t stack = {0};
-    char *file_content;
-    size_t file_size = get_file_size(filename);
+    file_t file = get_file_content(filename);
     char *tmp;
 
-    if (file_size == (size_t) -1) {
+    if (file.file_size == (size_t) -1) {
         champ->name = my_strdup("ERROR");
         stack.code = malloc(sizeof(unsigned char));
         free(filename);
         return stack;
     }
-    file_content = get_file_content(filename);
-    tmp = parse_name_stack_create(file_content, file_size);
+    tmp = parse_name_stack_create(file.file_content, file.file_size);
     champ->name = trim_str(tmp, PROG_NAME_LENGTH);
-    stack.code_size = (unsigned int) file_size - ((PROG_NAME_LENGTH +
+    stack.code_size = (unsigned int) file.file_size - ((PROG_NAME_LENGTH +
         COMMENT_LENGTH) + 16);
-    stack.code = code_stack_create(file_content, (unsigned int) file_size);
-    free_3(file_content, tmp, filename);
+    stack.code = code_stack_create(file.file_content, (unsigned int)
+        file.file_size);
+    free_3(file.file_content, tmp, filename);
     return stack;
 }
