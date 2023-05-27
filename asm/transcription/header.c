@@ -51,6 +51,7 @@ void get_size_each_argument(file_t *file, int i, int j)
 extern bool starting_prog_size(file_t *file, int i)
 {
     file->header->prog_size++;
+    file->champ[i].offset = file->header->prog_size;
     if (file->champ[i].nbParams > 1)
         file->header->prog_size++;
     if (file->champ[i].params == NULL)
