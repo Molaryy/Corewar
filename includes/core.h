@@ -11,6 +11,7 @@
     #include <stdlib.h>
     #include <fcntl.h>
     #include <unistd.h>
+    #include "cursors.h"
 
     #include "nc.h"
 
@@ -145,6 +146,7 @@ typedef struct vm_param_t {
 
 typedef struct info_corewar_t {
     champion_t champions[100];
+    cursor_t *cursors;
     int nb_champions;
     int dump;
     vm_t vm;
