@@ -27,19 +27,16 @@ extern void label_find(file_t *file)
             continue;
         }
     }
-    printf("%s\n", file->label_find[0].name);
 }
 
 extern unsigned int one_label_handling(const char *param, file_t *file,
-                                unsigned int value)
+                                unsigned int value, int k)
 {
     param = remove_char(param, '%');
     param = remove_char(param, ':');
-    for (int i = 0; i != 1; i++)
+    for (size_t i = 0; i != file->nbLabels; i++)
         if (my_strcmp(param, file->label_find[i].name))  {
-            value = (file->label_find[i].adresse - file->offset + 1);
-            my_printf("adresse -> %d\n", file->label_find[i].adresse);
-            my_printf("offset -> %d\n", file->offset);
+            value = (file->label_find[i].adresse - file->champ[k].offset + 1);
         }
     return value;
 }

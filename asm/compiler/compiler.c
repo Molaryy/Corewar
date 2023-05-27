@@ -9,13 +9,15 @@
 #include "asm.h"
 #include "parser.h"
 
-static int get_index_label(char **tab)
+static int get_index_label(char **tab, champ_t *champ, size_t j)
 {
     if (!tab)
         return -1;
     for (size_t i = 0; tab[i]; i++) {
-        if (tab[i][0] == '%' && tab[i][1] == ':')
+        if (tab[i][0] == '%' && tab[i][1] == ':') {
+            champ[j].isLabel[i] = true;
             return i;
+        }
     }
     return (-1);
 }
@@ -43,7 +45,7 @@ static bool check_if_label_exists(champ_t *champ, link_t *label, size_t len)
         tab = champ[i].params;
         if (!tab)
             continue;
-        index = get_index_label(tab);
+        index = get_index_label(tab, champ, i);
         if (index < 0)
             continue;
         if (!is_label_in_link(&tab[index][2], label))

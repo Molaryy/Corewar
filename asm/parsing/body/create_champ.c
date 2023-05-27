@@ -14,6 +14,9 @@ extern champ_t *init_champ(champ_t *champ, size_t len)
         champ[i].isIndex[0] = false;
         champ[i].isIndex[1] = false;
         champ[i].isIndex[2] = false;
+        champ[i].isLabel[0] = false;
+        champ[i].isLabel[1] = false;
+        champ[i].isLabel[2] = false;
         champ[i].label = NULL;
         champ[i].nbParams = 0;
         champ[i].paramName = NULL;

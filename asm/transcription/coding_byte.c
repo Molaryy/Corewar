@@ -25,7 +25,7 @@ extern void print_bits(unsigned char byte)
 static void if_indirect_or_not(const char **params, unsigned char *result_byte
                                 , int i)
 {
-    if (INDIRECT_VALUE)
+    if (INDIRECT_VALUE || params[i][0] == '-')
         *result_byte = *result_byte | (0x30 >> (2 * i));
     else
         *result_byte = *result_byte | (0x00 >> (2 * i));
