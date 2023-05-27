@@ -22,15 +22,14 @@ extern void print_byte(parambyte_t **paramBytes, int i)
 }
 
 extern void parameters_in_byte(file_t *file, char *instruction, char **params,
-                        size_t nbParams)
+                        int k)
 {
-    parambyte_t *paramBytes[nbParams];
+    parambyte_t *paramBytes[file->champ[k].nbParams];
     bool is_index = get_instruction_index(find_index(instruction),
-                    paramBytes, params, file);
+                    paramBytes, file, k);
     if (!is_index) {
-        for (size_t i = 0; i < nbParams; i++) {
-            my_printf("i = %d | params = %d\n", i, nbParams);
-            paramBytes[i] = create_param_byte(params[i], file);
+        for (size_t i = 0; i < file->champ[k].nbParams; i++) {
+            paramBytes[i] = create_param_byte(params[i], file, i);
             print_bytes_to_file(paramBytes[i], file->fd);
         }
     }
