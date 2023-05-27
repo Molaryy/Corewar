@@ -95,6 +95,7 @@
         char **params;
         bool isIndex[3];
         bool isLabel[3];
+        int offset;
         size_t minus;
 
     } champ_t;
@@ -387,7 +388,7 @@ unsigned int get_value(const char* param, int opt);
  * @param param
  * @return parambyte_t*
  */
-parambyte_t *create_param_byte(const char* param, file_t *file);
+extern parambyte_t *create_param_byte(const char* param, file_t *file, int i);
 
 /**
  * @brief Create a zjmp bytes object
@@ -395,7 +396,7 @@ parambyte_t *create_param_byte(const char* param, file_t *file);
  * @param param
  * @return parambyte_t*
  */
-parambyte_t *create_zjmp_bytes(const char* param, file_t *file);
+extern parambyte_t *create_zjmp_bytes(const char *param, file_t *file, int i);
 
 /**
  * @brief Create a ldi bytes object
@@ -404,7 +405,7 @@ parambyte_t *create_zjmp_bytes(const char* param, file_t *file);
  * @param i
  * @return parambyte_t*
  */
-parambyte_t *create_ldi_bytes(const char *param, file_t *file);
+extern parambyte_t *create_ldi_bytes(const char *param, file_t *file, int i);
 
 /**
  * @brief Create a sti bytes object
@@ -413,7 +414,7 @@ parambyte_t *create_ldi_bytes(const char *param, file_t *file);
  * @param i
  * @return parambyte_t*
  */
-parambyte_t *create_sti_bytes(const char *param, file_t *file);
+extern parambyte_t *create_sti_bytes(const char *param, file_t *file, int i);
 
 /**
  * @brief Create a fork bytes object
@@ -421,7 +422,7 @@ parambyte_t *create_sti_bytes(const char *param, file_t *file);
  * @param param
  * @return parambyte_t*
  */
-parambyte_t *create_fork_bytes(const char *param, file_t *file);
+extern parambyte_t *create_fork_bytes(const char *param, file_t *file, int i);
 
 /**
  * @brief function to get the byte of parameter
@@ -429,8 +430,8 @@ parambyte_t *create_fork_bytes(const char *param, file_t *file);
  * @param instruction
  * @param params
  */
-void parameters_in_byte(file_t *file, char *instruction, char **params,
-                        size_t nbParams);
+extern void parameters_in_byte(file_t *file, char *instruction, char **params,
+                        int k);
 
 
 /**
@@ -443,7 +444,7 @@ void parameters_in_byte(file_t *file, char *instruction, char **params,
  * @return int
  */
 int get_instruction_index(unsigned int flags, parambyte_t *paramBytes[],
-                            char **param, file_t *file);
+                            file_t *file, int k);
 
 /**
  * @brief find param that have index
@@ -548,6 +549,17 @@ bool starting_prog_size(file_t *file, int i);
  * @param value
  * @return unsigned int
  */
-unsigned int one_label_handling(const char *param, file_t *file,
-                                unsigned int value);
+extern unsigned int one_label_handling(const char *param, file_t *file,
+                                unsigned int value, int k);
+
+/**
+ * @brief make register byte
+ *
+ * @param file
+ * @param paramByte
+ * @param param
+ * @param value
+ */
+extern void register_go(file_t *file, parambyte_t *paramByte,
+                    const char *param, unsigned int value);
 #endif /* !asm_h_ */
