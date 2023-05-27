@@ -94,6 +94,7 @@ SRC_CORE += $(DATASTRUCTURE_CORE)/int32.c
 SRC_CORE += $(PROCESS_CORE)/init.c
 SRC_CORE += $(PROCESS_CORE)/helper.c
 SRC_CORE += $(VM_CORE)/init.c
+SRC_CORE += $(VM_CORE)/run.c
 
 SRC_CORE += $(INSTRUCTION)/cursor_create.c
 SRC_CORE += $(INSTRUCTION)/cursor_add.c
