@@ -39,7 +39,8 @@ static int get_adress(unsigned char *buffer)
     return (adress);
 }
 
-void do_zjmp(champion_t *champion, cursor_t *cursor, vm_t *vm,
+void do_zjmp(__attribute__((unused)) champion_t *champion,
+    cursor_t *cursor, vm_t *vm,
 __attribute__((unused)) const op_t *op)
 {
     int index;
@@ -49,7 +50,7 @@ __attribute__((unused)) const op_t *op)
         return;
     index = (int)get_32uint(cursor->pc.bytes);
     adress = get_adress(vm->memory + index + 2);
-    if (cursor->carry) {
+    if (cursor->carry == 0) {
         adress += index;
         set_32uint(adress, cursor->pc.bytes);
         return;

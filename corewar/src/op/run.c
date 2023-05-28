@@ -12,7 +12,7 @@ const assembly_func_t  assembly_tab[] =
     {1, &my_live},
     {2, &do_load},
     // {3, &st},
-    // {4, &add},
+     {4, &do_add},
     // {5, &sub},
     // {6, &and},
     // {7, &or},
@@ -34,6 +34,8 @@ void run_op(champion_t *champion, cursor_t *cursor, vm_t *vm)
 
     for (size_t i = 0; i < sizeof(assembly_tab) / sizeof(assembly_func_t);
         i++) {
+        int adress = get_32uint(cursor->pc.bytes);
+        if (adress < 20)
         if (assembly_tab[i].code == code) {
             assembly_tab[i].func(champion, cursor, vm, get_op(code));
             return;
