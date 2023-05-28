@@ -110,11 +110,9 @@ typedef struct uint32_t {
 } uint32_t;
 
 typedef struct process_t {
-    uint32_t registers[REG_NUMBER];
     op_t operation;
     int pc;
     int if_carry;
-    int alive;
     int index_id;
 } process_t;
 
@@ -136,6 +134,7 @@ typedef struct champion_t {
     char *filename;
     stack_t stack;
     char *name;
+    uint32_t registers[REG_NUMBER];
 } champion_t;
 
 typedef struct info_corewar_t {

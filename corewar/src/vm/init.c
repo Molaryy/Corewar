@@ -36,7 +36,6 @@ void read_code(unsigned char *memory, int *index_memory, vm_t *vm, int prog_num)
     vm->processes[vm->processes_size].index_id = *index_memory;
     if (memory[*index_memory] == 9)
         vm->processes[vm->processes_size].if_carry = TRUE;
-    set_32uint(prog_num, vm->processes[vm->processes_size].registers[0].byte);
     (vm->processes_size)++;
 }
 
@@ -46,7 +45,8 @@ void init_vm(info_corewar_t *info)
     for (int i = 0; i <= info->nb_champions; i++) {
         my_strcat_cust(info->vm.memory, info->champions[i].stack.code,
             info->champions[i].loaded_addr, info->champions[i].stack.code_size);
-        cursor_add(info->cursors, info->champions[i].loaded_addr, 0);
+        cursor_add(info->cursors, info->champions[i].loaded_addr, 0,
+            info->champions[i].loaded_addr);
     }
     info->vm.processes_size = 0;
     for (int i = 0; i < MEM_SIZE; i++)

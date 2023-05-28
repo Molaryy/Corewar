@@ -13,6 +13,7 @@ typedef struct cursor_node_s {
     long long position;
     int nb_cycle;
     bool check;
+    int loaded_addr;
     struct cursor_node_s *next;
     struct cursor_node_s *prev;
 } cursor_node_t;
@@ -23,12 +24,28 @@ typedef struct cursor_s {
     unsigned int size;
 } cursor_t;
 
+/* ===========================================================================
+** corewar/src/instruction/cursor_create.c
+** ===========================================================================
+*/
+
 /**
  * @brief Create a chain list of cursor
  *
  * @return cursor_t *
  */
 cursor_t *cursor_create(void);
+
+/* ===========================================================================
+**                            END FILE
+** ===========================================================================
+*/
+
+
+/* ===========================================================================
+** corewar/src/instruction/cursor_add.c
+** ===========================================================================
+*/
 
 /**
  * @brief Add a cursor node
@@ -37,7 +54,19 @@ cursor_t *cursor_create(void);
  * @param position the position in memory of the cursor
  * @param nb_cycle his nb_cycle
  */
-void cursor_add(cursor_t *list, long long position, int nb_cycle);
+void cursor_add(cursor_t *list, long long position, int nb_cycle,
+    int loaded_addr);
+
+/* ===========================================================================
+**                            END FILE
+** ===========================================================================
+*/
+
+
+/* ===========================================================================
+** corewar/src/instruction/cursor_remove.c
+** ===========================================================================
+*/
 
 /**
  * @brief Remove the first element of cursor_t *
@@ -60,5 +89,12 @@ void cursor_remove_pos(cursor_t *list, long long position);
  * @param list cursor_t *
  */
 void cursor_delete(cursor_t *list);
+
+/* ===========================================================================
+**                            END FILE
+** ===========================================================================
+*/
+
+
 
 #endif /* CURSOR_H_ */

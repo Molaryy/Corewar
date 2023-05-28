@@ -7,7 +7,8 @@
 #include "cursors.h"
 #include <stdlib.h>
 
-void cursor_add(cursor_t *list, long long position, int nb_cycle)
+void cursor_add(cursor_t *list, long long position, int nb_cycle,
+    int loaded_addr)
 {
     cursor_node_t *node;
 
@@ -21,6 +22,7 @@ void cursor_add(cursor_t *list, long long position, int nb_cycle)
     node->check = false;
     node->prev = NULL;
     node->next = NULL;
+    node->loaded_addr = loaded_addr;
     list->size++;
     if (list->first == NULL) {
         list->first = node;

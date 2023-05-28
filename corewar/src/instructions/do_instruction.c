@@ -45,7 +45,7 @@ static void handle_instruction(unsigned char *mem, cursor_node_t *cursor, proces
 
 static void handle_check(cursor_node_t *cursor, unsigned int i)
 {
-    int nb_cycle[] = {10, 5, 5, 10, 10, 6, 6, 6, 25, 25, 800, 50, 1000, 2};
+    int nb_cycle[] = {10, 5, 5, 10, 10, 6, 6, 6, 20, 25, 25, 800, 10, 50, 1000, 2};
 
     if (cursor->check == false) {
         cursor->nb_cycle = nb_cycle[i];

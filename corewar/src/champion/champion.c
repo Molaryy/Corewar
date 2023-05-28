@@ -15,5 +15,8 @@ champion_t champion_create(int prog_nbr, int loaded_addr, char *filename)
     champ.prog_nbr = prog_nbr;
     champ.loaded_addr = loaded_addr;
     champ.stack = stack_create(&champ, filename);
+    for (int j = 0; j < REG_NUMBER; j++)
+        set_32uint(0, champ.registers[j].byte);
+    set_32uint(prog_nbr, champ.registers[0].byte);
     return champ;
 }

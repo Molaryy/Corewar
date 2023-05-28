@@ -13,9 +13,6 @@ process_t process_create_null(int pc)
 
     process.pc = pc;
     process.if_carry = FALSE;
-    process.alive = 1;
     process.index_id = -1;
-    for (int j = 0; j < REG_NUMBER; j++)
-        set_32uint(0, process.registers[j].byte);
     return process;
 }
