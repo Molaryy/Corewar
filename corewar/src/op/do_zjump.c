@@ -39,7 +39,8 @@ static int get_adress(unsigned char *buffer)
     return (adress);
 }
 
-void do_zjmp(champion_t *champion, cursor_t *cursor, vm_t *vm,
+void do_zjmp(__attribute__((unused)) champion_t *champion,
+    cursor_t *cursor, vm_t *vm,
 __attribute__((unused)) const op_t *op)
 {
     int index;
