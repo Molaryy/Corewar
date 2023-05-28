@@ -727,4 +727,62 @@ void do_load(champion_t *champion, cursor_t *cursor, vm_t *vm,
 ** ===========================================================================
 */
 
+/* ===========================================================================
+** corewar/src/op/int_to_bytes.c
+** ===========================================================================
+*/
+
+/**
+ * @brief put value into a unsigned char[4]
+ *
+ * @param value int
+ * @param buffer unsigned char[4]
+ */
+void int_to_bytes(int value, unsigned char buffer[4]);
+
+/* ===========================================================================
+**                            END FILE
+** ===========================================================================
+*/
+
+/* ===========================================================================
+** corewar/src/op/do_zjmp.c
+** ===========================================================================
+*/
+
+/**
+ * @brief do zjmp instruction
+ *
+ * @param champion champion_t *
+ * @param cursor cursor_t *
+ * @param vm vm_t *vm
+ * @param op op_t *
+ */
+void do_zjmp(champion_t *champion, cursor_t *cursor, vm_t *vm,
+    const op_t *op);
+
+/* ===========================================================================
+**                            END FILE
+** ===========================================================================
+*/
+
+/* ===========================================================================
+** corewar/src/helper/print_bits.c
+** ===========================================================================
+*/
+
+/**
+ * @brief print bits with a given bits to display
+ *
+ * @param buffer unsigned char *
+ * @param nb_bits to display
+ * @param comment to help while debuging
+ */
+void print_bits(unsigned char *buffer, int nb_bits, char *comment);
+
+/* ===========================================================================
+**                            END FILE
+** ===========================================================================
+*/
+
 #endif // CORE_H_

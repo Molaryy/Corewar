@@ -25,7 +25,7 @@ void int_to_bytes(int value, unsigned char buffer[4])
     buffer[3] = value & 0xFF;
 }
 
-bool handle_check(cursor_t *cursor)
+static bool handle_check(cursor_t *cursor)
 {
     static bool check = false;
 
@@ -77,6 +77,8 @@ int get_value_param(vm_t *vm, int *index, int *register_index)
     // }
     return (0);
 }
+
+#include <stdio.h>
 
 void do_load(champion_t *champion, cursor_t *cursor, vm_t *vm,
 __attribute__((unused)) const op_t *op)
