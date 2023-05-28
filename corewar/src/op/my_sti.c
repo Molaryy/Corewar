@@ -7,27 +7,35 @@
 
 #include "core.h"
 
-unsigned char *get_sti_arg_type(vm_t *vm, int index)
+void get_sti_arg_type_cut(unsigned char *arg_type, int size)
 {
-    unsigned char *arg_type = malloc(sizeof(unsigned char) * 3);
-
-    arg_type[0] = (vm->memory[index] & PARAM_TYPE_MASK_1) >> 6;
-    arg_type[1] = (vm->memory[index + 1] & PARAM_TYPE_MASK_2) >> 4;
-    arg_type[2] = (vm->memory[index + 2] & PARAM_TYPE_MASK_3) >> 2;
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < size; i++) {
         switch (arg_type[i]) {
-            case 0:
+            case 1:
                 arg_type[i] = REG_SIZE;
                 break;
-            case 1:
+            case 2:
                 arg_type[i] = DIR_SIZE;
                 break;
-            case 2:
+            case 3:
                 arg_type[i] = IND_SIZE;
                 break;
-            default: break;
+            default:
+                break;
         }
     }
+}
+
+unsigned char *get_sti_arg_type(vm_t *vm, int index, int size)
+{
+    unsigned char *arg_type = malloc(sizeof(unsigned char) * size);
+    unsigned char mv = 0xC0;
+
+    for (int i = 0; i < size; i++) {
+        arg_type[i] = (vm->memory[index + i] & mv) >> (6 - (i * 2));
+        mv = mv >> 2;
+    }
+    get_sti_arg_type_cut(arg_type, size);
     return (arg_type);
 }
 
@@ -56,7 +64,7 @@ void my_sti(UNUSED champion_t *champion, cursor_t *cursor, vm_t *vm,
     my_printf("sti\n");
     int index = (int) get_32uint(cursor->pc.bytes);
     int address = index;
-    unsigned char *args = get_sti_arg_type(vm, ++index);
+    unsigned char *args = get_sti_arg_type(vm, ++index, 3);
     int arg1 = get_value_sti(vm, args[0], &index);
     int arg2 = get_value_sti(vm, args[1], &index);
     int arg3 = get_value_sti(vm, args[2], &index);

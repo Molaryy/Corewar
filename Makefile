@@ -104,6 +104,7 @@ SRC_CORE += $(OP_CORE)/my_null.c
 SRC_CORE += $(OP_CORE)/do_load.c
 SRC_CORE += $(OP_CORE)/my_aff.c
 SRC_CORE += $(OP_CORE)/my_sti.c
+SRC_CORE += $(DATASTRUCTURE_CORE)/int16.c
 
 LIB += -L./lib/jb -llink
 LIB_CORE += -Llib/nc -lnc

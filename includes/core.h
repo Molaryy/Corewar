@@ -119,6 +119,10 @@ typedef struct uint32_t {
     unsigned char bytes[4];
 } uint32_t;
 
+typedef struct my_int16_t {
+    unsigned char bytes[2];
+} my_int16_t;
+
 typedef struct vm_t {
     unsigned char *memory;
     int current_cycle;
@@ -433,6 +437,11 @@ void disp_32uint_b(const unsigned char *array);
 
 void disp_32uint_h(const unsigned char *array);
 
+void set_16int(short int value, unsigned char *array);
+
+short int get_16int(const unsigned char *array);
+
+
 /* ===========================================================================
 **                            END FILE
 ** ===========================================================================
@@ -686,6 +695,11 @@ void my_null(champion_t *champion, cursor_t *cursor, vm_t *vm, const op_t *op);
 void my_aff(champion_t *champion, cursor_t *cursor, vm_t *vm, const op_t *op);
 
 void my_sti(champion_t *champion, cursor_t *cursor, vm_t *vm, const op_t *op);
+
+unsigned char *get_sti_arg_type(vm_t *vm, int index, int size);
+
+void get_sti_arg_type_cut(unsigned char *arg_type, int size);
+
 
 /* ===========================================================================
 **                            END FILE
