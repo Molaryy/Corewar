@@ -10,6 +10,7 @@
 void my_aff(UNUSED champion_t *champion, cursor_t *cursor, vm_t *vm,
     const op_t *op)
 {
+    my_printf("my_aff\n");
     int index = (int) get_32uint(cursor->pc.bytes);
     long long int arg;
     uint32_t tmp = {0};
@@ -19,7 +20,7 @@ void my_aff(UNUSED champion_t *champion, cursor_t *cursor, vm_t *vm,
     for (int i = 0; i < op->nbr_args; i++) {
         index += REG_SIZE;
         arg = get_32uint(tmp.bytes);
-        my_printf("%c", arg % 256);
+        my_putchar((unsigned char)(arg % 256));
     }
     set_32uint(++index % MEM_SIZE, cursor->pc.bytes);
 }

@@ -7,6 +7,8 @@
 
 #include "core.h"
 
+// display_info(&info);
+
 int main(int ac, char **av)
 {
     info_corewar_t info = parse_args(ac, av);

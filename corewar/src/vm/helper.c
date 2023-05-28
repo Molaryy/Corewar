@@ -47,7 +47,7 @@ void disp_last_live(info_corewar_t *info)
 int check_game_over(info_corewar_t *info)
 {
     if (info->dump != -1 && info->vm.total_cycles >= info->dump) {
-        dump_memory(info);
+        // dump_memory(info);
         disp_last_live(info);
         return TRUE;
     }

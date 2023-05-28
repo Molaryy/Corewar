@@ -83,5 +83,5 @@ __attribute__((unused)) const op_t *op)
     }
     value = get_value_param(vm, &idx, index, &register_index);
     int_to_bytes(value, champion->registers[register_index - 1].bytes);
-    set_32uint(index + idx + REG_SIZE % MEM_SIZE, cursor->pc.bytes);
+    set_32uint((index + idx + REG_SIZE + 1) % MEM_SIZE, cursor->pc.bytes);
 }
