@@ -1,4 +1,6 @@
 	.name "LIVE"
         .comment "Winter is coming"
 
-sti r1 %3 %3
+ld %9 r2
+aff r2
+sti r2 %10 %3

@@ -9,7 +9,7 @@
 
 unsigned char *get_sti_arg_type(vm_t *vm, int index)
 {
-    unsigned char arg_type[3] = {0};
+    unsigned char *arg_type = malloc(sizeof(unsigned char) * 3);
 
     arg_type[0] = (vm->memory[index] & PARAM_TYPE_MASK_1) >> 6;
     arg_type[1] = (vm->memory[index + 1] & PARAM_TYPE_MASK_2) >> 4;
@@ -50,11 +50,13 @@ int get_value_sti(vm_t *vm, unsigned char arg, int *index)
     return (int) value;
 }
 
-void my_sti(champion_t *champion, cursor_t *cursor, vm_t *vm, const op_t *op)
+void my_sti(UNUSED champion_t *champion, cursor_t *cursor, vm_t *vm,
+    UNUSED const op_t *op)
 {
+    my_printf("sti\n");
     int index = (int) get_32uint(cursor->pc.bytes);
     int address = index;
-    unsigned char args[3] = get_sti_arg_type(vm,  ++index);
+    unsigned char *args = get_sti_arg_type(vm, ++index);
     int arg1 = get_value_sti(vm, args[0], &index);
     int arg2 = get_value_sti(vm, args[1], &index);
     int arg3 = get_value_sti(vm, args[2], &index);
@@ -62,7 +64,10 @@ void my_sti(champion_t *champion, cursor_t *cursor, vm_t *vm, const op_t *op)
 
     address += (arg2 + arg3) % IDX_MOD;
     set_32uint((long long int) arg1, tmp.bytes);
-    for (int i = 0; i < REG_SIZE; i++)
+    for (int i = 0; i < 4; i++) {
+        my_printf("%08X\n", tmp.bytes[i]);
         vm->memory[(address + i) % MEM_SIZE] = tmp.bytes[i];
+    }
+    free(args);
     set_32uint(++index % MEM_SIZE, cursor->pc.bytes);
 }
