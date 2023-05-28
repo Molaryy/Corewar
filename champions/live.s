@@ -4,4 +4,4 @@
 ld %88 r2
 aff r2
 live %0
-sti r2 %10 %3
+sti r2 %1 %9
