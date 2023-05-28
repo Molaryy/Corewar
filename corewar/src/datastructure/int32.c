@@ -20,14 +20,9 @@ long long int get_32uint(const unsigned char *array)
     long long int value = 0;
 
     value |= (array[0] << 24);
-    // my_printf("[0]%d\n", value);
     value |= (array[1] << 16);
-    my_printf("array[1] = %d\n", array[1]);
-    // my_printf("[1]%d\n", value);
     value |= (array[2] << 8);
-    // my_printf("[2]%d\n", value);
     value |= array[3];
-    // my_printf("[3]%d\n", value);
     return value;
 }
 

@@ -7,14 +7,11 @@
 
 #include "core.h"
 
-// display_info(&info);
-
 int main(int ac, char **av)
 {
     info_corewar_t info = parse_args(ac, av);
 
     init_vm(&info);
-    display_info(&info);
     run_vm(&info);
     stop(&info, 0);
 }

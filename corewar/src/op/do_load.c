@@ -46,8 +46,6 @@ int get_value_param(vm_t *vm, int *index, int *register_index)
     int param1;
     unsigned char *arg_type = get_sti_arg_type(vm, ++(*index), 2);
 
-    for (int i = 0; i < 2; i++)
-        my_printf("arg type %d\n", arg_type[i]);
     (*index)++;
     for (int i = 0; i < 2; i++) {
         if (arg_type[i] == REG_SIZE)
