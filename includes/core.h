@@ -688,4 +688,25 @@ void my_sti(champion_t *champion, cursor_t *cursor, vm_t *vm, const op_t *op);
 ** ===========================================================================
 */
 
+/* ===========================================================================
+** corewar/src/op/do_load.c
+** ===========================================================================
+*/
+
+/**
+ * @brief do load instruction
+ *
+ * @param champion champion_t *
+ * @param cursor cursor_t *
+ * @param vm vm_t *vm
+ * @param op op_t *
+ */
+void do_load(champion_t *champion, cursor_t *cursor, vm_t *vm,
+    const op_t *op);
+
+/* ===========================================================================
+**                            END FILE
+** ===========================================================================
+*/
+
 #endif // CORE_H_
