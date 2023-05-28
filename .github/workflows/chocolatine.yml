@@ -8,7 +8,24 @@ on:
 env:
   EXECUTABLE: asm/asm
 jobs:
+  check_program_compilation:
+    runs-on: ubuntu-latest
+    container:
+      image: epitechcontent/epitest-docker
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run make
+        run: |
+          make
+          echo this is the exe ${{ env.EXECUTABLE }}
+          if test -f ${{ env.EXECUTABLE }}; then
+          ls
+          else
+          exit 1
+          fi
+          make clean 
   check-style:
+    needs: [check-program-compilation]
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/epitech/coding-style-checker:latest
@@ -30,20 +47,4 @@ jobs:
           if $has_errors; then
               exit 1
           fi
-  check_program_compilation:
-    needs: [check-style]
-    runs-on: ubuntu-latest
-    container:
-      image: epitechcontent/epitest-docker
-    steps:
-      - uses: actions/checkout@v3
-      - name: Run make
-        run: |
-          make
-          echo this is the exe ${{ env.EXECUTABLE }}
-          if test -f ${{ env.EXECUTABLE }}; then
-          ls
-          else
-          exit 1
-          fi
-          make clean 
+

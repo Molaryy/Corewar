@@ -1,13 +1,13 @@
 /*
 ** EPITECH PROJECT, 2023
-** corewar/src/op.c
+** corewar/src/op/get.c
 ** File description:
-** op.c file given by epitech to define all the functions in assembly
+** this will contain the get functions for the operations
 */
 
 #include "core.h"
 
-op_t    op_tab[] =
+const op_t    op_tab[] =
 {
     {"live", 1, {T_DIR}, 1, 10, "alive"},
     {"ld", 2, {T_DIR | T_IND, T_REG}, 2, 5, "load"},
@@ -34,7 +34,7 @@ op_t    op_tab[] =
     {0, 0, {0}, 0, 0, 0}
 };
 
-op_t   *get_op(unsigned char opcode)
+const op_t *get_op(unsigned char opcode)
 {
     size_t i = 0;
 
@@ -43,4 +43,19 @@ op_t   *get_op(unsigned char opcode)
             return &op_tab[i];
     }
     return &op_tab[i];
+}
+
+int get_param(args_type_t arg_type, vm_t *vm, int index)
+{
+    if (vm->memory[index % MEM_SIZE] != 0 &&
+        (vm->memory[index % MEM_SIZE] || arg_type))
+        return REG_SIZE;
+    if (vm->memory[(index % MEM_SIZE) + 1] != 0 &&
+        (vm->memory[(index % MEM_SIZE) + 1] || arg_type))
+        return IND_SIZE;
+    if (vm->memory[(index % MEM_SIZE) + 2] == 0 &&
+        vm->memory[(index % MEM_SIZE) + 3] != 0 &&
+        (vm->memory[(index % MEM_SIZE) + 3] || arg_type))
+        return DIR_SIZE;
+    return (-1);
 }

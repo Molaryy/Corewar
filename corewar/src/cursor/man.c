@@ -2,7 +2,8 @@
 ** EPITECH PROJECT, 2023
 ** corewar/src/cursor/man.c
 ** File description:
-** linked list manipulation specifically for the cursor_t struct in the corewar project
+** linked list manipulation specifically for the cursor_t struct in the
+** corewar project
 */
 
 #include "core.h"
@@ -34,10 +35,10 @@ void cursor_pop(cursor_t *current, cursor_t **head, cursor_t **tail)
     free(current);
 }
 
-void cursor_pop_cascade(cursor_t *current, cursor_t **head, cursor_t **tail)
+void cursor_pop_cascade(cursor_t *current, cursor_t **head)
 {
     cursor_t *tmp = *head;
- 
+
     if (*head == NULL || current == NULL)
         return;
     while (tmp != current) {

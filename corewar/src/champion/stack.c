@@ -9,7 +9,7 @@
 
 static char *parse_name_stack_create(char *file_content, unsigned int file_size)
 {
-    char *res =  malloc(PROG_NAME_LENGTH);
+    char *res = malloc(PROG_NAME_LENGTH);
 
     for (unsigned int i = 0; i < PROG_NAME_LENGTH && i < file_size; i++) {
         res[i] = file_content[i];

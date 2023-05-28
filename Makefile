@@ -77,9 +77,9 @@ CHAMPION_CORE = ./$(BASE_CORE)/champion
 DATASTRUCTURE_CORE = ./$(BASE_CORE)/datastructure
 VM_CORE = ./$(BASE_CORE)/vm
 CURSOR_CORE = ./$(BASE_CORE)/cursor
+OP_CORE = ./$(BASE_CORE)/op
 
 SRC_CORE += $(BASE_CORE)/main.c
-SRC_CORE += $(BASE_CORE)/op.c
 SRC_CORE += $(PARSE_CORE)/parser.c
 SRC_CORE += $(HELPER_CORE)/get.c
 SRC_CORE += $(HELPER_CORE)/str.c
@@ -96,6 +96,11 @@ SRC_CORE += $(VM_CORE)/helper.c
 SRC_CORE += $(CHAMPION_CORE)/get.c
 SRC_CORE += $(CURSOR_CORE)/init.c
 SRC_CORE += $(CURSOR_CORE)/man.c
+SRC_CORE += $(CHAMPION_CORE)/run.c
+SRC_CORE += $(OP_CORE)/run.c
+SRC_CORE += $(OP_CORE)/my_live.c
+SRC_CORE += $(OP_CORE)/get.c
+SRC_CORE += $(OP_CORE)/my_null.c
 
 LIB += -L./lib/jb -llink
 LIB_CORE += -Llib/nc -lnc

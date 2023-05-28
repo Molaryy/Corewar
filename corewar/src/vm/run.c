@@ -6,9 +6,17 @@
 */
 #include "core.h"
 
+void increment_cycles(info_corewar_t *info)
+{
+    info->vm.current_cycle++;
+    info->vm.cycle_to_die++;
+    info->vm.total_cycles++;
+}
+
 void run_vm(info_corewar_t *info)
 {
-    while (check_game_over(info) == TRUE) {
-
+    while (check_game_over(info) == FALSE) {
+        run_champions(info->champions, info->nbr_champions, &info->vm);
+        increment_cycles(info);
     }
 }

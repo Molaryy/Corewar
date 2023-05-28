@@ -15,7 +15,7 @@ cursor_t *cursor_init(info_corewar_t *info, int index)
         stop(info, 84);
     cursor->carry = TRUE;
     set_32uint(index, cursor->pc.bytes);
-    cursor->cycles_left = 0;
+    cursor->cycles_to_wait = 0;
     cursor->next = NULL;
     cursor->prev = NULL;
     return cursor;
