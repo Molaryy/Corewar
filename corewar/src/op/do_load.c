@@ -25,7 +25,7 @@ void int_to_bytes(int value, unsigned char buffer[4])
     buffer[3] = value & 0xFF;
 }
 
-bool handle_check(cursor_t *cursor)
+static bool handle_check(cursor_t *cursor)
 {
     static bool check = false;
 
