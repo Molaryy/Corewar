@@ -17,7 +17,7 @@ void set_32uint(long long int value, unsigned char *array)
 
 long long int get_32uint(const unsigned char *array)
 {
-    int value = 0;
+    long long int value = 0;
 
     value |= (array[0] << 24);
     value |= (array[1] << 16);

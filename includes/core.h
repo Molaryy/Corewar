@@ -73,13 +73,6 @@ typedef struct op_s {
     # define DIR_SIZE        4
     # define REG_SIZE        1
 
-
-    #define PARAM_TYPE_MASK_1 0xC0  // Bits 7 and 6
-    #define PARAM_TYPE_MASK_2 0x30  // Bits 5 and 4
-    #define PARAM_TYPE_MASK_3 0x0C  // Bits 3 and 2
-    #define PARAM_TYPE_MASK_4 0x03  // Bits 1 and 0
-
-
 /*
 ** op_tab
 */
