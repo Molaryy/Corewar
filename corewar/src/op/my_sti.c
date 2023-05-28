@@ -11,7 +11,7 @@ void get_sti_arg_type_cut(unsigned char *arg_type, int size)
 {
     for (int i = 0; i < size; i++) {
         switch (arg_type[i]) {
-            case 1:
+            case 0:
                 arg_type[i] = REG_SIZE;
                 break;
             case 2:
@@ -33,6 +33,7 @@ unsigned char *get_sti_arg_type(vm_t *vm, int index, int size)
 
     for (int i = 0; i < size; i++) {
         arg_type[i] = (vm->memory[index + i] & mv) >> (6 - (i * 2));
+        // my_printf("arg_type[%d] = %d\n", i, arg_type[i]);
         mv = mv >> 2;
     }
     get_sti_arg_type_cut(arg_type, size);

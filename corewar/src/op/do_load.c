@@ -46,36 +46,19 @@ int get_value_param(vm_t *vm, int *index, int *register_index)
     int param1;
     unsigned char *arg_type = get_sti_arg_type(vm, ++(*index), 2);
 
+    for (int i = 0; i < 2; i++)
+        my_printf("arg type %d\n", arg_type[i]);
     (*index)++;
     for (int i = 0; i < 2; i++) {
-        my_printf("arg type %d\n", arg_type[i]);
         if (arg_type[i] == REG_SIZE)
             *register_index = vm->memory[*index];
-        if (arg_type[i] == DIR_SIZE) {
+        if (arg_type[i] == DIR_SIZE)
             param1 = get_32uint(&vm->memory[*index]);
-            my_printf("index %d\n", *index);
-        }
         if (arg_type[i] == IND_SIZE)
             param1 = get_16int(&vm->memory[*index]);
         *index += arg_type[i];
     }
-    my_printf("param1 %d\n", param1);
     return param1;
-    // if (type_param == 2) {
-    //     param1 = get_value(vm->memory, index + 2, IND_SIZE);
-    //     param2 = get_value(vm->memory, index + 2 + IND_SIZE, REG_SIZE);
-    //     (*idx) = IND_SIZE;
-    //     (*register_index) = (param2 >> 8) & 0x07;
-    //     return(param1);
-    // } else if (type_param == 3) {
-    //     param1 = get_value(vm->memory, index + 2, DIR_SIZE);
-    //     param2 = get_value(vm->memory, index + 2 + DIR_SIZE, REG_SIZE);
-    //     adress = (index + param1) % MEM_SIZE;
-    //     (*idx) = DIR_SIZE;
-    //     (*register_index) = (param2 >> 8) & 0x07;
-    //     return(get_value(vm->memory, adress, DIR_SIZE));
-    // }
-    return (0);
 }
 
 #include <stdio.h>
@@ -96,8 +79,7 @@ __attribute__((unused)) const op_t *op)
         return;
     }
     value = get_value_param(vm, &index, &register_index);
-    my_printf("value = %d\n", value);
     set_32uint(value, champion->registers[register_index - 1].bytes);
     disp_32uint_h(champion->registers[register_index - 1].bytes);
-    set_32uint(++index % MEM_SIZE, cursor->pc.bytes);
+    set_32uint(index % MEM_SIZE, cursor->pc.bytes);
 }

@@ -21,4 +21,5 @@ void my_aff(UNUSED champion_t *champion, cursor_t *cursor, vm_t *vm,
     my_printf("value = %d\n", value);
     my_putchar((unsigned char)(value % 256));
     set_32uint(++index % MEM_SIZE, cursor->pc.bytes);
+    my_printf("pc = %d\n", (int) get_32uint(cursor->pc.bytes));
 }
