@@ -25,3 +25,19 @@ long long int get_32uint(const unsigned char *array)
     value |= array[3];
     return value;
 }
+
+void disp_32uint_b(const unsigned char *array)
+{
+    int i = 0;
+
+    for (int i = 0; i < 4; i++)
+        my_put_base_printf((long long int) array[i], "01", &i);
+}
+
+void disp_32uint_h(const unsigned char *array)
+{
+    int i = 0;
+
+    for (int i = 0; i < 4; i++)
+        my_put_base_printf((long long int) array[i], "0123456789ABCDEF", &i);
+}

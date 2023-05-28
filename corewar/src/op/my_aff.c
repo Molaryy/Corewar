@@ -8,19 +8,17 @@
 #include "core.h"
 
 void my_aff(UNUSED champion_t *champion, cursor_t *cursor, vm_t *vm,
-    const op_t *op)
+    UNUSED const op_t *op)
 {
     my_printf("my_aff\n");
     int index = (int) get_32uint(cursor->pc.bytes);
-    long long int arg;
-    uint32_t tmp = {0};
+    int arg_type = (int) vm->memory[(++index) % MEM_SIZE];
+    int reg = (int) vm->memory[(++index) % MEM_SIZE];
 
-    for (int i = 0; i < REG_SIZE; i++)
-        tmp.bytes[i] = vm->memory[(index + i + 1) % MEM_SIZE];
-    for (int i = 0; i < op->nbr_args; i++) {
-        index += REG_SIZE;
-        arg = get_32uint(tmp.bytes);
-        my_putchar((unsigned char)(arg % 256));
-    }
+    my_printf("register = %d\n", reg);
+    disp_32uint_h(champion->registers[reg - 1].bytes);
+    int value = (int) get_32uint(champion->registers[reg - 1].bytes);
+    my_printf("value = %d\n", value);
+    my_putchar((unsigned char)(value % 256));
     set_32uint(++index % MEM_SIZE, cursor->pc.bytes);
 }
