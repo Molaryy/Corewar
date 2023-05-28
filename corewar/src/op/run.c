@@ -19,12 +19,12 @@ const assembly_func_t  assembly_tab[] =
     // {8, &xor},
     // {9, &zjmp},
     // {10, &ldi},
-    // {11, &sti},
+    {11, &my_sti},
     // {12, &my_fork},
     // {13, &lld},
     // {14, &lldi},
     // {15, &lfork},
-    // {16, &aff},
+    {16, &my_aff},
     {0, &my_null}
 };
 

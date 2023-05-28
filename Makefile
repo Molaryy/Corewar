@@ -101,6 +101,7 @@ SRC_CORE += $(OP_CORE)/run.c
 SRC_CORE += $(OP_CORE)/my_live.c
 SRC_CORE += $(OP_CORE)/get.c
 SRC_CORE += $(OP_CORE)/my_null.c
+SRC_CORE += $(OP_CORE)/my_aff.c
 
 LIB += -L./lib/jb -llink
 LIB_CORE += -Llib/nc -lnc
