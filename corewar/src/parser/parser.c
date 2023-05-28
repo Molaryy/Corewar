@@ -20,8 +20,8 @@ static int parse_args_loop(info_corewar_t *info, int argc, char **argv, int *i)
         if (my_strcmp("-a", argv[*i]) == 0)
             load_address = my_getnbr(argv[++(*i)]);
         if (is_file(argv[*i]) == TRUE) {
-            info->champions[++(info->nbr_champions)] = champion_create(prog_num,
-                load_address, argv[(*i)++]);
+            info->champions[++(info->nbr_champions)] = champion_create(info,
+                prog_num, load_address, argv[(*i)++]);
             return TRUE;
         }
         if (my_strcmp("-n", argv[*i]) == 0 || my_strcmp("-a", argv[*i]) == 0)
@@ -36,7 +36,7 @@ static int parse_args_dump(info_corewar_t *info, char **argv, int *i)
     if (my_strcmp("-dump", argv[*i]) == 0) {
         if (my_str_isnum(argv[++(*i)]) == 0)
             return FALSE;
-        info->dump = my_getnbr(argv[++(*i)]);
+        info->dump = my_getnbr(argv[(*i)++]);
         return TRUE;
     }
     return TRUE;

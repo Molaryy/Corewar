@@ -33,8 +33,8 @@ void disp_last_live(info_corewar_t *info)
     int last_live_champ_index;
     int max = 0;
 
-    for (int i = 0; i < info->nbr_champions; i++) {
-        if (info->champions[i].last_live_cycle > max) {
+    for (int i = 0; i <= info->nbr_champions; i++) {
+        if (info->champions[i].last_live_cycle >= max) {
             max = info->champions[i].last_live_cycle;
             last_live_champ_index = i;
         }
@@ -52,7 +52,7 @@ int check_game_over(info_corewar_t *info)
         return TRUE;
     }
     reset_cycle(info);
-    if (info->vm.nbr_live > 0 )
+    if (!(info->vm.nbr_live <= 0 && info->vm.cycle_to_die == 0))
         return FALSE;
     disp_last_live(info);
     return TRUE;
