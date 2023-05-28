@@ -16,9 +16,8 @@ void set_16int(short int value, unsigned char *array)
 short int get_16int(const unsigned char *array)
 {
     short int value = 0;
-    
+
     value |= (array[0] << 8);
     value |= array[1];
-    
     return value;
 }
