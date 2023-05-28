@@ -10,7 +10,7 @@
 const assembly_func_t  assembly_tab[] =
 {
     {1, &my_live},
-    // {2, &ld},
+     {2, &do_load},
     // {3, &st},
     // {4, &add},
     // {5, &sub},
