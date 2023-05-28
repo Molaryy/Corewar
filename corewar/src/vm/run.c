@@ -16,7 +16,7 @@ void increment_cycles(info_corewar_t *info)
 void run_vm(info_corewar_t *info)
 {
     while (check_game_over(info) == FALSE) {
-
+        run_champions(info->champions, info->nbr_champions, &info->vm);
         increment_cycles(info);
     }
 }

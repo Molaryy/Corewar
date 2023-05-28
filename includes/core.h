@@ -126,7 +126,7 @@ typedef struct stack_t {
 typedef struct cursor_t {
     uint32_t pc;
     BOOL carry;
-    int cycles_left;
+    int cycles_to_wait;
     struct cursor_t *next;
     struct cursor_t *prev;
 } cursor_t;
@@ -422,7 +422,7 @@ unsigned int get_32uint(const unsigned char *array);
 
 
 /* ===========================================================================
-** corewar/src/op.c
+** corewar/src/op/op.c
 ** ===========================================================================
 */
 
@@ -432,6 +432,16 @@ unsigned int get_32uint(const unsigned char *array);
 ** @return op_t * op_t struct of the given opcode
 */
 op_t *get_op(unsigned char opcode);
+
+/*
+** @brief this is the main function that will run the operations and will call
+** the necessary functions depending on the code in memory got thanks to vm
+** @param cursor cursor_t * cursor of the process
+** @param vm vm_t * vm of the corewar with the memory of the game, cycles and
+** the live counters
+** @return void
+*/
+void run_op(cursor_t *cursor, vm_t *vm);
 
 /* ===========================================================================
 **                            END FILE
@@ -557,6 +567,37 @@ void cursor_pop_cascade(cursor_t *current, cursor_t **head);
 **                            END FILE
 ** ===========================================================================
 */
+
+
+/* ===========================================================================
+** corewar/src/champion/run.c
+** ===========================================================================
+*/
+
+/*
+** @brief this will loop over all the champions and run each cursor of each
+** champion
+** @param champions champion_t * array of champion_t struct
+** @param num_champs int number of champions
+** @param vm vm_t * vm struct of the vm with memory and cycles and lives
+** @return void
+*/
+void run_champions(champion_t *champions, int num_champs, vm_t *vm);
+
+/*
+** @brief this will loop over all the cursors of the champion and run each
+** of them waiting for the cycles if needed and updating them if needed.
+** @param champion champion_t * champion struct passed my reference.
+** @param vm vm_t * vm struct of the vm with memory and cycles and lives
+** @return void
+*/
+void run_champion(champion_t *champion, vm_t *vm);
+
+/* ===========================================================================
+**                            END FILE
+** ===========================================================================
+*/
+
 
 
 #endif // CORE_H_
