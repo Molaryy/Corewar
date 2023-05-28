@@ -28,7 +28,7 @@ void my_live(champion_t *champion, cursor_t *cursor, vm_t *vm,
     for (int i = 0; i < REG_SIZE; i++)
         tmp.bytes[i] = vm->memory[(index + i + 1) % MEM_SIZE];
     for (int i = 0; i < op->nbr_args; i++) {
-        index += REG_SIZE;
+        index += DIR_SIZE;
         arg = get_32uint(tmp.bytes);
         if (arg == (long long int) champion->prog_nbr) {
             run_my_live(champion, cursor, vm, op);
