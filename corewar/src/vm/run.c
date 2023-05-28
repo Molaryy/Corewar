@@ -8,15 +8,7 @@
 
 void run_vm(info_corewar_t *info)
 {
-    cursor_node_t *current = NULL;
+    while (check_game_over(info) == TRUE) {
 
-    while (1) {
-        if (info->cursors == NULL)
-            return;
-        current = info->cursors->first;
-        while (current) {
-            do_instruction(info->vm.memory, current, info->vm.processes);
-            current = current->next;
-        }
     }
 }

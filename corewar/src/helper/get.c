@@ -19,6 +19,7 @@ static size_t size_of_file(int fd)
         res = read(fd, buffer, 2);
         len += res;
     }
+    free(buffer);
     close(fd);
     return len;
 }

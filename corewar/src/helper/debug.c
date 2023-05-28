@@ -26,8 +26,8 @@ void display_champion(champion_t *champion)
 void display_info(info_corewar_t *info)
 {
     my_printf("Dump: %d\n", info->dump);
-    my_printf("Nb champions: %d\n", info->nb_champions);
-    for (int i = 0; i <= info->nb_champions; i++) {
+    my_printf("Nb champions: %d\n", info->nbr_champions);
+    for (int i = 0; i <= info->nbr_champions; i++) {
         display_champion(&info->champions[i]);
     }
 }
