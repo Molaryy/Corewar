@@ -25,8 +25,7 @@ unsigned char *get_sti_arg_type(vm_t *vm, int index)
             case 2:
                 arg_type[i] = IND_SIZE;
                 break;
-            default:
-                break;
+            default: break;
         }
     }
     return (arg_type);

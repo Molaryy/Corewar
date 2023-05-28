@@ -53,14 +53,14 @@ int get_value_param(vm_t *vm, int *idx, int index, int *register_index)
         param2 = get_value(vm->memory, index + 2 + IND_SIZE, REG_SIZE);
         (*idx) = IND_SIZE;
         (*register_index) = (param2 >> 8) & 0x07;
-        return(param1);
+        return param1;
     } else if (type_param == 3) {
         param1 = get_value(vm->memory, index + 2, DIR_SIZE);
         param2 = get_value(vm->memory, index + 2 + DIR_SIZE, REG_SIZE);
         adress = (index + param1) % MEM_SIZE;
         (*idx) = DIR_SIZE;
         (*register_index) = (param2 >> 8) & 0x07;
-        return(get_value(vm->memory, adress, DIR_SIZE));
+        return (get_value(vm->memory, adress, DIR_SIZE));
     }
     return (0);
 }
