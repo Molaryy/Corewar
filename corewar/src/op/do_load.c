@@ -59,10 +59,8 @@ int get_value_param(vm_t *vm, int *index, int *register_index)
     return param1;
 }
 
-#include <stdio.h>
-
 void do_load(champion_t *champion, cursor_t *cursor, vm_t *vm,
-__attribute__((unused)) const op_t *op)
+    __attribute__((unused)) const op_t *op)
 {
     int index = (int)get_32uint(cursor->pc.bytes);
     int type_param;

@@ -25,7 +25,7 @@ jobs:
           fi
           make clean 
   check-style:
-    needs: [check-program-compilation]
+    needs: [check_program_compilation]
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/epitech/coding-style-checker:latest
