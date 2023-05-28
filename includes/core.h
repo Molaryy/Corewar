@@ -112,8 +112,10 @@ typedef struct uint32_t {
 
 typedef struct vm_t {
     unsigned char *memory;
-    int processes_size;
+    int current_cycle;
     int cycle_to_die;
+    int total_cycles;
+    int nbr_live;
 } vm_t;
 
 typedef struct stack_t {
@@ -134,7 +136,7 @@ typedef struct champion_t {
     int loaded_addr;
     stack_t stack;
     char *name;
-    int live;
+    int last_live_cycle;
     uint32_t registers[REG_NUMBER];
     cursor_t *cursor_head;
     cursor_t *cursor_tail;
@@ -378,6 +380,13 @@ void free_2(char *str1, char *str2);
 */
 void init_memory(info_corewar_t *info);
 
+/*
+** @brief initialize the vm so memory and more
+** @param info info_corewar_t * info struct of the corewar
+** @return void
+*/
+void init_vm(info_corewar_t *info);
+
 /* ===========================================================================
 **                            END FILE
 ** ===========================================================================
@@ -405,24 +414,6 @@ void set_32uint(int value, unsigned char *array);
 ** @return unsigned int value of the 32bit unsigned integer
 */
 unsigned int get_32uint(const unsigned char *array);
-
-/* ===========================================================================
-**                            END FILE
-** ===========================================================================
-*/
-
-
-/* ===========================================================================
-** corewar/src/vm/init.c
-** ===========================================================================
-*/
-
-/*
-** @brief initialize the vm so memory and more
-** @param info info_corewar_t * info struct of the corewar
-** @return void
-*/
-void init_vm(info_corewar_t *info);
 
 /* ===========================================================================
 **                            END FILE
@@ -527,6 +518,45 @@ cursor_t *cursor_init(info_corewar_t *info, int index);
 ** ===========================================================================
 */
 
+
+/* ===========================================================================
+** corewar/src/cursor/man.c
+** ===========================================================================
+*/
+
+/*
+** @brief this will create a cursor and add it to the cursor list at the head
+** @param head cursor_t ** head of the cursor list
+** @param index int index of the memory so here the load_addr of the champion
+** @return void
+*/
+void cursor_push_head(cursor_t **head, int index);
+
+/*
+** @brief this remove cursor from the cursor list and update head and tail
+** accordingly
+** @param current cursor_t * current cursor to be removed
+** @param head cursor_t ** head of the cursor list
+** @param tail cursor_t ** tail of the cursor list
+** @return void
+*/
+void cursor_pop(cursor_t *current, cursor_t **head, cursor_t **tail);
+
+/*
+** @brief this will pop the cursor from the cursor list and free it and it will
+** cascade from head to the current cursor because when fork we add the cursor
+** to the head and the last fork will be at tail so when a parent from the fork
+** dies all its children must die too.
+** @param current cursor_t * current cursor limit from head to this
+** @param head cursor_t ** head of the cursor list
+** @return void
+*/
+void cursor_pop_cascade(cursor_t *current, cursor_t **head);
+
+/* ===========================================================================
+**                            END FILE
+** ===========================================================================
+*/
 
 
 #endif // CORE_H_
