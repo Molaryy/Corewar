@@ -19,6 +19,8 @@
 
     #define READ_LEN 3
 
+    #define UNUSED __attribute__((unused))
+
     // %3 number 3
     // 3 3 index from current
     //
@@ -52,7 +54,7 @@
     # define T_REG           1       /* register */
     # define T_DIR           2       /* direct  (ld  #1,r1  put 1 into r1) */
     # define T_IND           4       /* indirect always relative
-                                    ( ld 1,r1 put what's in the address (1+pc)
+                                     ( ld 1,r1 put what's in the address (1+pc)
                                     into r1 (4 bytes )) */
 
 typedef struct op_s {
@@ -69,12 +71,12 @@ typedef struct op_s {
     */
     # define IND_SIZE        2
     # define DIR_SIZE        4
-    # define REG_SIZE        DIR_SIZE
+    # define REG_SIZE        1
 
 /*
 ** op_tab
 */
-extern  op_t    op_tab[];
+extern  const op_t op_tab[];
 
     /*
     ** header
@@ -99,29 +101,27 @@ typedef struct header_s header_t;
     # define CYCLE_DELTA     5
     # define NBR_LIVE        40
 
+    #define BOOL int
+
 typedef struct file_t {
     char *file_content;
     size_t file_size;
 } file_t;
 
 typedef struct uint32_t {
-    unsigned char byte[4];
+    unsigned char bytes[4];
 } uint32_t;
 
-typedef struct process_t {
-    uint32_t registers[REG_NUMBER];
-    op_t operation;
-    int pc;
-    int carry;
-    int alive;
-    int index_id;
-} process_t;
+typedef struct my_int16_t {
+    unsigned char bytes[2];
+} my_int16_t;
 
 typedef struct vm_t {
     unsigned char *memory;
-    process_t *processes;
-    int processes_size;
+    int current_cycle;
     int cycle_to_die;
+    int total_cycles;
+    int nbr_live;
 } vm_t;
 
 typedef struct stack_t {
@@ -129,20 +129,37 @@ typedef struct stack_t {
     unsigned int code_size;
 } stack_t;
 
+typedef struct cursor_t {
+    uint32_t pc;
+    BOOL carry;
+    int cycles_to_wait;
+    struct cursor_t *next;
+    struct cursor_t *prev;
+} cursor_t;
+
 typedef struct champion_t {
     int prog_nbr;
     int loaded_addr;
-    char *filename;
     stack_t stack;
     char *name;
+    int last_live_cycle;
+    uint32_t registers[REG_NUMBER];
+    cursor_t *cursor_head;
+    cursor_t *cursor_tail;
 } champion_t;
 
 typedef struct info_corewar_t {
     champion_t champions[100];
-    int nb_champions;
+    int nbr_champions;
     int dump;
     vm_t vm;
 } info_corewar_t;
+
+typedef struct assembly_func_t {
+    unsigned char code;
+    void (*func)(champion_t *champion, cursor_t *cursor, vm_t *vm,
+        const op_t *op);
+} assembly_func_t;
 
 /* ===========================================================================
 ** corewar/src/helper/get.c
@@ -213,7 +230,8 @@ int is_file(const char *filename);
 ** the champion
 ** @returns champion_t
 */
-champion_t champion_create(int prog_nbr, int loaded_addr, char *filename);
+champion_t champion_create(info_corewar_t *info ,int prog_nbr, int loaded_addr,
+    char *filename);
 
 /*==============================================================
 **                            END FILE
@@ -360,7 +378,7 @@ void free_2(char *str1, char *str2);
 
 
 /* ===========================================================================
-** corewar/src/process/process.c
+** corewar/src/vm/init.c
 ** ===========================================================================
 */
 
@@ -372,87 +390,6 @@ void free_2(char *str1, char *str2);
 ** memory that is unassigned
 */
 void init_memory(info_corewar_t *info);
-
-/*
-** @brief this will initialize the processes of the champions given as args
-** @param info info_corewar_t * info struct of the corewar
-** @param processes process_t ** array of process_t ** to be edited
-** @param champion champion_t champion to be added mainly having the code
-** inside its stack_t struct
-** @return void
-*/
-void init_processes(process_t **processes, champion_t champion);
-
-/*
-** @brief this will create a process_t struct with the given parameters inside
-** the code inside the stack_t struct of the champion, it will parse the code
-** and populate it with its operation.
-** @param loaded_addr int where to load the champion in the memory
-** @param index unsigned int *index of the code to be parsed
-** @param code unsigned char * code to be parsed
-** @return process_t * newly malloced process_t struct and populated properly
-*/
-process_t *init_process(int loaded_addr, unsigned int *index,
-    unsigned char *code);
-
-/* ===========================================================================
-**                            END FILE
-** ===========================================================================
-*/
-
-
-/* ===========================================================================
-** corewar/src/process/helper.c
-** ===========================================================================
-*/
-
-/*
-** @brief this will create a template process_t struct with default values
-** and a pc of the next process directly to the right modulo MEM_SIZE
-** @param pc int program counter of the process so as said above the next
-** process will be directly to the right of the current process modulo MEM_SIZE
-** @return process_t * newly malloced process_t struct
-*/
-process_t process_create_null(int pc);
-
-/* ===========================================================================
-**                            END FILE
-** ===========================================================================
-*/
-
-
-/* ===========================================================================
-** corewar/src/process/init.c
-** ===========================================================================
-*/
-
-/*
-** @brief this will set a 32bit unsigned integer which uses an array of 4
-** unsigned char which are 8 bits each for a total of 32 bits
-** @param value int value to be set
-** @param array unsigned char * array of 4 unsigned char to be set
-** @return void
-*/
-void set_32uint(int value, unsigned char* array);
-
-/*
-** @brief this will get a 32bit unsigned integer which uses an array of 4
-** unsigned char which are 8 bits each for a total of 32 bits
-** @param array unsigned char * array of 4 unsigned char to be get
-** @return unsigned int value of the 32bit unsigned integer
-*/
-unsigned int get_32uint(const unsigned char* array);
-
-/* ===========================================================================
-**                            END FILE
-** ===========================================================================
-*/
-
-
-/* ===========================================================================
-** corewar/src/process/init.c
-** ===========================================================================
-*/
 
 /*
 ** @brief initialize the vm so memory and more
@@ -468,16 +405,35 @@ void init_vm(info_corewar_t *info);
 
 
 /* ===========================================================================
-** corewar/src/process/init.c
+** corewar/src/datastructure/int32.c
 ** ===========================================================================
 */
 
 /*
-** @brief this will return the op_t struct of the given opcode
-** @param opcode unsigned char opcode to be tested
-** @return op_t * op_t struct of the given opcode
+** @brief this will set a 32bit unsigned integer which uses an array of 4
+** unsigned char which are 8 bits each for a total of 32 bits
+** @param value int value to be set
+** @param array unsigned char * array of 4 unsigned char to be set
+** @return void
 */
-op_t   get_op(unsigned char opcode);
+void set_32uint(long long int value, unsigned char *array);
+
+/*
+** @brief this will get a 32bit unsigned integer which uses an array of 4
+** unsigned char which are 8 bits each for a total of 32 bits
+** @param array unsigned char * array of 4 unsigned char to be get
+** @return unsigned int value of the 32bit unsigned integer
+*/
+long long int get_32uint(const unsigned char *array);
+
+void disp_32uint_b(const unsigned char *array);
+
+void disp_32uint_h(const unsigned char *array);
+
+void set_16int(short int value, unsigned char *array);
+
+short int get_16int(const unsigned char *array);
+
 
 /* ===========================================================================
 **                            END FILE
@@ -486,7 +442,28 @@ op_t   get_op(unsigned char opcode);
 
 
 /* ===========================================================================
-** corewar/src/process/init.c
+** corewar/src/op/run.c
+** ===========================================================================
+*/
+
+/*
+** @brief this is the main function that will run the operations and will call
+** the necessary functions depending on the code in memory got thanks to vm
+** @param cursor cursor_t * cursor of the process
+** @param vm vm_t * vm of the corewar with the memory of the game, cycles and
+** the live counters
+** @return void
+*/
+void run_op(champion_t *champion, cursor_t *cursor, vm_t *vm);
+
+/* ===========================================================================
+**                            END FILE
+** ===========================================================================
+*/
+
+
+/* ===========================================================================
+** corewar/src/champion/get.c
 ** ===========================================================================
 */
 
@@ -504,5 +481,313 @@ int get_champ_prog_nbr(info_corewar_t *info, int index);
 ** ===========================================================================
 */
 
+/* ===========================================================================
+** corewar/src/vm/run.c
+** ===========================================================================
+*/
+
+/**
+ * @brief Run the vm
+ *
+ * @param info info_corewar_t *
+ */
+void run_vm(info_corewar_t *info);
+
+/* ===========================================================================
+**                            END FILE
+** ===========================================================================
+*/
+
+
+/* ===========================================================================
+** corewar/src/vm/helper.c
+** ===========================================================================
+*/
+
+/*
+** @brief this will check if the game has the win condition so if a champion
+** runs the live operation between the life cycle of the game of which
+** decreases by 5 for every life cycle, each champion must run this operation
+** 40 times between each life cycle.
+** @param info info_corewar_t * info struct of the corewar
+** @return TRUE macro if found winner or no winner and FALSE macro if players
+** live and so the game continues.
+*/
+int check_game_over(info_corewar_t *info);
+
+/* ===========================================================================
+**                            END FILE
+** ===========================================================================
+*/
+
+
+/* ===========================================================================
+** corewar/src/cursor/init.c
+** ===========================================================================
+*/
+
+/*
+** @brief this will initialize a cursor used for the first iteration of and
+** creation of the champion.
+** @param info info_corewar_t * info struct of the corewar so can free and stop
+** the program if malloc fails
+** @param index int index of the memory so here the load_addr of the champion
+** @return cursor_t * cursor struct of the cursor
+*/
+cursor_t *cursor_init(info_corewar_t *info, int index);
+
+/* ===========================================================================
+**                            END FILE
+** ===========================================================================
+*/
+
+
+/* ===========================================================================
+** corewar/src/cursor/man.c
+** ===========================================================================
+*/
+
+/*
+** @brief this will create a cursor and add it to the cursor list at the head
+** @param head cursor_t ** head of the cursor list
+** @param index int index of the memory so here the load_addr of the champion
+** @return void
+*/
+void cursor_push_head(cursor_t **head, int index);
+
+/*
+** @brief this remove cursor from the cursor list and update head and tail
+** accordingly
+** @param current cursor_t * current cursor to be removed
+** @param head cursor_t ** head of the cursor list
+** @param tail cursor_t ** tail of the cursor list
+** @return void
+*/
+void cursor_pop(cursor_t *current, cursor_t **head, cursor_t **tail);
+
+/*
+** @brief this will pop the cursor from the cursor list and free it and it will
+** cascade from head to the current cursor because when fork we add the cursor
+** to the head and the last fork will be at tail so when a parent from the fork
+** dies all its children must die too.
+** @param current cursor_t * current cursor limit from head to this
+** @param head cursor_t ** head of the cursor list
+** @return void
+*/
+void cursor_pop_cascade(cursor_t *current, cursor_t **head);
+
+/* ===========================================================================
+**                            END FILE
+** ===========================================================================
+*/
+
+
+/* ===========================================================================
+** corewar/src/champion/run.c
+** ===========================================================================
+*/
+
+/*
+** @brief this will loop over all the champions and run each cursor of each
+** champion
+** @param champions champion_t * array of champion_t struct
+** @param num_champs int number of champions
+** @param vm vm_t * vm struct of the vm with memory and cycles and lives
+** @return void
+*/
+void run_champions(champion_t *champions, int num_champs, vm_t *vm);
+
+/*
+** @brief this will loop over all the cursors of the champion and run each
+** of them waiting for the cycles if needed and updating them if needed.
+** @param champion champion_t * champion struct passed my reference.
+** @param vm vm_t * vm struct of the vm with memory and cycles and lives
+** @return void
+*/
+void run_champion(champion_t *champion, vm_t *vm);
+
+/* ===========================================================================
+**                            END FILE
+** ===========================================================================
+*/
+
+
+/* ===========================================================================
+** corewar/src/op/get.c
+** ===========================================================================
+*/
+
+/*
+** @brief this will get the size of of the param depending on the type of the
+** param by checking if the byte is 0 because realistically the param only
+** takes 1 byte and if the byte is 0 it means that the param is encoded on
+** the next byte. If sabotaged by another champion and the byte is corrupted
+** it will return -1 and so the operation will not run outside the this
+** function.
+** @param args_type args_type_t the given arg with bitwise or of the types
+** accepted by the process.
+** @param vm vm_t * vm struct of the vm with memory, cycles and lives
+** @param index int index of the memory
+*/
+int get_param(args_type_t args_type, vm_t *vm, int index);
+
+/*
+** @brief this will return the op_t struct of the given opcode
+** @param opcode unsigned char opcode to be tested
+** @return op_t * op_t struct of the given opcode
+*/
+const op_t *get_op(unsigned char opcode);
+
+/* ===========================================================================
+**                            END FILE
+** ===========================================================================
+*/
+
+
+/* ===========================================================================
+** corewar/src/op/my_live.c
+** ===========================================================================
+*/
+
+/*
+** @brief this will run the live operation and will update the live counter
+** of the champion and the live counter of the vm if error in code and cannot
+** run the operation it will pop the cursor cascading if needed (if child of
+** fork) and will update the cursor->pc to the next operation.
+** @param champion champion_t * champion struct passed my reference.
+** @param cursor cursor_t * cursor struct passed my reference.
+** @param vm vm_t * vm struct of the vm with memory and cycles and lives
+** @param args args_type_t args[MAX_ARGS_NUMBER] array of args type
+** @return void
+*/
+void my_live(champion_t *champion, cursor_t *cursor, vm_t *vm,
+    const op_t *op);
+
+/* ===========================================================================
+**                            END FILE
+** ===========================================================================
+*/
+
+
+/* ===========================================================================
+** corewar/src/op/my_live.c
+** ===========================================================================
+*/
+
+/*
+** @brief this is the null function for unmapped memory and will update the
+** cursor->pc to the next operation.
+** @param champion champion_t * champion struct passed my reference.
+** @param cursor cursor_t * cursor struct passed my reference.
+** @param vm vm_t * vm struct of the vm with memory and cycles and lives
+** @param args args_type_t args[MAX_ARGS_NUMBER] array of args type
+** @return void
+*/
+void my_null(champion_t *champion, cursor_t *cursor, vm_t *vm, const op_t *op);
+
+void my_aff(champion_t *champion, cursor_t *cursor, vm_t *vm, const op_t *op);
+
+void my_sti(champion_t *champion, cursor_t *cursor, vm_t *vm, const op_t *op);
+
+unsigned char *get_sti_arg_type(vm_t *vm, int index, int size);
+
+void get_sti_arg_type_cut(unsigned char *arg_type, int size);
+
+
+/* ===========================================================================
+**                            END FILE
+** ===========================================================================
+*/
+
+/* ===========================================================================
+** corewar/src/op/do_load.c
+** ===========================================================================
+*/
+
+/**
+ * @brief do load instruction
+ *
+ * @param champion champion_t *
+ * @param cursor cursor_t *
+ * @param vm vm_t *vm
+ * @param op op_t *
+ */
+void do_load(champion_t *champion, cursor_t *cursor, vm_t *vm,
+    const op_t *op);
+
+/* ===========================================================================
+**                            END FILE
+** ===========================================================================
+*/
+
+/* ===========================================================================
+** corewar/src/op/int_to_bytes.c
+** ===========================================================================
+*/
+
+/**
+ * @brief put value into a unsigned char[4]
+ *
+ * @param value int
+ * @param buffer unsigned char[4]
+ */
+void int_to_bytes(int value, unsigned char buffer[4]);
+
+/* ===========================================================================
+**                            END FILE
+** ===========================================================================
+*/
+
+/* ===========================================================================
+** corewar/src/op/do_zjmp.c
+** ===========================================================================
+*/
+
+/**
+ * @brief do zjmp instruction
+ *
+ * @param champion champion_t *
+ * @param cursor cursor_t *
+ * @param vm vm_t *vm
+ * @param op op_t *
+ */
+void do_zjmp(champion_t *champion, cursor_t *cursor, vm_t *vm,
+    const op_t *op);
+
+/* ===========================================================================
+**                            END FILE
+** ===========================================================================
+*/
+
+/* ===========================================================================
+** corewar/src/helper/print_bits.c
+** ===========================================================================
+*/
+
+/**
+ * @brief print bits with a given bits to display
+ *
+ * @param buffer unsigned char *
+ * @param nb_bits to display
+ * @param comment to help while debuging
+ */
+void print_bits(unsigned char *buffer, int nb_bits, char *comment);
+
+/* ===========================================================================
+**                            END FILE
+** ===========================================================================
+*/
+
+/* ===========================================================================
+** corewar/src/op/do_add.c
+** ===========================================================================
+*/
+void do_add(champion_t *champion, cursor_t *cursor, vm_t *vm,
+__attribute__((unused)) const op_t *op);
+
+/* ===========================================================================
+**                            END FILE
+** ===========================================================================
+*/
 
 #endif // CORE_H_

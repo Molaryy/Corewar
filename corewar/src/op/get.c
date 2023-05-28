@@ -1,13 +1,13 @@
 /*
 ** EPITECH PROJECT, 2023
-** corewar/src/op.c
+** corewar/src/op/get.c
 ** File description:
-** op.c file given by epitech to define all the functions in assembly
+** this will contain the get functions for the operations
 */
 
 #include "core.h"
 
-op_t    op_tab[] =
+const op_t    op_tab[] =
 {
     {"live", 1, {T_DIR}, 1, 10, "alive"},
     {"ld", 2, {T_DIR | T_IND, T_REG}, 2, 5, "load"},
@@ -34,27 +34,13 @@ op_t    op_tab[] =
     {0, 0, {0}, 0, 0, 0}
 };
 
-op_t cpy_op(op_t *src_op)
-{
-    op_t op = {0};
-
-    op.mnemonique = src_op->mnemonique;
-    op.nbr_args = src_op->nbr_args;
-    for (int i = 0; i < MAX_ARGS_NUMBER; i++)
-        op.type[i] = src_op->type[i];
-    op.code = src_op->code;
-    op.nbr_cycles = src_op->nbr_cycles;
-    op.comment = src_op->comment;
-    return op;
-}
-
-op_t   get_op(unsigned char opcode)
+const op_t *get_op(unsigned char opcode)
 {
     size_t i = 0;
 
     for (; i < sizeof(op_tab) / sizeof(op_t); i++) {
         if (op_tab[i].code == opcode)
-            return cpy_op(&op_tab[i]);
+            return &op_tab[i];
     }
-    return cpy_op(&op_tab[i]);
+    return &op_tab[i];
 }
