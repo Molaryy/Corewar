@@ -83,6 +83,7 @@ SRC_CORE += $(BASE_CORE)/main.c
 SRC_CORE += $(PARSE_CORE)/parser.c
 SRC_CORE += $(HELPER_CORE)/get.c
 SRC_CORE += $(HELPER_CORE)/str.c
+SRC_CORE += $(HELPER_CORE)/print_bits.c
 SRC_CORE += $(CHAMPION_CORE)/champion.c
 SRC_CORE += $(CHAMPION_CORE)/stack.c
 SRC_CORE += $(HELPER_CORE)/stop.c

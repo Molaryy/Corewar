@@ -732,7 +732,7 @@ void int_to_bytes(int value, unsigned char buffer[4]);
 */
 
 /* ===========================================================================
-** corewar/src/op/do_load.c
+** corewar/src/op/do_zjmp.c
 ** ===========================================================================
 */
 
@@ -752,5 +752,23 @@ void do_zjmp(champion_t *champion, cursor_t *cursor, vm_t *vm,
 ** ===========================================================================
 */
 
+/* ===========================================================================
+** corewar/src/helper/print_bits.c
+** ===========================================================================
+*/
+
+/**
+ * @brief print bits with a given bits to display
+ *
+ * @param buffer unsigned char *
+ * @param nb_bits to display
+ * @param comment to help while debuging
+ */
+void print_bits(unsigned char *buffer, int nb_bits, char *comment);
+
+/* ===========================================================================
+**                            END FILE
+** ===========================================================================
+*/
 
 #endif // CORE_H_
