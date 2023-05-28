@@ -20,7 +20,7 @@ const assembly_func_t  assembly_tab[] =
     // {9, &zjmp},
     // {10, &ldi},
     // {11, &sti},
-    // {12, &fork},
+    // {12, &my_fork},
     // {13, &lld},
     // {14, &lldi},
     // {15, &lfork},

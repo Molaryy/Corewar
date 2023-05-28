@@ -20,6 +20,7 @@ int my_putchar_printf(const char c, int *count);
 int my_log(unsigned int n, unsigned int base);
 long long int my_handle_length_put_nbr_printf(va_list arguments,
     specifier_t specifier);
+void frec_printf3(long long int n, int *char_count);
 
 void cut_fonction2(specifier_t specifier,
     int width, int padding_char, int *char_count)
@@ -60,7 +61,7 @@ void frec_printf(int i, int *char_count)
 
 int my_put_nbr_printf(va_list arguments, int *char_count, specifier_t specifier)
 {
-    long long int n = va_arg(arguments, int);
+    long long int n = va_arg(arguments, long long int);
     int width = 0;
     int is_neg = n < 0 ? 1 : 0;
     char padding_char = specifier.flag == '0' ? '0' : ' ';
@@ -75,7 +76,7 @@ int my_put_nbr_printf(va_list arguments, int *char_count, specifier_t specifier)
     }
     cut_fonction3(specifier, width - is_neg, padding_char, char_count);
     cut_fonction(specifier, is_neg, char_count);
-    frec_printf(n, char_count);
+    frec_printf3(n, char_count);
     cut_fonction2(specifier, width - is_neg, padding_char, char_count);
     return 0;
 }

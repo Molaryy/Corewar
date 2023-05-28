@@ -412,7 +412,7 @@ void init_vm(info_corewar_t *info);
 ** @param array unsigned char * array of 4 unsigned char to be set
 ** @return void
 */
-void set_32uint(int value, unsigned char *array);
+void set_32uint(long long int value, unsigned char *array);
 
 /*
 ** @brief this will get a 32bit unsigned integer which uses an array of 4
@@ -420,7 +420,7 @@ void set_32uint(int value, unsigned char *array);
 ** @param array unsigned char * array of 4 unsigned char to be get
 ** @return unsigned int value of the 32bit unsigned integer
 */
-unsigned int get_32uint(const unsigned char *array);
+long long int get_32uint(const unsigned char *array);
 
 /* ===========================================================================
 **                            END FILE

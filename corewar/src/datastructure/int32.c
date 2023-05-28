@@ -7,7 +7,7 @@
 
 #include "core.h"
 
-void set_32uint(int value, unsigned char *array)
+void set_32uint(long long int value, unsigned char *array)
 {
     array[0] = (value >> 24) & 0xFF;
     array[1] = (value >> 16) & 0xFF;
@@ -15,7 +15,7 @@ void set_32uint(int value, unsigned char *array)
     array[3] = value & 0xFF;
 }
 
-unsigned int get_32uint(const unsigned char *array)
+long long int get_32uint(const unsigned char *array)
 {
     int value = 0;
 

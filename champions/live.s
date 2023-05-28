@@ -6,7 +6,3 @@ live %0
 live %0
 live %0
 live %0
-live %0
-live %0
-live %0
-live %0

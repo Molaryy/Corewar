@@ -47,6 +47,8 @@ const op_t *get_op(unsigned char opcode)
 
 int get_param(args_type_t arg_type, vm_t *vm, int index)
 {
+    int static i = 0;
+
     if (vm->memory[index % MEM_SIZE] != 0 &&
         (vm->memory[index % MEM_SIZE] || arg_type))
         return REG_SIZE;
@@ -57,5 +59,6 @@ int get_param(args_type_t arg_type, vm_t *vm, int index)
         vm->memory[(index % MEM_SIZE) + 3] != 0 &&
         (vm->memory[(index % MEM_SIZE) + 3] || arg_type))
         return DIR_SIZE;
+    i++;
     return (-1);
 }
