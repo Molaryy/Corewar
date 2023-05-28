@@ -146,7 +146,6 @@ typedef struct champion_t {
 
 typedef struct info_corewar_t {
     champion_t champions[100];
-    cursor_t *cursors;
     int nbr_champions;
     int dump;
     vm_t vm;
