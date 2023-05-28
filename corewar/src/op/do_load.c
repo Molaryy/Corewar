@@ -65,6 +65,8 @@ int get_value_param(vm_t *vm, int *idx, int index, int *register_index)
     return (0);
 }
 
+#include <stdio.h>
+
 void do_load(champion_t *champion, cursor_t *cursor, vm_t *vm,
 __attribute__((unused)) const op_t *op)
 {
@@ -83,5 +85,10 @@ __attribute__((unused)) const op_t *op)
     }
     value = get_value_param(vm, &idx, index, &register_index);
     int_to_bytes(value, champion->registers[register_index - 1].bytes);
+    printf("register = %02X %02X %02X %02X\n",
+           champion->registers[register_index - 1].bytes[0],
+           champion->registers[register_index - 1].bytes[1],
+           champion->registers[register_index - 1].bytes[2],
+           champion->registers[register_index - 1].bytes[3]);
     set_32uint((index + idx + REG_SIZE + 1) % MEM_SIZE, cursor->pc.bytes);
 }

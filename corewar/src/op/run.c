@@ -17,7 +17,7 @@ const assembly_func_t  assembly_tab[] =
     // {6, &and},
     // {7, &or},
     // {8, &xor},
-    // {9, &zjmp},
+     {9, &do_zjmp},
     // {10, &ldi},
     {11, &my_sti},
     // {12, &my_fork},
@@ -34,6 +34,7 @@ void run_op(champion_t *champion, cursor_t *cursor, vm_t *vm)
 
     for (size_t i = 0; i < sizeof(assembly_tab) / sizeof(assembly_func_t);
         i++) {
+        my_printf("code = %d\n", code);
         if (assembly_tab[i].code == code) {
             assembly_tab[i].func(champion, cursor, vm, get_op(code));
             return;
