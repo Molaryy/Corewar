@@ -50,13 +50,13 @@ int get_value_param(vm_t *vm, int *idx, int index, int *register_index)
 
     if (type_param == 2) {
         param1 = get_value(vm->memory, index + 2, IND_SIZE);
-        param2 = get_value(vm->memory, index + 2 + IND_SIZE, REG_SIZE);
+        param2 = get_value(vm->memory, index + 2 + IND_SIZE, 4);
         (*idx) = IND_SIZE;
         (*register_index) = (param2 >> 8) & 0x07;
         return param1;
     } else if (type_param == 3) {
         param1 = get_value(vm->memory, index + 2, DIR_SIZE);
-        param2 = get_value(vm->memory, index + 2 + DIR_SIZE, REG_SIZE);
+        param2 = get_value(vm->memory, index + 2 + DIR_SIZE, 4);
         adress = (index + param1) % MEM_SIZE;
         (*idx) = DIR_SIZE;
         (*register_index) = (param2 >> 8) & 0x07;
@@ -83,5 +83,5 @@ __attribute__((unused)) const op_t *op)
     }
     value = get_value_param(vm, &idx, index, &register_index);
     int_to_bytes(value, champion->registers[register_index - 1].bytes);
-    set_32uint((index + idx + REG_SIZE + 1) % MEM_SIZE, cursor->pc.bytes);
+    set_32uint((index + idx + 4 + 1) % MEM_SIZE, cursor->pc.bytes);
 }

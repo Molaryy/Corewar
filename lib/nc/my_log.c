@@ -25,7 +25,7 @@ unsigned int my_log16(unsigned int n)
 {
     int log = 0;
 
-    while (n > 16) {
+    while (n >= 16) {
         n /= 16;
         log++;
     }

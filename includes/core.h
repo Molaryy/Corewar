@@ -71,7 +71,7 @@ typedef struct op_s {
     */
     # define IND_SIZE        2
     # define DIR_SIZE        4
-    # define REG_SIZE        4
+    # define REG_SIZE        1
 
 
     #define PARAM_TYPE_MASK_1 0xC0  // Bits 7 and 6
@@ -428,6 +428,10 @@ void set_32uint(long long int value, unsigned char *array);
 ** @return unsigned int value of the 32bit unsigned integer
 */
 long long int get_32uint(const unsigned char *array);
+
+void disp_32uint_b(const unsigned char *array);
+
+void disp_32uint_h(const unsigned char *array);
 
 /* ===========================================================================
 **                            END FILE
