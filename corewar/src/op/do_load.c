@@ -7,16 +7,6 @@
 #include "core.h"
 #include <stdbool.h>
 
-static int get_value(unsigned char *mem, int adress, int size)
-{
-    int value = 0;
-
-    for (int i = 0; i < size; i++) {
-        value = (value << 8) | mem[(adress + i)] % MEM_SIZE;
-    }
-    return (value);
-}
-
 void int_to_bytes(int value, unsigned char buffer[4])
 {
     buffer[0] = (value >> 24) & 0xFF;
