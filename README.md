@@ -28,7 +28,7 @@ make
 ```
 ## Virtual Machine
 ```sh
-./corewar/corewar warrior.cor
+./corewar [-dump N] [-v] [-a] [-n N] <warrior1.cor> <warrior2.cor> ...
 ```
 
 
